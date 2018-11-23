@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>服务器设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="serviceInfoBox">
+    <div class="serviceInfoInput">
+      <ion-item class="floatingInputItem">
+        <ion-label floating>服务器协议</ion-label>
+        <ion-input [(ngModel)]="agreement"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>服务器地址</ion-label>
+        <ion-input [(ngModel)]="address"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>服务器端口</ion-label>
+        <ion-input [(ngModel)]="port"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>服务器名称</ion-label>
+        <ion-input [(ngModel)]="serviceName"></ion-input>
+      </ion-item>
+    </div>
+    <div class="serviceButtonBox">
+      <div class="serviceSub">
+        <button ion-button class="myselfButton serviceSubButton" (click)="saveServiceSetting()">保存</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

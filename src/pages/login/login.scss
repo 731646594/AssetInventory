@@ -1,0 +1,67 @@
+page-login {
+  .scroll-content{
+    overflow: hidden;
+  }
+  .loginTitleBox{
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(#0091d2, #0091d2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    display: table;
+  }
+  .loginTitleText{
+    width: 10%;
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  .loginTitleCaption{
+    font-size: 4em;
+  }
+  .loginTitleDiscription{
+    font-size: 1em;
+  }
+  .loginInfoBox{
+    width: 100%;
+    height: 52%;
+  }
+  .loginInfoInput{
+    margin-top: 5%;
+  }
+  .loginSelectList{
+    max-width: 75%;
+    width: 75%;
+    margin: 0 auto;
+    border: gray solid 2px;
+    border-radius: 10px;
+  }
+  .loginButtonBox{
+    padding: 0 16px;
+    margin-top: 5%;
+  }
+  .loginSub{
+    width: 50%;
+    margin: 0 auto;
+  }
+  .loginSubButton{
+    width: 100%;
+    padding: 5px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    height: 2em;
+  }
+  .loginService{
+    float: right;
+    margin-top: 20%;
+  }
+  .loginServiceIcon{
+    font-size: 2em;
+  }
+  .loginServiceButton{
+    text-align: center;
+    background: transparent;
+    padding: 0;
+  }
+}

@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="loginTitleBox">
+    <div class="loginTitleText">
+      <h1 class="loginTitleCaption">盘点</h1>
+      <p class="loginTitleDiscription">资产盘点</p>
+    </div>
+  </div>
+  <div class="loginInfoBox">
+    <div class="loginInfoInput" *ngIf="!isLogin">
+      <ion-item class="floatingInputItem">
+        <ion-label floating>用户名/邮箱</ion-label>
+        <ion-input [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>密&emsp;码</ion-label>
+        <ion-input [(ngModel)]="password" type="password"></ion-input>
+      </ion-item>
+    </div>
+    <div class="loginInfoInput" *ngIf="isLogin">
+      <ion-select class="loginSelectList" [(ngModel)]="depart" interface="popover">
+        <ion-option class="loginSelectOption" *ngFor="let depart of departList" [value]="depart">{{depart.shortname}}</ion-option>
+      </ion-select>
+    </div>
+    <div class="loginButtonBox">
+      <div class="loginSub">
+        <button *ngIf="!isLogin" ion-button class="myselfButton loginSubButton" (click)="login()">登录</button>
+        <button *ngIf="isLogin" ion-button class="myselfButton loginSubButton" (click)="entry()">进入系统</button>
+      </div>
+      <div *ngIf="!isLogin" class="loginService">
+        <button class="loginServiceButton" (click)="serviceSetting()"><ion-icon class="loginServiceIcon" name="settings"></ion-icon><br>服务器设置</button>
+      </div>
+    </div>
+  </div>
+</ion-content>
