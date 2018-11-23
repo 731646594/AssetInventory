@@ -1,3 +1,19 @@
 page-home {
-
+  .userInfoBox{
+    width: 100%;
+  }
+  .userPhotoBox{
+    display: inline-block;
+    width: 20%;
+  }
+  .userTextBox{
+    display: inline-block;
+    width: 70%;
+  }
+  .userName{
+    margin: 5% 10%;
+  }
+  .userDepart{
+    margin: 5% 10%;
+  }
 }

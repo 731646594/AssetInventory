@@ -14,3 +14,56 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.back-button.show-back-button{
+  color: white;
+}
+.floatingInputItem{
+  width: 95%;
+}
+.myselfButton{
+  background: #0091d2;
+}
+.userPhoto{
+  width: 100%;
+}
+//下拉框和字体
+.popover-ios .popover-content{
+  width: 75%;
+  .item-block{
+    font-size: 14.5px;
+  }
+}
+.popover-md .popover-content{
+  width: 75%;
+  .item-block{
+    font-size: 14.5px;
+  }
+}
+//tabs下button
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0091d2;
+}
+.tabs-md .tab-button[aria-selected=true] {
+  color: #0091d2;
+}
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0091d2;
+}
+.tabs-ios .tab-button[aria-selected=true] {
+  color: #0091d2;
+}
+//标题栏
+.toolbar-background-ios{
+  background: #0091d2;
+}
+.toolbar-title-ios{
+  color: white;
+  font-size: 1.3em;
+}
+.toolbar-background-md{
+  background: #0091d2;
+}
+.toolbar-title-md{
+  color: white;
+  font-size: 1.3em;
+}
