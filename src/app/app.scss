@@ -3,7 +3,7 @@
 
 // App Global Sass
 // --------------------------------------------------
-// Put style rules here that you want to apply globally. These
+// Put style rules here that you want to contact globally. These
 // styles are for the entire app and not just one component.
 // Additionally, this file can be also used as an entry point
 // to import other Sass files to be included in the output CSS.
@@ -23,8 +23,29 @@
 .myselfButton{
   background: #0091d2;
 }
+.userInfoBox{
+  width: 100%;
+  display: table;
+  background: rgb(248, 248, 248);
+  padding: 16px 16px 8px 16px;
+}
+.userPhotoBox{
+  display: table-cell;
+  width: 20%;
+}
 .userPhoto{
   width: 100%;
+}
+.userTextBox{
+  display: table-cell;
+  width: 70%;
+  vertical-align: top;
+}
+.userName{
+  margin: 5% 10%;
+}
+.userDepart{
+  margin: 5% 10%;
 }
 //下拉框和字体
 .popover-ios .popover-content{

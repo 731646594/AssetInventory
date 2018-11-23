@@ -1,19 +1,21 @@
 page-home {
-  .userInfoBox{
+  .homeButtonBox{
     width: 100%;
+    text-align: center;
+    display: flex;
   }
-  .userPhotoBox{
-    display: inline-block;
-    width: 20%;
+  .homeButtonIcon{
+    color: #0091d2;
+    font-size: 3.5em;
   }
-  .userTextBox{
-    display: inline-block;
-    width: 70%;
+  .homeButton{
+    width: 33%;
+    padding: 5%;
+    background: transparent;
+    border-bottom: 1px solid #dedede;
   }
-  .userName{
-    margin: 5% 10%;
-  }
-  .userDepart{
-    margin: 5% 10%;
+  .homeButton:nth-child(even){
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
   }
 }

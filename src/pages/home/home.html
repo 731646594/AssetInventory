@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div class="userInfoBox">
     <div class="userPhotoBox" item-start>
       <img class="userPhoto" src="assets/imgs/user.png">
@@ -13,5 +13,42 @@
       <div class="userName">{{user.username}}</div>
       <div class="userDepart">{{user.depart.shortname}}</div>
     </div>
+  </div>
+  <div class="homeButtonBox">
+    <button class="homeButton"><ion-icon name="qr-scanner" class="homeButtonIcon"></ion-icon><br>资产盘点</button>
+    <button class="homeButton"><ion-icon name="open" class="homeButtonIcon"></ion-icon><br>调拨申请</button>
+    <button class="homeButton"><ion-icon name="trash" class="homeButtonIcon"></ion-icon><br>报废申请</button>
+  </div>
+  <div class="homeTodoBox">
+    <ion-list class="homeTodoList">
+      <ion-item>
+        <div>
+          待办类型：正在盘点
+        </div>
+        <div>
+        待办数量：{{inventoryNum}}
+        </div>
+      </ion-item>
+      <ion-item *ngFor="let todo of todoList">
+        <div *ngIf="todo[0]=='PDJH'">
+          待办类型：未盘计划
+        </div>
+        <div *ngIf="todo[0]=='ZCDB'">
+          待办类型：调拨审批
+        </div>
+        <div *ngIf="todo[0]=='ZCDC'">
+          待办类型：调出确认
+        </div>
+        <div *ngIf="todo[0]=='ZCDR'">
+          待办类型：调入确认
+        </div>
+        <div *ngIf="todo[0]=='ZCBF'">
+          待办类型：报废审批
+        </div>
+        <div>
+          待办数量：{{todo[1]}}
+        </div>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>
