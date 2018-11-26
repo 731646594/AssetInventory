@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="changePswTitleBox">
+    <div class="changePswTitleText">
+      <h1 class="changePswTitleCaption">盘点</h1>
+      <p class="changePswTitleDiscription">重置密码</p>
+    </div>
+  </div>
+  <div class="changePswInfoBox">
+    <div class="changePswInfoInput">
+      <ion-item class="floatingInputItem">
+        <ion-label floating>原密码</ion-label>
+        <ion-input [(ngModel)]="oldPsw" type="password"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>新密码</ion-label>
+        <ion-input [(ngModel)]="newPsw" type="password"></ion-input>
+      </ion-item>
+      <ion-item class="floatingInputItem">
+        <ion-label floating>确认密码</ion-label>
+        <ion-input [(ngModel)]="confirmPsw" type="password"></ion-input>
+      </ion-item>
+    </div>
+    <div class="changePswButtonBox">
+      <div class="changePswSub">
+        <button ion-button class="myselfButton changePswSubButton" (click)="resetPsw()">重置密码</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

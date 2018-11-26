@@ -4,6 +4,7 @@ import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {ServiceSettingPage} from "../serviceSetting/serviceSetting";
 import {LoginPage} from "../login/login";
+import {ChangePswPage} from "../changePsw/changePsw";
 
 @Component({
   selector: 'page-mine',
@@ -26,7 +27,7 @@ export class MinePage {
     this.app.getRootNav().push(ServiceSettingPage);
   }
   changePsw(){
-
+    this.app.getRootNav().push(ChangePswPage);
   }
   changeDepart(){
     this.app.getRootNav().push(LoginPage);
