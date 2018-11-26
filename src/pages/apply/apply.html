@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>应用</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="userInfoBox">
+    <div class="userPhotoBox" item-start>
+      <img class="userPhoto" src="assets/imgs/user.png">
+    </div>
+    <div class="userTextBox" item-end>
+      <div class="userName">{{user.username}}</div>
+      <div class="userDepart">{{user.depart.shortname}}</div>
+    </div>
+  </div>
+  <div class="tabsButtonBox">
+    <button class="tabsButton"><ion-icon name="qr-scanner" class="tabsButtonIcon"></ion-icon><br>资产盘点</button>
+    <button class="tabsButton"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废管理</button>
+  </div>
+  <div class="tabsButtonBox">
+    <button class="tabsButton"><ion-icon name="open" class="tabsButtonIcon"></ion-icon><br>调拨管理</button>
+    <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>统计查询</button>
+  </div>
+</ion-content>

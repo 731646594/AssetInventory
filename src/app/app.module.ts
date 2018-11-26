@@ -3,13 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ServiceSettingPage } from "../pages/serviceSetting/serviceSetting";
 import { LoginPage } from "../pages/login/login";
 import { MinePage } from "../pages/mine/mine";
+import { ApplyPage } from "../pages/apply/apply";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,13 +26,12 @@ import { StorageService } from "../services/storageService";
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
     ServiceSettingPage,
-    MinePage
+    MinePage,
+    ApplyPage
   ],
   imports: [
     BrowserModule,
@@ -53,13 +51,12 @@ import { StorageService } from "../services/storageService";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
     ServiceSettingPage,
-    MinePage
+    MinePage,
+    ApplyPage
   ],
   providers: [
     StatusBar,
