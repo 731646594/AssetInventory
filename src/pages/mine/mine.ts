@@ -32,7 +32,7 @@ export class MinePage {
     this.app.getRootNav().push(LoginPage);
   }
   reLogin(){
-    this.storageService.remove("loginInfo")
+    this.storageService.remove("loginInfo");
     this.app.getRootNav().push(LoginPage);
   }
   clearLocalData(){

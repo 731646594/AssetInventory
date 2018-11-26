@@ -17,9 +17,12 @@ export class LoginPage {
   departList=[];
   constructor(public navCtrl: NavController,public httpService:HttpService,public alertCtrl:AlertController,
               public storageService:StorageService,public app:App) {
-
+    this.loadData();
   }
   ionViewDidEnter(){
+
+  }
+  loadData(){
     if (this.storageService.read("loginInfo")){
       this.isLogin=true;
     }
