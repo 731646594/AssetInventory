@@ -23,7 +23,7 @@ export class MyApp {
       platform.registerBackButtonAction(() => {
         return;
       });
-      if (storageService.read("loginInfo")){
+      if (storageService.read("loginInfo")&&storageService.read("loginDepart")){
         this.rootPage = TabsPage;
       }else {
         this.rootPage = LoginPage;

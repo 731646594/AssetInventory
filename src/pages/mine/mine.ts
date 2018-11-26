@@ -3,21 +3,24 @@ import {App, NavController} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {ServiceSettingPage} from "../serviceSetting/serviceSetting";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-mine',
   templateUrl: 'mine.html'
 })
 export class MinePage {
-  username;
-  departname;
+  user;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App) {
-
+    this.loadData();
   }
   ionViewDidEnter(){
-    this.username=this.storageService.read("username");
-    this.departname=this.storageService.read("departname");
+    this.loadData();
+  }
+  loadData(){
+    this.user=this.storageService.read("loginInfo")[0].user;
+    this.user["depart"]=this.storageService.read("loginDepart");
   }
   serviceSetting(){
     this.app.getRootNav().push(ServiceSettingPage);
@@ -26,10 +29,11 @@ export class MinePage {
 
   }
   changeDepart(){
-
+    this.app.getRootNav().push(LoginPage);
   }
   reLogin(){
-
+    this.storageService.remove("loginInfo")
+    this.app.getRootNav().push(LoginPage);
   }
   clearLocalData(){
 

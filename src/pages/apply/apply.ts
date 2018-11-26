@@ -8,16 +8,15 @@ import {StorageService} from "../../services/storageService";
   templateUrl: 'apply.html'
 })
 export class ApplyPage {
-  username;
-  departname;
+  user;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService) {
-
+    this.loadData();
   }
   ionViewDidEnter(){
-    this.username=this.storageService.read("username");
-    this.departname=this.storageService.read("departname");
+    this.loadData();
   }
   loadData(){
-
+    this.user=this.storageService.read("loginInfo")[0].user;
+    this.user["depart"]=this.storageService.read("loginDepart");
   }
 }
