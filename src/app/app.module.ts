@@ -10,6 +10,7 @@ import { LoginPage } from "../pages/login/login";
 import { MinePage } from "../pages/mine/mine";
 import { ApplyPage } from "../pages/apply/apply";
 import { ChangePswPage } from "../pages/changePsw/changePsw";
+import { ApplyChoosePage } from "../pages/applyChoose/applyChoose";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +34,8 @@ import { StorageService } from "../services/storageService";
     ServiceSettingPage,
     MinePage,
     ApplyPage,
-    ChangePswPage
+    ChangePswPage,
+    ApplyChoosePage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { StorageService } from "../services/storageService";
     ServiceSettingPage,
     MinePage,
     ApplyPage,
-    ChangePswPage
+    ChangePswPage,
+    ApplyChoosePage
   ],
   providers: [
     StatusBar,

@@ -1,27 +1,26 @@
 import { Component } from '@angular/core';
-import {App, NavController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
-import {ApplyChoosePage} from "../applyChoose/applyChoose";
 
 @Component({
-  selector: 'page-apply',
-  templateUrl: 'apply.html'
+  selector: 'page-applyChoose',
+  templateUrl: 'applyChoose.html'
 })
-export class ApplyPage {
+export class ApplyChoosePage {
   user;
+  choose;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
-              public app:App) {
+              public navParams:NavParams) {
+    this.choose = this.navParams.get("choose");
     this.loadData();
   }
   ionViewDidEnter(){
+    this.choose = this.navParams.get("choose");
     this.loadData();
   }
   loadData(){
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
-  }
-  applyChoose(num){
-    this.app.getRootNav().push(ApplyChoosePage,{choose:num})
   }
 }

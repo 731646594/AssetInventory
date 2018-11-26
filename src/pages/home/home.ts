@@ -26,7 +26,6 @@ export class HomePage {
         for (let key in data.data[0]) {
           this.todoList.push([key,data.data[0][key]]);
         }
-        console.log(this.todoList)
       }
     },err=>{
       console.log(err)

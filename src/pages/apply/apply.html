@@ -15,11 +15,14 @@
     </div>
   </div>
   <div class="tabsButtonBox">
-    <button class="tabsButton"><ion-icon name="qr-scanner" class="tabsButtonIcon"></ion-icon><br>资产盘点</button>
-    <button class="tabsButton"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废管理</button>
+    <button class="tabsButton" (click)="applyChoose(1)"><ion-icon name="qr-scanner" class="tabsButtonIcon"></ion-icon><br>资产盘点</button>
+    <button class="tabsButton" (click)="applyChoose(2)"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废管理</button>
   </div>
   <div class="tabsButtonBox">
-    <button class="tabsButton"><ion-icon name="open" class="tabsButtonIcon"></ion-icon><br>调拨管理</button>
-    <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>统计查询</button>
+    <button class="tabsButton" (click)="applyChoose(3)"><ion-icon name="open" class="tabsButtonIcon"></ion-icon><br>调拨管理</button>
+    <button class="tabsButton" (click)="applyChoose(4)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>统计查询</button>
+  </div>
+  <div class="tabsButtonBox">
+    <button class="tabsButton" (click)="applyChoose(5)"><ion-icon name="water" class="tabsButtonIcon"></ion-icon><br>加油站管理</button>
   </div>
 </ion-content>
