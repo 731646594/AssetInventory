@@ -46,7 +46,9 @@ export class LoginPage {
         this.isLogin=true;
         let loginInfo = {};
         loginInfo = data.data;
+        let username = data.data[0].user.username;
         this.storageService.write("loginInfo",loginInfo);
+        this.storageService.write("username",username);
         this.departList = loginInfo[1].depart;
         this.depart = this.departList[0];
       }
@@ -56,6 +58,7 @@ export class LoginPage {
   }
   entry(){
     this.storageService.write("loginDepart",this.depart);
+    this.storageService.write("departname",this.depart.shortname);
     this.app.getRootNav().push(TabsPage);
   }
   serviceSetting(){
