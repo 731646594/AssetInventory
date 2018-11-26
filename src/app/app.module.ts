@@ -9,7 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ServiceSettingPage } from "../pages/serviceSetting/serviceSetting";
 import { LoginPage } from "../pages/login/login";
-
+import { MinePage } from "../pages/mine/mine";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +32,8 @@ import { StorageService } from "../services/storageService";
     HomePage,
     TabsPage,
     LoginPage,
-    ServiceSettingPage
+    ServiceSettingPage,
+    MinePage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import { StorageService } from "../services/storageService";
     HomePage,
     TabsPage,
     LoginPage,
-    ServiceSettingPage
+    ServiceSettingPage,
+    MinePage
   ],
   providers: [
     StatusBar,

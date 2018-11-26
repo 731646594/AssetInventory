@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="userInfoBox">
+    <div class="userPhotoBox" item-start>
+      <img class="userPhoto" src="assets/imgs/user.png">
+    </div>
+    <div class="userTextBox" item-end>
+      <div class="userName">{{user.username}}</div>
+      <div class="userDepart">{{user.depart.shortname}}</div>
+    </div>
+  </div>
+  <div class="tabsButtonBox">
+    <button class="tabsButton" (click)="serviceSetting()"><ion-icon name="settings" class="tabsButtonIcon"></ion-icon><br>服务器设置</button>
+    <button class="tabsButton" (click)="changePsw()"><ion-icon name="create" class="tabsButtonIcon"></ion-icon><br>修改密码</button>
+    <button class="tabsButton" (click)="changeDepart()"><ion-icon name="swap" class="tabsButtonIcon"></ion-icon><br>切换单位</button>
+  </div>
+  <div class="tabsButtonBox">
+    <button class="tabsButton" (click)="reLogin()"><ion-icon name="refresh-circle" class="tabsButtonIcon"></ion-icon><br>重新登陆</button>
+    <button class="tabsButton" (click)="clearLocalData()"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>清除数据</button>
+    <button class="tabsButton" (click)="downloadDictionaries()"><ion-icon name="cloud-download" class="tabsButtonIcon"></ion-icon><br>更新字典</button>
+  </div>
+</ion-content>

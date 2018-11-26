@@ -1,21 +1,3 @@
 page-home {
-  .homeButtonBox{
-    width: 100%;
-    text-align: center;
-    display: flex;
-  }
-  .homeButtonIcon{
-    color: #0091d2;
-    font-size: 3.5em;
-  }
-  .homeButton{
-    width: 33%;
-    padding: 5%;
-    background: transparent;
-    border-bottom: 1px solid #dedede;
-  }
-  .homeButton:nth-child(even){
-    border-left: 1px solid #dedede;
-    border-right: 1px solid #dedede;
-  }
+
 }

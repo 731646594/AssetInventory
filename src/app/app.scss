@@ -14,12 +14,15 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+//返回键
 .back-button.show-back-button{
   color: white;
 }
+//input宽度
 .floatingInputItem{
   width: 95%;
 }
+//tabs页通用css
 .myselfButton{
   background: #0091d2;
 }
@@ -46,6 +49,25 @@
 }
 .userDepart{
   margin: 5% 10%;
+}
+.tabsButtonBox{
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+.tabsButtonIcon{
+  color: #0091d2;
+  font-size: 3.5em;
+}
+.tabsButton{
+  width: 33%;
+  padding: 5%;
+  background: transparent;
+  border-bottom: 1px solid #dedede;
+}
+.tabsButton:nth-child(even){
+  border-left: 1px solid #dedede;
+  border-right: 1px solid #dedede;
 }
 //下拉框和字体
 .popover-ios .popover-content{
