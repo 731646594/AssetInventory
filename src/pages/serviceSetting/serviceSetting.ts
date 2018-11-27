@@ -18,7 +18,6 @@ export class ServiceSettingPage {
   }
   ionViewDidEnter(){
     this.httpService.getUrl();
-    console.log(this.httpService.getUrl());
     this.readUrl();
   }
   readUrl(){

@@ -25,6 +25,8 @@ import { HttpService } from "../services/httpService";
 import { HttpModule } from "@angular/http";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { StorageService } from "../services/storageService";
+import {SignaturePage} from "../pages/signature/signature";
+import {SignaturePadModule} from "angular2-signaturepad";
 
 @NgModule({
   declarations: [
@@ -37,12 +39,14 @@ import { StorageService } from "../services/storageService";
     ApplyPage,
     ChangePswPage,
     ApplyChoosePage,
-    FormPage
+    FormPage,
+    SignaturePage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    SignaturePadModule,
     IonicModule.forRoot(MyApp,{
       tabsHideOnSubPages: 'true' ,       //隐藏全部子页面tabs
       iconMode: 'ios',
@@ -65,7 +69,8 @@ import { StorageService } from "../services/storageService";
     ApplyPage,
     ChangePswPage,
     ApplyChoosePage,
-    FormPage
+    FormPage,
+    SignaturePage
   ],
   providers: [
     StatusBar,

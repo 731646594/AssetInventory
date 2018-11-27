@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>签名</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div style="border: 1px solid black">
+  <signature-pad [options]="signaturePadOptions" id="signatureCanvas"></signature-pad>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button full (click)="drawClear()">清除</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button full (click)="drawComplete()">确认</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div>
+    <img [src]="signatureImage" *ngIf="signatureImage">
+  </div>
+</ion-content>
