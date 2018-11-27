@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>资产盘点</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="formInfoBox">
+    <div class="formInfoInput">
+      <ion-item class="inputItem">
+        <ion-label>资产条码:</ion-label>
+        <ion-input [(ngModel)]="barcode" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <button item-end class="formInputButton">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>盘点单位:</ion-label>
+        <ion-input readonly [(ngModel)]="depart"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产编码:</ion-label>
+        <ion-input readonly [(ngModel)]="code"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="formSelectLabel">使用状态:</ion-label>
+        <ion-select class="formSelect" interface="popover"  [(ngModel)]="useStatus">
+          <ion-option value="010101">生产经营用-科研</ion-option>
+          <ion-option value="010102">生产经营用-其他</ion-option>
+          <ion-option value="0102">非生产经营用</ion-option>
+          <ion-option value="0201">季节性经营停用</ion-option>
+          <ion-option value="0202">其他原因停用</ion-option>
+          <ion-option value="0203">经营场所备用</ion-option>
+          <ion-option value="0204">闲置</ion-option>
+          <ion-option value="03">租出</ion-option>
+          <ion-option value="04">借出</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产名称:</ion-label>
+        <ion-input readonly [(ngModel)]="name"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>规格型号:</ion-label>
+        <ion-input [(ngModel)]="serviceName" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>车牌井号:</ion-label>
+        <ion-input [(ngModel)]="num" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>存放地点:</ion-label>
+        <ion-select interface="popover" [(ngModel)]="place">
+          <ion-option></ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>保管人&emsp;:</ion-label>
+        <ion-input [(ngModel)]="keepPeople" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="formSelectLabel">贴码状态:</ion-label>
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="codeStatus">
+          <ion-option value="0">相符</ion-option>
+          <ion-option value="1">不符</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="formSelectLabel">技术状况:</ion-label>
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="techStatus">
+          <ion-option value="01">完好</ion-option>
+          <ion-option value="02">带病运行</ion-option>
+          <ion-option value="03">在修</ion-option>
+          <ion-option value="04">待修</ion-option>
+          <ion-option value="05">待报废</ion-option>
+          <ion-option value="06">损毁</ion-option>
+          <ion-option value="07">待处置</ion-option>
+          <ion-option value="08">已处置</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem imgItem">
+        <ion-label>照片区&emsp;:</ion-label>
+      </ion-item>
+        <div id="imgBox">
+        </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="formFooter" padding *ngIf="!isOnfocus">
+  <button class="formFooterButton" (click)="pickPhoto()">
+    <ion-icon class="formFooterIcon" name="camera"></ion-icon><br>照片
+  </button>
+  <button class="formFooterButton" (click)="scan()">
+    <ion-icon class="formFooterIcon" name="qr-scanner"></ion-icon><br>扫码
+  </button>
+  <button class="formFooterButton" (click)="saveInfo()">
+    <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+  </button>
+</ion-footer>

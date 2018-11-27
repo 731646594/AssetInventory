@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {App, NavController} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
+import {FormPage} from "../form/form";
 
 @Component({
   selector: 'page-home',
@@ -11,7 +12,8 @@ export class HomePage {
   user;
   todoList=[];
   inventoryNum=0;
-  constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService) {
+  constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
+              public app:App) {
     this.loadData();
   }
   ionViewDidEnter(){
@@ -30,5 +32,8 @@ export class HomePage {
     },err=>{
       console.log(err)
     })
+  }
+  formPage(){
+    this.app.getRootNav().push(FormPage)
   }
 }

@@ -19,10 +19,50 @@
   color: white;
 }
 //input宽度
-.floatingInputItem{
+.inputItem{
   width: 95%;
 }
-//tabs页通用css
+//下拉框和字体
+.popover-ios .popover-content{
+  width: 75%;
+  .item-block{
+    font-size: 14.5px;
+  }
+}
+.popover-md .popover-content{
+  width: 75%;
+  .item-block{
+    font-size: 14.5px;
+  }
+}
+//tabs下button
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0091d2;
+}
+.tabs-md .tab-button[aria-selected=true] {
+  color: #0091d2;
+}
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+  color: #0091d2;
+}
+.tabs-ios .tab-button[aria-selected=true] {
+  color: #0091d2;
+}
+//标题栏
+.toolbar-background-ios{
+  background: #0091d2;
+}
+.toolbar-title-ios{
+  color: white;
+  font-size: 1.3em;
+}
+.toolbar-background-md{
+  background: #0091d2;
+}
+.toolbar-title-md{
+  color: white;
+  font-size: 1.3em;
+}
 .myselfButton{
   background: #0091d2;
 }
@@ -69,44 +109,24 @@
   border-left: 1px solid #dedede;
   border-right: 1px solid #dedede;
 }
-//下拉框和字体
-.popover-ios .popover-content{
-  width: 75%;
-  .item-block{
-    font-size: 14.5px;
-  }
+#imgBox{
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
 }
-.popover-md .popover-content{
-  width: 75%;
-  .item-block{
-    font-size: 14.5px;
-  }
+.imgInclusion{
+  width: 100%;
+  max-width: 28%;
+  margin-right: 5%;
 }
-//tabs下button
-.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
-  color: #0091d2;
+.imgShow{
+  border-radius: 15px;
+  border: gray 1px solid;
 }
-.tabs-md .tab-button[aria-selected=true] {
-  color: #0091d2;
-}
-.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
-  color: #0091d2;
-}
-.tabs-ios .tab-button[aria-selected=true] {
-  color: #0091d2;
-}
-//标题栏
-.toolbar-background-ios{
-  background: #0091d2;
-}
-.toolbar-title-ios{
-  color: white;
-  font-size: 1.3em;
-}
-.toolbar-background-md{
-  background: #0091d2;
-}
-.toolbar-title-md{
-  color: white;
-  font-size: 1.3em;
+.imgDeleteButton{
+  width: 20%;
+  border-radius: 15px;
+  position: relative;
+  left: 90%;
+  top:-1.2em;
 }
