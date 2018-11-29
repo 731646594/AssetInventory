@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>数据下载</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="planListBox">
+    <ion-list class="planList">
+      <ion-item class="inputItem" *ngFor="let plan of planList;let i = index">
+        <div>
+          盘点计划编码：{{plan.planNumber}}
+        </div>
+        <div class="planName" (click)="showPlanName(plan.planName)">
+          盘点计划名称：{{plan.planName}}
+        </div>
+        <div *ngIf="!plan.isDownLoad" class="planButton" item-end (click)="downLoadPlan(plan)">
+          <ion-icon name="cloud-download" class="planIcon"></ion-icon>
+          <div class="planStatus">未下载</div>
+        </div>
+        <div *ngIf="plan.isDownLoad" class="planButton" item-end >
+          <ion-icon name="checkmark-circle" class="planIcon"></ion-icon>
+          <div class="planStatus">已下载</div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

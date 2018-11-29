@@ -12,6 +12,8 @@ import { ApplyPage } from "../pages/apply/apply";
 import { ChangePswPage } from "../pages/changePsw/changePsw";
 import { ApplyChoosePage } from "../pages/applyChoose/applyChoose";
 import { FormPage } from "../pages/form/form";
+import { SignaturePage } from "../pages/signature/signature";
+import { PlanListPage } from "../pages/planList/planList";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,8 +27,7 @@ import { HttpService } from "../services/httpService";
 import { HttpModule } from "@angular/http";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { StorageService } from "../services/storageService";
-import {SignaturePage} from "../pages/signature/signature";
-import {SignaturePadModule} from "angular2-signaturepad";
+import { SignaturePadModule } from "angular2-signaturepad";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {SignaturePadModule} from "angular2-signaturepad";
     ChangePswPage,
     ApplyChoosePage,
     FormPage,
-    SignaturePage
+    SignaturePage,
+    PlanListPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import {SignaturePadModule} from "angular2-signaturepad";
     ChangePswPage,
     ApplyChoosePage,
     FormPage,
-    SignaturePage
+    SignaturePage,
+    PlanListPage
   ],
   providers: [
     StatusBar,

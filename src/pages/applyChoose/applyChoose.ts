@@ -3,6 +3,7 @@ import {App, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {FormPage} from "../form/form";
+import {PlanListPage} from "../planList/planList";
 
 @Component({
   selector: 'page-applyChoose',
@@ -26,5 +27,8 @@ export class ApplyChoosePage {
   }
   formPage(){
     this.app.getRootNav().push(FormPage)
+  }
+  planListPage(){
+    this.app.getRootNav().push(PlanListPage)
   }
 }

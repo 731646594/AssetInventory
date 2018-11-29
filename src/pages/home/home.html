@@ -21,7 +21,7 @@
   </div>
   <div class="homeTodoBox">
     <ion-list class="homeTodoList">
-      <ion-item>
+      <ion-item class="inputItem">
         <div>
           待办类型：正在盘点
         </div>
@@ -29,24 +29,44 @@
         待办数量：{{inventoryNum}}
         </div>
       </ion-item>
-      <ion-item *ngFor="let todo of todoList">
-        <div *ngIf="todo[0]=='PDJH'">
+      <ion-item class="inputItem"  (click)="planListPage()">
+        <div>
           待办类型：未盘计划
         </div>
-        <div *ngIf="todo[0]=='ZCDB'">
+        <div>
+          待办数量：{{num1}}
+        </div>
+      </ion-item>
+      <ion-item class="inputItem">
+        <div>
           待办类型：调拨审批
         </div>
-        <div *ngIf="todo[0]=='ZCDC'">
+        <div>
+          待办数量：{{num2}}
+        </div>
+      </ion-item>
+      <ion-item class="inputItem">
+        <div>
           待办类型：调出确认
         </div>
-        <div *ngIf="todo[0]=='ZCDR'">
+        <div>
+          待办数量：{{num3}}
+        </div>
+      </ion-item>
+      <ion-item class="inputItem">
+        <div>
           待办类型：调入确认
         </div>
-        <div *ngIf="todo[0]=='ZCBF'">
+        <div>
+          待办数量：{{num4}}
+        </div>
+      </ion-item>
+      <ion-item>
+        <div>
           待办类型：报废审批
         </div>
         <div>
-          待办数量：{{todo[1]}}
+          待办数量：{{num5}}
         </div>
       </ion-item>
     </ion-list>
