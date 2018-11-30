@@ -69,7 +69,7 @@ export class PlanListPage {
     },300);
     //android 存储externalDataDirectory,通用沙盒存储dataDirectory
     fileTransferNow.download(this.planUrl,
-      this.file.dataDirectory+"plan").then((entry)=>{
+      this.file.dataDirectory+plan.planNumber).then((entry)=>{
       if (timer) clearInterval(timer);
       loading.dismiss();
       this.storageService.write("JsonUrl",entry);
