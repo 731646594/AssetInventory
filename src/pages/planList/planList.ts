@@ -12,7 +12,6 @@ import {File} from "@ionic-native/file";
 export class PlanListPage {
   planList;
   user;
-  fileContent;
   planUrl;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public alertCtrl:AlertController,public loadingCtrl:LoadingController,public file:File,
