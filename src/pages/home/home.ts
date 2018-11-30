@@ -44,8 +44,8 @@ export class HomePage {
       console.log(err)
     })
   }
-  formPage(){
-    this.app.getRootNav().push(FormPage)
+  formPage(pageIndex){
+    this.app.getRootNav().push(FormPage,{pageIndex:pageIndex})
   }
   planListPage(){
     this.app.getRootNav().push(PlanListPage)

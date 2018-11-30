@@ -6,6 +6,9 @@ page-form{
     width: 100%;
     max-width: 100%;
   }
+  .formInfoBox{
+    margin-bottom: 60px;
+  }
   .formInputButton{
     background: transparent;
     margin: 0 !important;
@@ -17,6 +20,11 @@ page-form{
     display: flex;
     padding: 5px !important;
     border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
   }
   .formFooterButton{
     background: transparent;
@@ -33,5 +41,44 @@ page-form{
     .item-inner{
       border-bottom: none !important;
     }
+  }
+
+  #pageIndex2 .toolbar-background-ios{
+    background: #f8f8f8;
+    border-bottom: 0;
+  }
+  #pageIndex2.toolbar-title-ios{
+    color: #0091d2;
+    font-size: 1.3em;
+  }
+  #pageIndex2 .toolbar-background-md{
+    background: #f8f8f8;
+    border-bottom: 0;
+  }
+  #pageIndex2.toolbar-title-md{
+    color: #0091d2;
+    font-size: 1.3em;
+  }
+  .userInfoBox{
+    padding-top: 7px;
+  }
+  .switchBox{
+  }
+  .radioBox{
+    display: flex;
+  }
+  .callList{
+    border: 0.55px solid #c8c7cc;
+    margin-left: 16px;
+    margin-top: 16px;
+    width: calc(95% - 16px);
+  }
+  .callList .inputItem{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .callList .inputItem:nth-child(even){
+    background: #efefef;
   }
 }

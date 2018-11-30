@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, AlertController, App, NavController} from 'ionic-angular';
+import {ActionSheetController, AlertController, App, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
@@ -13,7 +13,9 @@ let that;
   templateUrl: 'form.html'
 })
 export class FormPage {
+  pageIndex;
   user;
+
   barcode;
   depart;
   code;
@@ -27,18 +29,57 @@ export class FormPage {
   techStatus = "01";
   i=0;
   isOnfocus=false;
+
+
+  shape = "brief";
+  documentType = "1401";
+  callOut;
+  callIn;
+  tranReason;
+  remarks;
+  numb;
+  original;
+  net;
+  cumulative;
+  created;
+  createdDate;
+  callDepart;
+  radioButton = "资产条码";
+  bar;
+  encoded;
+
+  assetsCode;
+  assetsName;
+  departName;
+  remark;
+  storePlace;
+  assetsStandard;
+  licenceNumber;
+  makeFactory;
+  departCode;
+  userPerson;
+  barCode;
+  planNumber;
+  originalValue;
+  nowValue;
+  addDepreciate;
+  devalueValue;
+  usedState;
+  usedStateName;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
-              public camera:Camera,public file:File,public photoViewer:PhotoViewer,public actionSheetCtrl:ActionSheetController) {
+              public camera:Camera,public file:File,public photoViewer:PhotoViewer,
+              public actionSheetCtrl:ActionSheetController,public navParams:NavParams) {
     that = this;
     this.loadData();
   }
   ionViewDidEnter(){
-    this.loadData();
+    // this.loadData();
   }
   loadData(){
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
+    this.pageIndex = this.navParams.get("pageIndex");
   }
   inputOnfocus(){
     this.isOnfocus=true;
@@ -115,7 +156,7 @@ export class FormPage {
         url.file((file)=>{
           let reader = new FileReader();
           reader.onloadend=(e)=>{
-            let node = document.getElementById("imgBox");
+            let node = document.getElementById("imgBox"+this.pageIndex);
             let base64Image=e.target['result'];
             let div = document.createElement("div");
             div.className = "imgInclusion";
@@ -168,7 +209,7 @@ export class FormPage {
         url.file((file)=>{
           let reader = new FileReader();
           reader.onloadend=(e)=>{
-            let node = document.getElementById("imgBox");
+            let node = document.getElementById("imgBox"+this.pageIndex);
             let base64Image=e.target['result'];
             let div = document.createElement("div");
             div.className = "imgInclusion";

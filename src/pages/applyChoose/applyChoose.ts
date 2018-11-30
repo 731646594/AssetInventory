@@ -25,8 +25,8 @@ export class ApplyChoosePage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
   }
-  formPage(){
-    this.app.getRootNav().push(FormPage)
+  formPage(pageIndex){
+    this.app.getRootNav().push(FormPage,{pageIndex:pageIndex})
   }
   planListPage(){
     this.app.getRootNav().push(PlanListPage)
