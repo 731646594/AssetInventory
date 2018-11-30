@@ -32,7 +32,7 @@
   </div>
   <div *ngIf="choose == 2">
     <div class="tabsButtonBox">
-      <button class="tabsButton"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废申请</button>
+      <button class="tabsButton" (click)="formPage(3)"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废申请</button>
       <button class="tabsButton"><ion-icon name="paper" class="tabsButtonIcon"></ion-icon><br>报废审批</button>
       <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>报废查询</button>
     </div>

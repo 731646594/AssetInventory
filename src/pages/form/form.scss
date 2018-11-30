@@ -43,21 +43,21 @@ page-form{
     }
   }
 
-  #pageIndex2 .toolbar-background-ios{
-    background: #f8f8f8;
-    border-bottom: 0;
+  .pageIndex .toolbar-background-ios{
+    background: #f8f8f8 !important;
+    border-bottom: 0 !important;
   }
-  #pageIndex2.toolbar-title-ios{
-    color: #0091d2;
-    font-size: 1.3em;
+  .pageIndex .toolbar-title-ios{
+    color: #0091d2 !important;
+    font-size: 1.3em !important;
   }
-  #pageIndex2 .toolbar-background-md{
-    background: #f8f8f8;
-    border-bottom: 0;
+  .pageIndex .toolbar-background-md{
+    background: #f8f8f8 !important;
+    border-bottom: 0 !important;
   }
-  #pageIndex2.toolbar-title-md{
-    color: #0091d2;
-    font-size: 1.3em;
+  .pageIndex .toolbar-title-md{
+    color: #0091d2 !important;
+    font-size: 1.3em !important;
   }
   .userInfoBox{
     padding-top: 7px;
@@ -80,5 +80,13 @@ page-form{
   }
   .callList .inputItem:nth-child(even){
     background: #efefef;
+  }
+
+
+  .scrapDetailReason{
+    width: 100%;
+    height: 200px;
+    border: 0;
+    font-size: 17px;
   }
 }

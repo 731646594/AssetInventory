@@ -59,6 +59,34 @@
   color: white;
   font-size: 1.3em;
 }
+//选项卡
+.segment-ios .segment-button.segment-activated{
+  background: #0091d2;
+}
+.segment-ios .segment-button{
+  color: #0091d2;
+  border-color: #0091d2;
+}
+.segment-md .segment-button.segment-activated{
+  background: #0091d2;
+}
+.segment-md .segment-button{
+  color: #0091d2;
+  border-color: #0091d2;
+}
+//radiobutton
+.item-radio-checked.item-ios ion-label{
+  color: #0091d2;
+}
+.radio-ios .radio-checked .radio-inner{
+  border-color: #0091d2;
+}
+.item-radio-checked.item-md ion-label{
+  color: #0091d2;
+}
+.radio-md .radio-checked .radio-inner{
+  border-color: #0091d2;
+}
 //自定义类
 //input宽度
 .inputItem{

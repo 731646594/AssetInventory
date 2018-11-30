@@ -16,56 +16,88 @@ export class FormPage {
   pageIndex;
   user;
 
-  barcode;
-  depart;
-  code;
-  useStatus = "010101";
-  name;
-  serviceName;
-  num;
-  place;
-  keepPeople;
-  codeStatus = "0";
-  techStatus = "01";
+  barcode="";
+  departFirst;
+  codeFirst;
+  useStatusFirst = "010101";
+  nameFirst;
+  specificationNameFirst;
+  numFirst;
+  placeFirst;
+  keepPeopleFirst;
+  codeStatusFirst = "0";
+  techStatusFirst = "01";
   i=0;
   isOnfocus=false;
 
 
   shape = "brief";
-  documentType = "1401";
-  callOut;
-  callIn;
-  tranReason;
-  remarks;
-  numb;
-  original;
-  net;
-  cumulative;
-  created;
-  createdDate;
-  callDepart;
+  documentTypeSecond = "1401";
+  callOutSecond;
+  callInSecond;
+  tranReasonSecond;
+  remarksSecond;
+  numbSecond;
+  originalSecond;
+  netSecond;
+  cumulativeSecond;
+  createdSecond;
+  createdDateSecond;
+  callDepartSecond;
   radioButton = "资产条码";
-  bar;
-  encoded;
+  encodedSecond;
 
-  assetsCode;
-  assetsName;
-  departName;
-  remark;
-  storePlace;
-  assetsStandard;
-  licenceNumber;
-  makeFactory;
-  departCode;
-  userPerson;
-  barCode;
-  planNumber;
-  originalValue;
-  nowValue;
-  addDepreciate;
-  devalueValue;
-  usedState;
-  usedStateName;
+  assetsCodeSecond;
+  assetsNameSecond;
+  departNameSecond;
+  remarkSecond;
+  storePlaceSecond;
+  assetsStandardSecond;
+  licenceNumberSecond;
+  makeFactorySecond;
+  departCodeSecond;
+  userPersonSecond;
+  barCodeSecond;
+  planNumberSecond;
+  originalValueSecond;
+  nowValueSecond;
+  addDepreciateSecond;
+  devalueValueSecond;
+  usedStateSecond;
+  usedStateNameSecond;
+
+  scrapTypeThird = "020201";
+  numbThird;
+  originalThird;
+  netThird;
+  cumulativeThird;
+  devalueThird;
+  callDepartThird;
+  createdThird;
+  createdDateThird;
+  encodedThird;
+
+  assetsCodeThird;
+  assetsNameThird;
+  departNameThird;
+  remarkThird;
+  storePlaceThird;
+  assetsStandardThird;
+  licenceNumberThird;
+  makeFactoryThird;
+  departCodeThird;
+  userPersonThird;
+  barCodeThird;
+  planNumberThird;
+  originalValueThird;
+  nowValueThird;
+  addDepreciateThird;
+  devalueValueThird;
+  usedStateThird;
+  usedStateNameThird;
+  dateThird;
+  scrapReasonThird = "01";
+  scrapDetailReasonThird;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
               public camera:Camera,public file:File,public photoViewer:PhotoViewer,
@@ -256,6 +288,12 @@ export class FormPage {
     })
   }
   saveInfo(){
+
+  }
+  censorship(){
+
+  }
+  uploadData(){
 
   }
 }
