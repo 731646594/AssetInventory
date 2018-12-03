@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="pageIndex==1">调拨审批</ion-title>
+    <ion-title *ngIf="pageIndex==2">调出确认</ion-title>
+    <ion-title *ngIf="pageIndex==3">调入确认</ion-title>
+    <ion-title *ngIf="pageIndex==4">报废审批</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="censorshipListBox">
+    <ion-list class="censorshipList">
+      <ion-item class="inputItem" *ngFor="let censorship of censorshipList;let i = index">
+        <div>
+          单据号&emsp;：{{censorship.invoiceNumber}}
+        </div>
+        <div>
+          申请人&emsp;：{{censorship.operateUser}}
+        </div>
+        <div class="censorshipName" *ngIf="pageIndex == 4" (click)="showDepartName(censorship.invoiceName)">
+          单据类型：{{censorship.invoiceName}}
+        </div>
+        <div class="censorshipName" *ngIf="pageIndex != 4" (click)="showDepartName(censorship.outDepartname)">
+          调出单位：{{censorship.outDepartname}}
+        </div>
+        <div class="censorshipName" *ngIf="pageIndex != 4" (click)="showDepartName(censorship.inDepartname)">
+          调入单位：{{censorship.inDepartname}}
+        </div>
+        <div>
+          明细数量：{{censorship.detailAmountSum?censorship.detailAmountSum:censorship.allotAmount}}
+        </div>
+        <div class="censorshipName" *ngIf="pageIndex == 4" (click)="showDepartName(censorship.departName)">
+          申请单位：{{censorship.departName}}
+        </div>
+        <div class="censorshipButton" *ngIf="pageIndex != 4" item-end (click)="checkedItem(censorship,i)">
+          <ion-icon name="checkmark-circle" class="censorshipIcon"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+<footer class="censorshipFooter" padding *ngIf="(pageIndex==1)">
+  <div class="radioBox" radio-group [(ngModel)]="isAgree" *ngIf="!isReasonModel">
+    <ion-item class="radioItem">
+      <ion-label>同意：</ion-label>
+      <ion-radio value=1></ion-radio>
+    </ion-item>
+    <ion-item class="radioItem">
+      <ion-label>驳回:</ion-label>
+      <ion-radio value=0></ion-radio>
+    </ion-item>
+    <button class="censorshipFooterButton" (click)="alertTextarea()">
+      <ion-icon class="censorshipFooterIcon" name="paper"></ion-icon><br>编辑原因
+    </button>
+    <button class="censorshipFooterButton" (click)="postData()">
+      <ion-icon class="censorshipFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+    </button>
+  </div>
+  <div class="footerTextBox" *ngIf="isReasonModel">
+    <textarea class="footerTextarea" [(ngModel)]="censorshipReason" placeholder="请输入原因。"></textarea>
+    <div class="radioBox">
+      <button class="censorshipFooterButton" (click)="cancelReasonModel()">
+        <ion-icon class="censorshipFooterIcon" name="close-circle"></ion-icon><br>取消
+      </button>
+      <button class="censorshipFooterButton" (click)="clearReason()">
+        <ion-icon class="censorshipFooterIcon" name="remove-circle"></ion-icon><br>清空
+      </button>
+      <button class="censorshipFooterButton" (click)="saveReason()">
+        <ion-icon class="censorshipFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+      </button>
+    </div>
+  </div>
+</footer>

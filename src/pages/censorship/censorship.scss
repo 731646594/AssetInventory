@@ -1,0 +1,83 @@
+page-censorship{
+  .list-ios .item-block .item-inner{
+    border-bottom: 0.55px solid #c8c7cc !important;
+    padding-right: 0 !important;
+  }
+  .list-md .item-block .item-inner{
+    border-bottom: 0.55px solid #c8c7cc !important;
+    padding-right: 0 !important;
+  }
+  .item-ios{
+    border-bottom: none !important;
+  }
+  .item-md{
+    border-bottom: none !important;
+  }
+  .label-ios{
+    margin-right: 0 !important;;
+  }
+  .label-md{
+    margin-right: 0 !important;;
+  }
+  .censorshipName{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .censorshipButton{
+    text-align: center;
+    margin: 0 !important;
+  }
+  .censorshipIcon{
+    color: #dedede;
+    font-size: 1.6em;
+  }
+  .planStatus{
+    font-size: 16px;
+  }
+  .censorshipFooter{
+    width: 100%;
+    display: flex;
+    padding: 5px !important;
+    border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+  }
+  .censorshipFooterButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-size: 1em;
+  }
+  .censorshipFooterIcon{
+    font-size: 2em;
+    color: #0091d2;
+    margin-bottom: 2px;
+  }
+  .radioItem .item-inner{
+    padding: 0 !important;
+    border-bottom: 0 !important;
+  }
+  .radioItem .radio-ios{
+    margin-right: 0 !important;
+  }
+  .radioItem .radio-md{
+    margin-right: 0 !important;
+  }
+  .footerTextBox{
+    width: 100%;
+    margin-top: 5px;
+  }
+  .footerTextarea{
+    margin-top: 2px;
+    font-size: 16px;
+    width: 100%;
+    height: 150px;
+    border-width: 2px;
+    border-radius: 5px;
+  }
+}

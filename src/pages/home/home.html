@@ -37,7 +37,7 @@
           待办数量：{{num1}}
         </div>
       </ion-item>
-      <ion-item class="inputItem">
+      <ion-item class="inputItem" (click)="censorshipPage(1)">
         <div>
           待办类型：调拨审批
         </div>
@@ -45,7 +45,7 @@
           待办数量：{{num2}}
         </div>
       </ion-item>
-      <ion-item class="inputItem">
+      <ion-item class="inputItem" (click)="censorshipPage(2)">
         <div>
           待办类型：调出确认
         </div>
@@ -53,7 +53,7 @@
           待办数量：{{num3}}
         </div>
       </ion-item>
-      <ion-item class="inputItem">
+      <ion-item class="inputItem" (click)="censorshipPage(3)">
         <div>
           待办类型：调入确认
         </div>
@@ -61,7 +61,7 @@
           待办数量：{{num4}}
         </div>
       </ion-item>
-      <ion-item>
+      <ion-item  (click)="censorshipPage(4)">
         <div>
           待办类型：报废审批
         </div>

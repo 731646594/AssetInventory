@@ -87,6 +87,13 @@
 .radio-md .radio-checked .radio-inner{
   border-color: #0091d2;
 }
+//alertbutton
+.alert-ios .alert-button{
+  color: #0091d2;
+}
+.alert-md .alert-button{
+  color: #0091d2;
+}
 //自定义类
 //input宽度
 .inputItem{
@@ -159,4 +166,8 @@
   position: relative;
   left: 90%;
   top:-1.2em;
+}
+.radioBox{
+  display: flex;
+  width: 100%;
 }

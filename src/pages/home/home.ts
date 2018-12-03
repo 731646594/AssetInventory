@@ -4,6 +4,7 @@ import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {FormPage} from "../form/form";
 import {PlanListPage} from "../planList/planList";
+import {CensorshipPage} from "../censorship/censorship";
 
 @Component({
   selector: 'page-home',
@@ -49,5 +50,8 @@ export class HomePage {
   }
   planListPage(){
     this.app.getRootNav().push(PlanListPage)
+  }
+  censorshipPage(pageIndex){
+    this.app.getRootNav().push(CensorshipPage,{pageIndex:pageIndex})
   }
 }
