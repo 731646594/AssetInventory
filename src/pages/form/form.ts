@@ -15,89 +15,12 @@ let that;
 export class FormPage {
   pageIndex;
   user;
-
-  barcode="";
-  departFirst;
-  codeFirst;
-  useStatusFirst = "010101";
-  nameFirst;
-  specificationNameFirst;
-  numFirst;
-  placeFirst;
-  keepPeopleFirst;
-  codeStatusFirst = "0";
-  techStatusFirst = "01";
-  i=0;
   isOnfocus=false;
-
-
   shape = "brief";
-  documentTypeSecond = "1401";
-  callOutSecond;
-  callInSecond;
-  tranReasonSecond;
-  remarksSecond;
-  numbSecond;
-  originalSecond;
-  netSecond;
-  cumulativeSecond;
-  createdSecond;
-  createdDateSecond;
-  callDepartSecond;
   radioButton = "资产条码";
-  encodedSecond;
-
-  assetsCodeSecond;
-  assetsNameSecond;
-  departNameSecond;
-  remarkSecond;
-  storePlaceSecond;
-  assetsStandardSecond;
-  licenceNumberSecond;
-  makeFactorySecond;
-  departCodeSecond;
-  userPersonSecond;
-  barCodeSecond;
-  planNumberSecond;
-  originalValueSecond;
-  nowValueSecond;
-  addDepreciateSecond;
-  devalueValueSecond;
-  usedStateSecond;
-  usedStateNameSecond;
-
-  scrapTypeThird = "020201";
-  numbThird;
-  originalThird;
-  netThird;
-  cumulativeThird;
-  devalueThird;
-  callDepartThird;
-  createdThird;
-  createdDateThird;
-  encodedThird;
-
-  assetsCodeThird;
-  assetsNameThird;
-  departNameThird;
-  remarkThird;
-  storePlaceThird;
-  assetsStandardThird;
-  licenceNumberThird;
-  makeFactoryThird;
-  departCodeThird;
-  userPersonThird;
-  barCodeThird;
-  planNumberThird;
-  originalValueThird;
-  nowValueThird;
-  addDepreciateThird;
-  devalueValueThird;
-  usedStateThird;
-  usedStateNameThird;
-  dateThird;
-  scrapReasonThird = "01";
-  scrapDetailReasonThird;
+  invoice=[];
+  detail=[];
+  i=0;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
               public camera:Camera,public file:File,public photoViewer:PhotoViewer,
@@ -112,6 +35,40 @@ export class FormPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
+    let date = new Date();
+    switch (this.pageIndex){
+      case 1:
+        this.invoice["assetsStatus"]="010101";
+        this.invoice["realcodeStatus"]="0";
+        this.invoice["technicalCondition"]="01";
+        break;
+      case 2:
+        this.invoice["invoiceType"]="1401";
+        this.invoice["inDepartcode"]="";
+        this.invoice["sl"]=0;
+        this.invoice["originalValue"]=0;
+        this.invoice["nowValue"]=0;
+        this.invoice["addDepreciate"]=0;
+        this.invoice["createUserid"]=this.user.usercode;
+        this.invoice["createTime"]=date.toLocaleDateString();
+        this.invoice["createDepart"]=this.user.depart.shortname;
+        break;
+      case 3:
+        this.invoice["discardTypeCode"]="020201";
+        this.invoice["allotAmount"]=0;
+        this.invoice["originalValue"]=0;
+        this.invoice["nowValue"]=0;
+        this.invoice["addDepreciate"]=0;
+        this.invoice["devalueValue"]=0;
+        this.invoice["departCode"]=this.user.depart.shortname;
+        this.invoice["createuserid"]=this.user.username;
+        this.invoice["createdate"]=date.toLocaleDateString();
+
+        this.detail["stopDate"]=date.toLocaleDateString();
+        this.detail["discardReasonCode"]="01";
+        break;
+    }
+
   }
   inputOnfocus(){
     this.isOnfocus=true;
@@ -134,7 +91,11 @@ export class FormPage {
     this.barcodeScanner
       .scan(options)
       .then((data) => {
-        this.barcode = data.text;
+        if (this.pageIndex==1){
+          this.invoice["barCode"] = data.text;
+        }else {
+          this.detail["barCode"] = data.text;
+        }
         // const alert = this.alertCtrl.create({
         //   title: 'Scan Results',
         //   subTitle: data.text,
@@ -288,7 +249,8 @@ export class FormPage {
     })
   }
   saveInfo(){
-
+    console.log(this.invoice)
+    console.log(this.detail)
   }
   censorship(){
 

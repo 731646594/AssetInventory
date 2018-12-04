@@ -4,7 +4,7 @@
     <ion-title *ngIf="pageIndex==2">调拨申请</ion-title>
     <ion-title *ngIf="pageIndex==3">报废申请</ion-title>
   </ion-navbar>
-  <ion-toolbar *ngIf="pageIndex==2" class="pageIndex" no-border-top style="border-top: 1px solid #c8c7cc;">
+  <ion-toolbar *ngIf="pageIndex==2||pageIndex==3" class="pageIndex" no-border-top style="border-top: 1px solid #c8c7cc;">
     <ion-segment [(ngModel)]="shape">
       <ion-segment-button value="brief" >
         调拨单据
@@ -14,38 +14,29 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  <ion-toolbar *ngIf="pageIndex==3" class="pageIndex" no-border-top style="border-top: 1px solid #c8c7cc;">
-    <ion-segment [(ngModel)]="shape">
-      <ion-segment-button value="brief" >
-        报废单据
-      </ion-segment-button>
-      <ion-segment-button value="detailed" >
-        单据明细
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <div class="formInfoBox"  *ngIf="pageIndex==1">
     <div class="formInfoInput">
       <ion-item class="inputItem">
         <ion-label>资产条码:</ion-label>
-        <ion-input [(ngModel)]="barcode" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="invoice.barCode" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         <button item-end class="formInputButton">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>盘点单位:</ion-label>
-        <ion-input readonly [(ngModel)]="departFirst"></ion-input>
+        <ion-input readonly [(ngModel)]="invoice.managerDepart"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>资产编码:</ion-label>
-        <ion-input readonly [(ngModel)]="codeFirst"></ion-input>
+        <ion-input readonly [(ngModel)]="invoice.assetsCode"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label class="formSelectLabel">使用状态:</ion-label>
-        <ion-select class="formSelect" interface="popover"  [(ngModel)]="useStatusFirst">
+        <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.assetsStatus">
           <ion-option value="010101">生产经营用-科研</ion-option>
           <ion-option value="010102">生产经营用-其他</ion-option>
           <ion-option value="0102">非生产经营用</ion-option>
@@ -59,36 +50,36 @@
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>资产名称:</ion-label>
-        <ion-input readonly [(ngModel)]="nameFirst"></ion-input>
+        <ion-input readonly [(ngModel)]="invoice.assetsName"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>规格型号:</ion-label>
-        <ion-input [(ngModel)]="specificationNameFirst" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="invoice.assetsStandard" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>车牌井号:</ion-label>
-        <ion-input [(ngModel)]="numFirst" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="invoice.licenceNumber" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>存放地点:</ion-label>
-        <ion-select interface="popover" [(ngModel)]="placeFirst">
+        <ion-select interface="popover" [(ngModel)]="invoice.storePlace">
           <ion-option></ion-option>
         </ion-select>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>保管人&emsp;:</ion-label>
-        <ion-input [(ngModel)]="keepPeopleFirst" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="invoice.userPerson" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label class="formSelectLabel">贴码状态:</ion-label>
-        <ion-select class="formSelect" interface="popover" [(ngModel)]="codeStatusFirst">
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.realcodeStatus">
           <ion-option value="0">相符</ion-option>
           <ion-option value="1">不符</ion-option>
         </ion-select>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label class="formSelectLabel">技术状况:</ion-label>
-        <ion-select class="formSelect" interface="popover" [(ngModel)]="techStatusFirst">
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.technicalCondition">
           <ion-option value="01">完好</ion-option>
           <ion-option value="02">带病运行</ion-option>
           <ion-option value="03">在修</ion-option>
@@ -108,7 +99,8 @@
   </div>
 
 
-  <div class="formInfoBox" *ngIf="pageIndex==2" [ngSwitch]="shape">
+  <div class="formInfoBox" *ngIf="pageIndex==2||pageIndex==3" [ngSwitch]="shape">
+
     <div class="userInfoBox">
       <div class="userPhotoBox" item-start>
         <img class="userPhoto" src="assets/imgs/user.png">
@@ -118,220 +110,99 @@
         <div class="userDepart">{{user.depart.shortname}}</div>
       </div>
     </div>
+
     <div class="switchBox" *ngSwitchCase="'brief'">
       <div class="formInfoInput">
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
+          <ion-label class="formSelectLabel">报废类型:</ion-label>
+          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.discardTypeCode">
+            <ion-option value="020201">有形（正常报废）</ion-option>
+            <ion-option value="020202">有形（非正常地区公司批复）</ion-option>
+            <ion-option value="020203">有形（非正常总部批复）</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
+          <ion-label>数&emsp;&emsp;量:</ion-label>
+          <ion-input readonly type="number" [(ngModel)]="invoice.allotAmount"></ion-input>
+        </ion-item>
+
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label class="formSelectLabel">单据类型:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="documentTypeSecond">
+          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.invoiceType">
             <ion-option value="1401">有形</ion-option>
             <ion-option value="1402">无形</ion-option>
             <ion-option value="1403">长(待)摊费用</ion-option>
             <ion-option value="1404">整体</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label class="formSelectLabel">调出单位:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="callOutSecond">
+          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.outDepartcode">
           </ion-select>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label class="formSelectLabel">调入单位:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="callInSecond">
+          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.inDepartcode">
           </ion-select>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label>调拨原因:</ion-label>
-          <ion-input [(ngModel)]="tranReasonSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input [(ngModel)]="invoice.reason" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label>备&emsp;&emsp;注:</ion-label>
-          <ion-input [(ngModel)]="remarksSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input [(ngModel)]="invoice.remark" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label>数&emsp;&emsp;量:</ion-label>
-          <ion-input type="number" [(ngModel)]="numbSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input type="number" [(ngModel)]="invoice.sl" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
+
         <ion-item class="inputItem">
           <ion-label>原&emsp;&emsp;值:</ion-label>
-          <ion-input type="number" [(ngModel)]="originalSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input type="number" [(ngModel)]="invoice.originalValue" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>净&emsp;&emsp;值:</ion-label>
-          <ion-input type="number" [(ngModel)]="netSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input type="number" [(ngModel)]="invoice.nowValue" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>累计折旧:</ion-label>
-          <ion-input type="number" [(ngModel)]="cumulativeSecond" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+          <ion-input type="number" [(ngModel)]="invoice.addDepreciate" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>制单人&emsp;:</ion-label>
-          <ion-input readonly [(ngModel)]="createdSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>制单时间:</ion-label>
-          <ion-input readonly [(ngModel)]="createdDateSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>申请单位:</ion-label>
-          <ion-input readonly [(ngModel)]="callDepartSecond"></ion-input>
-        </ion-item>
-      </div>
-    </div>
-    <div class="switchBox" *ngSwitchCase="'detailed'">
-      <div class="inputItem radioBox" radio-group [(ngModel)]="radioButton">
-        <ion-item class="radioItem">
-          <ion-label>资产条码:</ion-label>
-          <ion-radio value="资产条码"></ion-radio>
-        </ion-item>
-        <ion-item class="radioItem">
-          <ion-label>资产编码:</ion-label>
-          <ion-radio value="资产编码"></ion-radio>
-        </ion-item>
-      </div>
-      <ion-item class="inputItem" *ngIf="radioButton == '资产条码'">
-        <ion-input [(ngModel)]="barcode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton">
-          <ion-icon name="search"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item class="inputItem" *ngIf="radioButton == '资产编码'">
-        <ion-input [(ngModel)]="encodedSecond" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton">
-          <ion-icon name="search"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-list class="callList">
-        <ion-item class="inputItem">
-          <ion-label>资产编码:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsCodeSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>资产名称:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsNameSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>所属单位:</ion-label>
-          <ion-input readonly [(ngModel)]="departNameSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>备&emsp;&emsp;注:</ion-label>
-          <ion-input readonly [(ngModel)]="remarkSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>存放地点:</ion-label>
-          <ion-input readonly [(ngModel)]="storePlaceSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>规格型号:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsStandardSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>车牌井号:</ion-label>
-          <ion-input readonly [(ngModel)]="licenceNumberSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>制造厂家:</ion-label>
-          <ion-input readonly [(ngModel)]="makeFactorySecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>所属单位编码:</ion-label>
-          <ion-input readonly [(ngModel)]="departCodeSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>保管人:</ion-label>
-          <ion-input readonly [(ngModel)]="userPersonSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>编码:</ion-label>
-          <ion-input readonly [(ngModel)]="barCodeSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>出厂编号:</ion-label>
-          <ion-input readonly [(ngModel)]="planNumberSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>原值:</ion-label>
-          <ion-input readonly [(ngModel)]="originalValueSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>净值:</ion-label>
-          <ion-input readonly [(ngModel)]="nowValueSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>累计折旧:</ion-label>
-          <ion-input readonly [(ngModel)]="addDepreciateSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>减值准备:</ion-label>
-          <ion-input readonly [(ngModel)]="devalueValueSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>使用状态编码:</ion-label>
-          <ion-input readonly [(ngModel)]="usedStateSecond"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>使用状态:</ion-label>
-          <ion-input readonly [(ngModel)]="usedStateNameSecond"></ion-input>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
 
-
-  <div class="formInfoBox" *ngIf="pageIndex==3" [ngSwitch]="shape">
-    <div class="userInfoBox">
-      <div class="userPhotoBox" item-start>
-        <img class="userPhoto" src="assets/imgs/user.png">
-      </div>
-      <div class="userTextBox" item-end>
-        <div class="userName">{{user.username}}</div>
-        <div class="userDepart">{{user.depart.shortname}}</div>
-      </div>
-    </div>
-    <div class="switchBox" *ngSwitchCase="'brief'">
-      <div class="formInfoInput">
-        <ion-item class="inputItem">
-          <ion-label class="formSelectLabel">报废类型:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="scrapTypeThird">
-            <ion-option value="020201">有形（正常报废）</ion-option>
-            <ion-option value="020202">有形（非正常地区公司批复）</ion-option>
-            <ion-option value="020203">有形（非正常总部批复）</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>数&emsp;&emsp;量:</ion-label>
-          <ion-input readonly type="number" [(ngModel)]="numbThird"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>原&emsp;&emsp;值:</ion-label>
-          <ion-input readonly type="number" [(ngModel)]="originalThird"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>净&emsp;&emsp;值:</ion-label>
-          <ion-input readonly type="number" [(ngModel)]="netThird"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
-          <ion-label>累计折旧:</ion-label>
-          <ion-input readonly type="number" [(ngModel)]="cumulativeThird"></ion-input>
-        </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>减值准备:</ion-label>
-          <ion-input readonly type="number" [(ngModel)]="devalueThird"></ion-input>
+          <ion-input readonly type="number" [(ngModel)]="invoice.devalueValue"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>申请单位:</ion-label>
-          <ion-input readonly [(ngModel)]="callDepartThird"></ion-input>
+          <ion-input readonly [(ngModel)]="invoice.departCode"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>申请人&emsp;:</ion-label>
-          <ion-input readonly [(ngModel)]="createdThird"></ion-input>
+          <ion-input readonly [(ngModel)]="invoice.createuserid"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>申请时间:</ion-label>
-          <ion-input readonly [(ngModel)]="createdDateThird"></ion-input>
+          <ion-input readonly [(ngModel)]="invoice.createdate"></ion-input>
+        </ion-item>
+
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
+          <ion-label>制单人&emsp;:</ion-label>
+          <ion-input readonly [(ngModel)]="invoice.createUserid"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
+          <ion-label>制单时间:</ion-label>
+          <ion-input readonly [(ngModel)]="invoice.createTime"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem" *ngIf="pageIndex==2">
+          <ion-label>申请单位:</ion-label>
+          <ion-input readonly [(ngModel)]="invoice.createDepart"></ion-input>
         </ion-item>
       </div>
     </div>
+
     <div class="switchBox" *ngSwitchCase="'detailed'">
       <div class="inputItem radioBox" radio-group [(ngModel)]="radioButton">
         <ion-item class="radioItem">
@@ -344,13 +215,13 @@
         </ion-item>
       </div>
       <ion-item class="inputItem" *ngIf="radioButton == '资产条码'">
-        <ion-input [(ngModel)]="barcode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="detail.barCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         <button item-end class="formInputButton">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>
       <ion-item class="inputItem" *ngIf="radioButton == '资产编码'">
-        <ion-input [(ngModel)]="encodedThird" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <ion-input [(ngModel)]="detail.assetsCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
         <button item-end class="formInputButton">
           <ion-icon name="search"></ion-icon>
         </button>
@@ -358,83 +229,84 @@
       <ion-list class="callList">
         <ion-item class="inputItem">
           <ion-label>资产编码:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsCodeThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.assetsCode"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>资产名称:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsNameThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.assetsName"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>所属单位:</ion-label>
-          <ion-input readonly [(ngModel)]="departNameThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.departName"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>备&emsp;&emsp;注:</ion-label>
-          <ion-input readonly [(ngModel)]="remarkThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.remark"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>存放地点:</ion-label>
-          <ion-input readonly [(ngModel)]="storePlaceThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.storePlace"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>规格型号:</ion-label>
-          <ion-input readonly [(ngModel)]="assetsStandardThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.assetsStandard"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>车牌井号:</ion-label>
-          <ion-input readonly [(ngModel)]="licenceNumberThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.licenceNumber"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>制造厂家:</ion-label>
-          <ion-input readonly [(ngModel)]="makeFactoryThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.makeFactory"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>所属单位编码:</ion-label>
-          <ion-input readonly [(ngModel)]="departCodeThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.departCode"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
-          <ion-label>保管人:</ion-label>
-          <ion-input readonly [(ngModel)]="userPersonThird"></ion-input>
+          <ion-label>保管人&emsp;:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.userPerson"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
-          <ion-label>编码:</ion-label>
-          <ion-input readonly [(ngModel)]="barCodeThird"></ion-input>
+          <ion-label>编&emsp;&emsp;码:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.barCode"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>出厂编号:</ion-label>
-          <ion-input readonly [(ngModel)]="planNumberThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.productId"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
-          <ion-label>原值:</ion-label>
-          <ion-input readonly [(ngModel)]="originalValueThird"></ion-input>
+          <ion-label>原&emsp;&emsp;值:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.originalValue"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
-          <ion-label>净值:</ion-label>
-          <ion-input readonly [(ngModel)]="nowValueThird"></ion-input>
+          <ion-label>净&emsp;&emsp;值:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.nowValue"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>累计折旧:</ion-label>
-          <ion-input readonly [(ngModel)]="addDepreciateThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.addDepreciate"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>减值准备:</ion-label>
-          <ion-input readonly [(ngModel)]="devalueValueThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.devalueValue"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>使用状态编码:</ion-label>
-          <ion-input readonly [(ngModel)]="usedStateThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.usedState"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>使用状态:</ion-label>
-          <ion-input readonly [(ngModel)]="usedStateNameThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.usedStateName"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>停产日期:</ion-label>
-          <ion-input readonly [(ngModel)]="dateThird"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.stopDate"></ion-input>
         </ion-item>
-        <ion-item class="inputItem">
+        <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label class="formSelectLabel">报废原因:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="scrapReasonThird">
+          <ion-select class="formSelect" interface="popover"  [(ngModel)]="detail.discardReasonCode">
             <ion-option value="01">技术淘汰</ion-option>
             <ion-option value="02">毁损</ion-option>
             <ion-option value="03">管理不善</ion-option>
@@ -448,11 +320,12 @@
             <ion-option value="10">其他</ion-option>
           </ion-select>
         </ion-item>
-        <textarea class="scrapDetailReason" placeholder="详细报废原因" [(ngModel)]="scrapDetailReasonThird" (focus)="inputOnfocus()" (blur)="inputOnblur()"></textarea>
+        <textarea  *ngIf="pageIndex==3" class="scrapDetailReason" placeholder="详细报废原因" [(ngModel)]="detail.discardMark" (focus)="inputOnfocus()" (blur)="inputOnblur()"></textarea>
       </ion-list>
     </div>
   </div>
 </ion-content>
+
 <footer class="formFooter" padding *ngIf="(pageIndex==1)&&!isOnfocus">
   <button class="formFooterButton" (click)="pickPhoto()">
     <ion-icon class="formFooterIcon" name="camera"></ion-icon><br>照片
@@ -464,6 +337,7 @@
     <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>保存
   </button>
 </footer>
+
 <footer class="formFooter" padding *ngIf="(pageIndex==2)&&(shape=='detailed')&&!isOnfocus">
   <button class="formFooterButton" (click)="scan()">
     <ion-icon class="formFooterIcon" name="qr-scanner"></ion-icon><br>扫码
@@ -472,10 +346,12 @@
     <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>保存
   </button>
 </footer>
+
 <footer class="formFooter" padding *ngIf="(pageIndex==3)&&!isOnfocus">
   <button class="formFooterButton" (click)="censorship()" *ngIf="shape=='brief'">
     <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>送审
   </button>
+
   <button class="formFooterButton" (click)="scan()" *ngIf="shape=='detailed'">
     <ion-icon class="formFooterIcon" name="qr-scanner"></ion-icon><br>扫码
   </button>
@@ -484,5 +360,8 @@
   </button>
   <button class="formFooterButton" (click)="uploadData()" *ngIf="shape=='detailed'">
     <ion-icon class="formFooterIcon" name="cloud-upload"></ion-icon><br>上传
+  </button>
+  <button class="formFooterButton" (click)="uploadData()" *ngIf="shape=='detailed'">
+    <ion-icon class="formFooterIcon" name="cloud-upload"></ion-icon><br>上传到EAM
   </button>
 </footer>
