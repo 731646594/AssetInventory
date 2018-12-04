@@ -1,0 +1,279 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="pageIndex==1">调拨审批</ion-title>
+    <ion-title *ngIf="pageIndex==2">调出确认</ion-title>
+    <ion-title *ngIf="pageIndex==3">调入确认</ion-title>
+    <ion-title *ngIf="pageIndex==4">报废审批</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="detailListBox">
+    <div class="userInfoBox" *ngIf="pageIndex==4">
+      <div class="userPhotoBox" item-start>
+        <img class="userPhoto" src="assets/imgs/user.png">
+      </div>
+      <div class="userTextBox" item-end>
+        <div class="userName">{{user.username}}</div>
+        <div class="userDepart">{{user.depart.shortname}}</div>
+      </div>
+    </div>
+    <ion-list class="detailList">
+      <ion-item class="inputItem" *ngFor="let detail of detailList;let i = index" (click)="getDetail(pageIndex,detail,i)">
+        <div>
+          <div>
+            资产编码:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsCode">
+          </div>
+          <div *ngIf="pageIndex == 1||pageIndex == 4">
+            资产名称:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsName">
+          </div>
+          <div *ngIf="pageIndex == 1||pageIndex == 4">
+            所属单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
+          </div>
+          <div *ngIf="pageIndex == 4">
+            报废类型:<input readonly class="readonlyInput" [(ngModel)]="detail.discardTypeName">
+          </div>
+          <div *ngIf="pageIndex == 4">
+            报废原因:<input readonly class="readonlyInput" [(ngModel)]="detail.discardReasonName">
+          </div>
+          <div *ngIf="pageIndex == 4">
+            停产日期:<input readonly class="readonlyInput" [(ngModel)]="detail.stopDate">
+          </div>
+          <div *ngIf="pageIndex == 4" >
+            申请单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
+          </div>
+          <div  *ngIf="pageIndex == 2||pageIndex == 3" >
+            报管人&emsp;:<input readonly class="readonlyInput" [(ngModel)]="detail.userPerson">
+          </div>
+        </div>
+        <div class="detailButton" *ngIf="pageIndex == 2||pageIndex == 3" item-end>
+          <ion-icon name="checkmark-circle" class="detailIcon"></ion-icon>
+        </div>
+      </ion-item>
+      <ion-list class="callList" *ngIf="pageIndex==1">
+        <ion-item class="inputItem">
+          <ion-label>资产编码:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.assetsCode"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>资产名称:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.assetsName"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>所属单位:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.departName"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>备&emsp;&emsp;注:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.remark"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>存放地点:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.storePlace"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>规格型号:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.assetsStandard"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>车牌井号:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.licenceNumber"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>制造厂家:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.makeFactory"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>所属单位编码:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.departCode"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>保管人&emsp;:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.userPerson"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>编&emsp;&emsp;码:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.barCode"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>出厂编号:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.planNumber"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>原&emsp;&emsp;值:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.originalValue"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>净&emsp;&emsp;值:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.nowValue"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>累计折旧:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.addDepreciate"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>减值准备:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.devalueValue"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>使用状态编码:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.usedState"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>使用状态:</ion-label>
+          <ion-input readonly [(ngModel)]="detail.usedStateName"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngIf="pageIndex == 2||pageIndex == 3">
+        <ion-item class="inputItem">
+          <ion-label class="detailSelectLabel">存放地点:</ion-label>
+          <ion-select  class="detailSelect" interface="popover"  [(ngModel)]="detail.storePlace">
+            <ion-option value="02" selected>炼化装置</ion-option>
+            <ion-option value="0201">   烷基化车间烷基化装置</ion-option>
+            <ion-option value="0202">   延迟焦化车间延迟焦化装置</ion-option>
+            <ion-option value="0203">   PSA装置</ion-option>
+            <ion-option value="0204">   烷基化车间</ion-option>
+            <ion-option value="03">   办公场所</ion-option>
+            <ion-option value="0301">   办公场所-办公区</ion-option>
+            <ion-option value="0302">   办公场所-餐厅</ion-option>
+            <ion-option value="0303">   办公场所-活动室</ion-option>
+            <ion-option value="0304">   办公场所-库房</ion-option>
+            <ion-option value="0305">   办公场所-车库</ion-option>
+            <ion-option value="04">   加油(气)站</ion-option>
+            <ion-option value="0401">   加油(气)站-加油现场</ion-option>
+            <ion-option value="0402">   加油(气)站-便利店</ion-option>
+            <ion-option value="0403">   加油(气)站-办公区</ion-option>
+            <ion-option value="0404">   加油(气)站-配电房</ion-option>
+            <ion-option value="0405">   加油(气)站-宿舍</ion-option>
+            <ion-option value="0406">   加油(气)站-厨房</ion-option>
+            <ion-option value="0407">   加油(气)站-餐厅</ion-option>
+            <ion-option value="0408">   加油(气)站-生活区</ion-option>
+            <ion-option value="0409">   加油(气)站-油罐区</ion-option>
+            <ion-option value="0410">   加油(气)站-库房</ion-option>
+            <ion-option value="0411">   加油(气)站-卫生间</ion-option>
+            <ion-option value="05">   油(气)库</ion-option>
+            <ion-option value="0501">   油(气)库-库区</ion-option>
+            <ion-option value="0502">   油(气)库-办公区</ion-option>
+            <ion-option value="0503">   油(气)库-配电房</ion-option>
+            <ion-option value="0504">   油(气)库-宿舍</ion-option>
+            <ion-option value="0505">   油(气)库-厨房</ion-option>
+            <ion-option value="0506">   油(气)库-餐厅</ion-option>
+            <ion-option value="0507">   油(气)库-库房</ion-option>
+            <ion-option value="0508">   油(气)库-油码头作业区</ion-option>
+            <ion-option value="0509">   油(气)库-收发油区</ion-option>
+            <ion-option value="0510">   油(气)库-化验室</ion-option>
+            <ion-option value="0511">   油(气)库-计量室</ion-option>
+            <ion-option value="0512">   油(气)库-收发油泵房</ion-option>
+            <ion-option value="0513">   油(气)库-消防泵房</ion-option>
+            <ion-option value="0514">   油(气)库-锅炉房</ion-option>
+            <ion-option value="0515">   油(气)库-空压机房</ion-option>
+            <ion-option value="0516">   油(气)库-铁路作业区</ion-option>
+            <ion-option value="0517">   油(气)库-门卫</ion-option>
+            <ion-option value="0518">   油(气)库-卫生间</ion-option>
+            <ion-option value="06">   水上加油站</ion-option>
+            <ion-option value="0601">   水上加油站-加油船</ion-option>
+            <ion-option value="07">   管理站</ion-option>
+            <ion-option value="0701">   管理站-操作间</ion-option>
+            <ion-option value="0702">   管理站-泵房</ion-option>
+            <ion-option value="99">   其他</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="detailSelectLabel">技术状况:</ion-label>
+          <ion-select  class="detailSelect" interface="popover"  [(ngModel)]="detail.technicalCondition">
+            <ion-option value="01" selected>完好</ion-option>
+            <ion-option value="02">带病运行</ion-option>
+            <ion-option value="03">在修</ion-option>
+            <ion-option value="04">待修</ion-option>
+            <ion-option value="05">待报废</ion-option>
+            <ion-option value="06">损毁</ion-option>
+            <ion-option value="07">待处置</ion-option>
+            <ion-option value="08">已处置</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="detailSelectLabel">资产组&emsp;:</ion-label>
+          <ion-select  class="detailSelect" interface="popover"  [(ngModel)]="detail.entityCode">
+            <ion-option value="099000000050004" selected>重庆销售公司本部</ion-option>
+            <ion-option value="099000000050005">重庆销售渝中公司</ion-option>
+            <ion-option value="099000000050006">重庆销售江南公司</ion-option>
+            <ion-option value="099000000050007">重庆销售江北公司</ion-option>
+            <ion-option value="099000000050008">重庆销售永川公司</ion-option>
+            <ion-option value="099000000050009">重庆销售万州公司</ion-option>
+            <ion-option value="099000000050010">重庆销售涪陵公司</ion-option>
+            <ion-option value="099000000050011">重庆销售黔江公司</ion-option>
+            <ion-option value="099000000050012">重庆销售非油公司</ion-option>
+            <ion-option value="099000000050013">重庆销售燃料公司</ion-option>
+            <ion-option value="099000000050014">重庆销售中油现代交通油料有限责任公司</ion-option>
+            <ion-option value="099000000050015">重庆销售中油迅发实业有限责任公司</ion-option>
+            <ion-option value="099000000050016">重庆销售重庆市石油总公司华岩加油站</ion-option>
+            <ion-option value="099000000050017">重庆销售中油重庆小泉加油站</ion-option>
+            <ion-option value="099000000050018">重庆销售荣昌县中油川荣石油有限责任公司</ion-option>
+            <ion-option value="099000000050019">重庆销售荣昌县昌州石油有限责任公司</ion-option>
+            <ion-option value="099000000050020">重庆销售中油芙武有限责任公司</ion-option>
+            <ion-option value="099000000050021">重庆销售中油铁发渝遂有限责任公司</ion-option>
+            <ion-option value="099000000050022">重庆销售重庆中油诚源发展有限公司</ion-option>
+            <ion-option value="099000000050023">重庆销售仓储公司</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>保管人&emsp;:</ion-label>
+          <ion-input [(ngModel)]="detail.userPerson" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>项目信息:</ion-label>
+          <ion-input [(ngModel)]="detail.wbsDepreciate" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>内部订单:</ion-label>
+          <ion-input [(ngModel)]="detail.erpAufnr" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>订单描述:</ion-label>
+          <ion-input [(ngModel)]="detail.erpKtext" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label>WBS描述:</ion-label>
+          <ion-input [(ngModel)]="detail.wbsTxt" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </div>
+</ion-content>
+<footer class="detailFooter" padding *ngIf="(pageIndex==4)">
+  <div class="radioBox" radio-group [(ngModel)]="isAgree" *ngIf="!isReasonModel">
+    <ion-item class="radioItem">
+      <ion-label>同意：</ion-label>
+      <ion-radio value=1></ion-radio>
+    </ion-item>
+    <ion-item class="radioItem">
+      <ion-label>驳回:</ion-label>
+      <ion-radio value=0></ion-radio>
+    </ion-item>
+    <button class="detailFooterButton" (click)="alertTextarea()">
+      <ion-icon class="detailFooterIcon" name="paper"></ion-icon><br>编辑原因
+    </button>
+    <button class="detailFooterButton" (click)="postData()">
+      <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+    </button>
+  </div>
+  <div class="footerTextBox" *ngIf="isReasonModel">
+    <textarea class="footerTextarea" [(ngModel)]="detailReason" placeholder="请输入原因。"></textarea>
+    <div class="radioBox">
+      <button class="detailFooterButton" (click)="cancelReasonModel()">
+        <ion-icon class="detailFooterIcon" name="close-circle"></ion-icon><br>取消
+      </button>
+      <button class="detailFooterButton" (click)="clearReason()">
+        <ion-icon class="detailFooterIcon" name="remove-circle"></ion-icon><br>清空
+      </button>
+      <button class="detailFooterButton" (click)="saveReason()">
+        <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+      </button>
+    </div>
+  </div>
+</footer>
+<footer class="detailFooter" padding *ngIf="(pageIndex==2||pageIndex==3)&&!isOnfocus">
+  <button class="detailFooterButton" (click)="uploadData()">
+    <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>上传
+  </button>
+</footer>

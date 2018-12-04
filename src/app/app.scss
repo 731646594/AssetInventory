@@ -171,3 +171,21 @@
   display: flex;
   width: 100%;
 }
+.callList{
+  border: 0.55px solid #c8c7cc;
+  margin-left: 16px;
+  margin-top: 16px;
+  width: calc(95% - 16px);
+}
+.callList .inputItem{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.callList .inputItem:nth-child(even){
+  background: #efefef;
+}
+.readonlyInput{
+  border: 0;
+  width: 66%;
+}

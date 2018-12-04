@@ -37,12 +37,6 @@ export class PlanListPage {
       loading.dismiss();
     })
   }
-  showPlanName(name){
-    let  alert = this.alertCtrl.create({
-      title:name
-    });
-    alert.present();
-  }
   downLoadPlan(plan){
     const fileTransferNow: FileTransferObject = this.fileTransfer.create();
     //读取进度条

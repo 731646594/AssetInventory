@@ -15,6 +15,7 @@ import { FormPage } from "../pages/form/form";
 import { SignaturePage } from "../pages/signature/signature";
 import { PlanListPage } from "../pages/planList/planList";
 import { CensorshipPage } from "../pages/censorship/censorship";
+import { CensorshipDetailPage } from "../pages/censorshipDetail/censorshipDetail";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,7 +45,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     FormPage,
     SignaturePage,
     PlanListPage,
-    CensorshipPage
+    CensorshipPage,
+    CensorshipDetailPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     FormPage,
     SignaturePage,
     PlanListPage,
-    CensorshipPage
+    CensorshipPage,
+    CensorshipDetailPage
   ],
   providers: [
     StatusBar,

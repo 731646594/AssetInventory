@@ -10,29 +10,34 @@
 <ion-content>
   <div class="censorshipListBox">
     <ion-list class="censorshipList">
+      <ion-item class="inputItem" *ngIf="!isHave">
+        <ion-label>暂无数据</ion-label>
+      </ion-item>
       <ion-item class="inputItem" *ngFor="let censorship of censorshipList;let i = index">
-        <div>
-          单据号&emsp;：{{censorship.invoiceNumber}}
+        <div (click)="censorshipDetailPage(pageIndex,censorship)">
+          <div>
+            单据号&emsp;：{{censorship.invoiceNumber}}
+          </div>
+          <div>
+            申请人&emsp;：{{censorship.operateUser}}
+          </div>
+          <div *ngIf="pageIndex == 4">
+            单据类型：<input readonly class="readonlyInput" [(ngModel)]="censorship.invoiceName">
+          </div>
+          <div *ngIf="pageIndex != 4">
+            调出单位：<input readonly class="readonlyInput" [(ngModel)]="censorship.outDepartname">
+          </div>
+          <div *ngIf="pageIndex != 4">
+            调入单位：<input readonly class="readonlyInput" [(ngModel)]="censorship.inDepartname">
+          </div>
+          <div>
+            明细数量：{{censorship.detailAmountSum?censorship.detailAmountSum:censorship.allotAmount}}
+          </div>
+          <div *ngIf="pageIndex == 4">
+            申请单位：<input readonly class="readonlyInput" [(ngModel)]="censorship.departName">
+          </div>
         </div>
-        <div>
-          申请人&emsp;：{{censorship.operateUser}}
-        </div>
-        <div class="censorshipName" *ngIf="pageIndex == 4" (click)="showDepartName(censorship.invoiceName)">
-          单据类型：{{censorship.invoiceName}}
-        </div>
-        <div class="censorshipName" *ngIf="pageIndex != 4" (click)="showDepartName(censorship.outDepartname)">
-          调出单位：{{censorship.outDepartname}}
-        </div>
-        <div class="censorshipName" *ngIf="pageIndex != 4" (click)="showDepartName(censorship.inDepartname)">
-          调入单位：{{censorship.inDepartname}}
-        </div>
-        <div>
-          明细数量：{{censorship.detailAmountSum?censorship.detailAmountSum:censorship.allotAmount}}
-        </div>
-        <div class="censorshipName" *ngIf="pageIndex == 4" (click)="showDepartName(censorship.departName)">
-          申请单位：{{censorship.departName}}
-        </div>
-        <div class="censorshipButton" *ngIf="pageIndex != 4" item-end (click)="checkedItem(censorship,i)">
+        <div class="censorshipButton" *ngIf="pageIndex != 4" item-end (click)="checkedItem(i)">
           <ion-icon name="checkmark-circle" class="censorshipIcon"></ion-icon>
         </div>
       </ion-item>

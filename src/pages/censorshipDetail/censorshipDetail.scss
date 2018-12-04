@@ -1,4 +1,4 @@
-page-censorship{
+page-censorshipDetail{
   .list-ios .item-block .item-inner{
     border-bottom: 0.55px solid #c8c7cc !important;
     padding-right: 0 !important;
@@ -19,21 +19,21 @@ page-censorship{
   .label-md{
     margin-right: 0 !important;;
   }
-  .censorshipListBox{
+  .detailListBox{
     margin-bottom: 70px;
   }
-  .censorshipButton{
+  .detailButton{
     text-align: center;
     margin: 0 !important;
   }
-  .censorshipIcon{
+  .detailIcon{
     color: #dedede;
     font-size: 1.6em;
   }
   .planStatus{
     font-size: 16px;
   }
-  .censorshipFooter{
+  .detailFooter{
     width: 100%;
     display: flex;
     padding: 5px !important;
@@ -44,14 +44,14 @@ page-censorship{
     z-index: 10;
     background: white;
   }
-  .censorshipFooterButton{
+  .detailFooterButton{
     background: transparent;
     margin: 0 !important;
     padding: 0 !important;
     width: 100%;
     font-size: 1em;
   }
-  .censorshipFooterIcon{
+  .detailFooterIcon{
     font-size: 2em;
     color: #0091d2;
     margin-bottom: 2px;
@@ -77,5 +77,20 @@ page-censorship{
     height: 150px;
     border-width: 2px;
     border-radius: 5px;
+  }
+  .readonlyInput{
+    width: 76%;
+    padding-left: 16px;
+  }
+  .detailSelect{
+    width: 100%;
+    max-width: 100%;
+  }
+  .detailSelectLabel{
+    flex: none;
+  }
+  .inputItem:first-child{
+    width: 100% !important;
+    padding-right: 5%;
   }
 }

@@ -2,22 +2,22 @@ import { Component } from '@angular/core';
 import {AlertController, App, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
-import {CensorshipDetailPage} from "../censorshipDetail/censorshipDetail";
 
 @Component({
-  selector: 'page-censorship',
-  templateUrl: 'censorship.html'
+  selector: 'page-censorshipDetail',
+  templateUrl: 'censorshipDetail.html'
 })
-export class CensorshipPage {
+export class CensorshipDetailPage {
   user;
   pageIndex;
+  invoice;
   postUrl;
-  censorshipList;
-  checkedIndex = null;
+  detailList;
+  detail=[];
+  isOnfocus=false;
   isAgree=1;
   isReasonModel=0;
-  censorshipReason;
-  isHave = 0;
+  detailReason;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public navParams:NavParams,public loadingCtrl:LoadingController) {
     this.loadData();
@@ -29,55 +29,41 @@ export class CensorshipPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
+    this.invoice = this.navParams.get("invoice");
     switch (this.pageIndex){
       case 1:
-        this.postUrl = "allotController.do?queryApproveInvoice";
+        this.postUrl = "allotController.do?getByPhoneInvoiceNumber";
         break;
       case 2:
-        this.postUrl = "allotController.do?queryAllotOut";
+        this.postUrl = "allotController.do?getByPhoneInvoiceNumber";
         break;
       case 3:
-        this.postUrl = "allotController.do?queryAllotIn";
+        this.postUrl = "allotController.do?getByPhoneInvoiceNumber";
         break;
       case 4:
-        this.postUrl = "discardController.do?queryApproveInvoice";
+        this.postUrl = "discardController.do?getDetail";
         break;
     }
     let loading = this.loadingCtrl.create({
       content:"正在加载"
     });
     loading.present();
-    this.httpService.post(this.httpService.getUrl()+this.postUrl,{departCode:this.user.depart.departcode,userCode:this.user.usercode}).subscribe(data=>{
+    this.httpService.post(this.httpService.getUrl()+this.postUrl,{departCode:this.user.depart.departcode,phoneInvoiceNumber:this.invoice.invoiceNumber,invoiceNumber:this.invoice.invoiceNumber}).subscribe(data=>{
       if (data.success == "true"){
-        this.censorshipList = data.data;
-        if (this.censorshipList.length){
-          this.isHave=1;
-        }
+        this.detailList = data.data;
       }else {
         alert(data.msg);
       }
       loading.dismiss();
     })
   }
-  checkedItem(index){
-    if ((this.checkedIndex||this.checkedIndex==0)&&this.checkedIndex!=index){
-      document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #0091d2;");
-      this.censorshipList[index].checked = true;
-      document.getElementsByClassName("censorshipIcon")[this.checkedIndex].setAttribute("style","color: #dedede;");
-      this.censorshipList[this.checkedIndex].checked = false;
-      this.checkedIndex = index;
-    }else {
-      if (this.censorshipList[index].checked){
-        document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #dedede;");
-        this.censorshipList[index].checked = false;
-        this.checkedIndex = null;
-      }else {
-        document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #0091d2;");
-        this.censorshipList[index].checked = true;
-        this.checkedIndex = index;
-      }
-    }
+  showDepartName(name){
+    let  alert = this.alertCtrl.create({
+      title:name
+    });
+    alert.present();
   }
+
   alertTextarea(){
     this.isReasonModel=1;
   }
@@ -115,7 +101,7 @@ export class CensorshipPage {
         {
           text:'确定',
           handler:data=>{
-            this.censorshipReason="";
+            this.detailReason="";
           }
 
         }
@@ -126,10 +112,37 @@ export class CensorshipPage {
   saveReason(){
     this.isReasonModel=0;
   }
+  inputOnfocus(){
+    this.isOnfocus=true;
+  }
+  inputOnblur(){
+    this.isOnfocus=false;
+  }
+  getDetail(pageIndex,detail,index){
+    switch (pageIndex){
+      case 1:
+        this.detail = detail;
+        break;
+      case 2:
+        this.checkedItem(index);
+        break;
+      case 3:
+        this.checkedItem(index);
+        break;
+    }
+  }
   postData(){
 
   }
-  censorshipDetailPage(pageIndex,invoice){
-    this.app.getRootNav().push(CensorshipDetailPage,{pageIndex:pageIndex,invoice:invoice});
+  checkedItem(index){
+    if (this.detailList[index].checked){
+      document.getElementsByClassName("detailIcon")[index].setAttribute("style","color: #dedede;");
+      this.detailList[index].checked = false;
+      this.detail = [];
+    }else {
+      document.getElementsByClassName("detailIcon")[index].setAttribute("style","color: #0091d2;");
+      this.detailList[index].checked = true;
+      this.detail = this.detailList[index];
+    }
   }
 }

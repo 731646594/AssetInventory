@@ -9,10 +9,10 @@
     <ion-list class="planList">
       <ion-item class="inputItem" *ngFor="let plan of planList;let i = index">
         <div>
-          盘点计划编码：{{plan.planNumber}}
+          盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="plan.planNumber">
         </div>
-        <div class="planName" (click)="showPlanName(plan.planName)">
-          盘点计划名称：{{plan.planName}}
+        <div>
+          盘点计划名称：<input readonly class="readonlyInput" [(ngModel)]="plan.planName">
         </div>
         <div *ngIf="!plan.isDownLoad" class="planButton" item-end (click)="downLoadPlan(plan)">
           <ion-icon name="cloud-download" class="planIcon"></ion-icon>
