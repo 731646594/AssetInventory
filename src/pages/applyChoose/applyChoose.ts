@@ -5,6 +5,7 @@ import {StorageService} from "../../services/storageService";
 import {FormPage} from "../form/form";
 import {PlanListPage} from "../planList/planList";
 import {CensorshipPage} from "../censorship/censorship";
+import {SearchPage} from "../search/search";
 
 @Component({
   selector: 'page-applyChoose',
@@ -34,5 +35,8 @@ export class ApplyChoosePage {
   }
   censorshipPage(pageIndex){
     this.app.getRootNav().push(CensorshipPage,{pageIndex:pageIndex})
+  }
+  searchPage(){
+    this.app.getRootNav().push(SearchPage)
   }
 }

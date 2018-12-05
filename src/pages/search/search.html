@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>盘点查询</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="planListBox">
+    <ion-list class="planList">
+      <ion-item class="inputItem">
+        <ion-label>盘点计划编码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.planNumber"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>盘点计划名称:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.planName"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>计划下达日期:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.startDate"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>计划结束日期:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.stopDate"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>操作人&emsp;:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.username"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label  class="searchSelectLabel">盘点单位:</ion-label>
+        <ion-select  class="searchSelect" interface="popover" *ngFor="let department of departments" [(ngModel)]="departCode">
+          <ion-option [value]="department.departCode">{{department.departName}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产总数:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="plan.number"></ion-input>
+      </ion-item>
+      <ion-toolbar class="searchToolbar">
+        <ion-segment [(ngModel)]="planStatus">
+          <ion-segment-button value="exist" >
+            存在:{{plan.existNum}}
+          </ion-segment-button>
+          <ion-segment-button value="will" >
+            未盘:{{plan.willNum}}
+          </ion-segment-button>
+          <ion-segment-button value="new" >
+            盘盈:{{plan.newNum}}
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-list>
+  </div>
+</ion-content>

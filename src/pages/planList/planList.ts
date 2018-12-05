@@ -12,7 +12,6 @@ import {File} from "@ionic-native/file";
 export class PlanListPage {
   planList;
   user;
-  planUrl;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public alertCtrl:AlertController,public loadingCtrl:LoadingController,public file:File,
               public fileTransfer:FileTransfer) {
@@ -29,12 +28,20 @@ export class PlanListPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandownload",{userCode:this.user.usercode,departCode:this.user.depart.departcode}).subscribe(data=>{
+      console.log(data)
       if (data.success == "true"){
         this.planList=data.data;
       }else {
         alert(data.msg)
       }
       loading.dismiss();
+    })
+  }
+  downLoadPlan1(plan){
+    this.storageService.write("localPlan",plan);
+    this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandetail",{userCode:this.user.usercode,departCode:this.user.depart.departcode,planNumber:plan.planNumber,departCodeList:this.user.depart.departcode+","}).subscribe(data=>{
+      console.log(data);
+      return;
     })
   }
   downLoadPlan(plan){
@@ -61,7 +68,7 @@ export class PlanListPage {
       }
     },300);
     //android 存储externalDataDirectory,通用沙盒存储dataDirectory
-    fileTransferNow.download(this.planUrl,
+    fileTransferNow.download(this.httpService.getUrl()+"",
       this.file.dataDirectory+plan.planNumber).then((entry)=>{
       if (timer) clearInterval(timer);
       loading.dismiss();

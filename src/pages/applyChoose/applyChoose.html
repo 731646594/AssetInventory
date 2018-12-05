@@ -21,7 +21,7 @@
   <div *ngIf="choose == 1">
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="formPage(1)"><ion-icon name="qr-scanner" class="tabsButtonIcon"></ion-icon><br>资产盘点</button>
-      <button class="tabsButton"><ion-icon name="sync" class="tabsButtonIcon"></ion-icon><br>盘点查询</button>
+      <button class="tabsButton" (click)="searchPage()"><ion-icon name="sync" class="tabsButtonIcon"></ion-icon><br>盘点查询</button>
       <button class="tabsButton" (click)="planListPage()"><ion-icon name="cloud-download" class="tabsButtonIcon"></ion-icon><br>数据下载</button>
     </div>
     <div class="tabsButtonBox">

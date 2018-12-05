@@ -14,7 +14,7 @@
         <div>
           盘点计划名称：<input readonly class="readonlyInput" [(ngModel)]="plan.planName">
         </div>
-        <div *ngIf="!plan.isDownLoad" class="planButton" item-end (click)="downLoadPlan(plan)">
+        <div *ngIf="!plan.isDownLoad" class="planButton" item-end (click)="downLoadPlan1(plan)">
           <ion-icon name="cloud-download" class="planIcon"></ion-icon>
           <div class="planStatus">未下载</div>
         </div>
