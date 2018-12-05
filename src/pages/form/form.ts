@@ -67,6 +67,10 @@ export class FormPage {
         this.detail["stopDate"]=date.toLocaleDateString();
         this.detail["discardReasonCode"]="01";
         break;
+      case 4:
+        this.invoice["assetsStatus"]="010101";
+        this.invoice["technicalCondition"]="01";
+        break;
     }
 
   }
@@ -91,7 +95,7 @@ export class FormPage {
     this.barcodeScanner
       .scan(options)
       .then((data) => {
-        if (this.pageIndex==1){
+        if (this.pageIndex==1||this.pageIndex==4){
           this.invoice["barCode"] = data.text;
         }else {
           this.detail["barCode"] = data.text;

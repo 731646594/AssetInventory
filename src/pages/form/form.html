@@ -3,6 +3,7 @@
     <ion-title *ngIf="pageIndex==1">资产盘点</ion-title>
     <ion-title *ngIf="pageIndex==2">调拨申请</ion-title>
     <ion-title *ngIf="pageIndex==3">报废申请</ion-title>
+    <ion-title *ngIf="pageIndex==4">盘盈录入</ion-title>
   </ion-navbar>
   <ion-toolbar *ngIf="pageIndex==2||pageIndex==3" class="pageIndex" no-border-top style="border-top: 1px solid #c8c7cc;">
     <ion-segment [(ngModel)]="shape">
@@ -17,23 +18,37 @@
 </ion-header>
 
 <ion-content>
-  <div class="formInfoBox"  *ngIf="pageIndex==1">
+  <div class="formInfoBox"  *ngIf="pageIndex==1||pageIndex==4">
     <div class="formInfoInput">
+      <ion-item class="inputItem" *ngIf="pageIndex==4">
+        <ion-label>盘点单位:</ion-label>
+        <ion-select interface="popover" [(ngModel)]="invoice.managerDepart">
+          <ion-option></ion-option>
+        </ion-select>
+      </ion-item>
+
       <ion-item class="inputItem">
         <ion-label>资产条码:</ion-label>
         <ion-input [(ngModel)]="invoice.barCode" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton">
+        <button item-end class="formInputButton" *ngIf="pageIndex==1">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>
-      <ion-item class="inputItem">
+
+      <ion-item class="inputItem" *ngIf="pageIndex==4">
+        <ion-label>资产名称:</ion-label>
+        <ion-input [(ngModel)]="invoice.assetsName"></ion-input>
+      </ion-item>
+
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <ion-label>盘点单位:</ion-label>
         <ion-input readonly [(ngModel)]="invoice.managerDepart"></ion-input>
       </ion-item>
-      <ion-item class="inputItem">
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <ion-label>资产编码:</ion-label>
         <ion-input readonly [(ngModel)]="invoice.assetsCode"></ion-input>
       </ion-item>
+
       <ion-item class="inputItem">
         <ion-label class="formSelectLabel">使用状态:</ion-label>
         <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.assetsStatus">
@@ -48,18 +63,29 @@
           <ion-option value="04">借出</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item class="inputItem">
+
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <ion-label>资产名称:</ion-label>
         <ion-input readonly [(ngModel)]="invoice.assetsName"></ion-input>
       </ion-item>
+
       <ion-item class="inputItem">
         <ion-label>规格型号:</ion-label>
         <ion-input [(ngModel)]="invoice.assetsStandard" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
-      <ion-item class="inputItem">
+
+      <ion-item class="inputItem" *ngIf="pageIndex==4">
+        <ion-label>盘盈原因:</ion-label>
+        <ion-select interface="popover" [(ngModel)]="invoice.lossReason">
+          <ion-option></ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <ion-label>车牌井号:</ion-label>
         <ion-input [(ngModel)]="invoice.licenceNumber" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
+
       <ion-item class="inputItem">
         <ion-label>存放地点:</ion-label>
         <ion-select interface="popover" [(ngModel)]="invoice.storePlace">
@@ -70,13 +96,15 @@
         <ion-label>保管人&emsp;:</ion-label>
         <ion-input [(ngModel)]="invoice.userPerson" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
-      <ion-item class="inputItem">
+
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <ion-label class="formSelectLabel">贴码状态:</ion-label>
         <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.realcodeStatus">
           <ion-option value="0">相符</ion-option>
           <ion-option value="1">不符</ion-option>
         </ion-select>
       </ion-item>
+
       <ion-item class="inputItem">
         <ion-label class="formSelectLabel">技术状况:</ion-label>
         <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.technicalCondition">
@@ -90,6 +118,12 @@
           <ion-option value="08">已处置</ion-option>
         </ion-select>
       </ion-item>
+
+      <ion-item class="inputItem" *ngIf="pageIndex==4">
+        <ion-label>备&emsp;&emsp;注:</ion-label>
+        <ion-input [(ngModel)]="invoice.remark"></ion-input>
+      </ion-item>
+
       <ion-item class="inputItem imgItem">
         <ion-label>照片区&emsp;:</ion-label>
       </ion-item>
@@ -326,7 +360,7 @@
   </div>
 </ion-content>
 
-<footer class="formFooter" padding *ngIf="(pageIndex==1)&&!isOnfocus">
+<footer class="formFooter" padding *ngIf="(pageIndex==1||pageIndex==4)&&!isOnfocus">
   <button class="formFooterButton" (click)="pickPhoto()">
     <ion-icon class="formFooterIcon" name="camera"></ion-icon><br>照片
   </button>
