@@ -25,7 +25,7 @@ export class PlanListLocalDetailPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.planDetail = this.navParams.get("planDetail");
-    console.log(this.planDetail.usedStateName)
+    this.pageIndex = this.navParams.get("pageIndex");
     for (let key in this.planDetail){
       if (!this.planDetail[key]){
         this.planDetail[key]="-";

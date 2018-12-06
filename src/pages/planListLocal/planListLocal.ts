@@ -29,7 +29,7 @@ export class PlanListLocalPage {
     this.planDetailList = this.storageService.read("localPlanDetail");
     this.planDetailListLength = this.storageService.read("localPlanDetailLength");
   }
-  planListLocalDetailPage(planDetail){
-    this.app.getRootNav().push(PlanListLocalDetailPage,{planDetail:planDetail})
+  planListLocalDetailPage(planDetail,pageIndex){
+    this.app.getRootNav().push(PlanListLocalDetailPage,{planDetail:planDetail,pageIndex:pageIndex})
   }
 }

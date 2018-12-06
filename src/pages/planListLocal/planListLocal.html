@@ -12,7 +12,7 @@
           总条数：<input readonly class="readonlyInput" [(ngModel)]="planDetailListLength">
         </div>
       </ion-item>
-      <ion-item class="inputItem" *ngFor="let planDetail of planDetailList;let i = index" (click)="planListLocalDetailPage(planDetail)">
+      <ion-item class="inputItem" *ngFor="let planDetail of planDetailList;let i = index" (click)="planListLocalDetailPage(planDetail,1)">
         <div>
           盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="planDetail.planNumber">
         </div>

@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <div class="planListBox">
-    <ion-list class="planList">
+  <div class="searchListBox">
+    <ion-list class="searchList">
       <ion-item class="inputItem">
         <ion-label>盘点计划编码:</ion-label>
         <ion-input readonly class="readonlyInput" [(ngModel)]="plan.planNumber"></ion-input>
@@ -51,18 +51,20 @@
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
-    <ion-list *ngFor="let planDetail of planDetailList">
-      <ion-item class="inputItem">
-        <ion-label>资产名称:</ion-label>
-        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName"></ion-input>
-      </ion-item>
-      <ion-item class="inputItem">
-        <ion-label>资产编码:</ion-label>
-        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode"></ion-input>
-      </ion-item>
-      <ion-item class="inputItem">
-        <ion-label>规格型号:</ion-label>
-        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsStandard"></ion-input>
+    <ion-list class="searchDetailList">
+      <ion-item class="inputItem" *ngFor="let planDetail of planDetailList" (click)="planListLocalDetailPage(planDetail,2)">
+        <div >
+          <label>资产名称:</label>
+          <input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName">
+        </div>
+        <div >
+          <label>资产编码:</label>
+          <input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode">
+        </div>
+        <div >
+          <label>规格型号:</label>
+          <input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsStandard">
+        </div>
       </ion-item>
     </ion-list>
   </div>

@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>本地下载列表</ion-title>
+    <ion-title *ngIf="pageIndex == 1">本地下载详情</ion-title>
+    <ion-title *ngIf="pageIndex == 2">盘点详情</ion-title>
   </ion-navbar>
 </ion-header>
 

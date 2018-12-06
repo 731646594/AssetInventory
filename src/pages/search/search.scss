@@ -1,4 +1,7 @@
 page-search{
+  .searchList{
+    margin-bottom: 12px;
+  }
   .searchSelectLabel{
     flex: none;
   }
@@ -8,5 +11,11 @@ page-search{
   }
   .searchToolbar .toolbar-background-ios{
     background: white;
+  }
+  .searchList .inputItem:last-child{
+    width: 100%;
+  }
+  .searchDetailList .inputItem:last-child{
+    width: 100%;
   }
 }
