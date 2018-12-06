@@ -30,8 +30,8 @@ export class ApplyChoosePage {
   formPage(pageIndex){
     this.app.getRootNav().push(FormPage,{pageIndex:pageIndex})
   }
-  planListPage(){
-    this.app.getRootNav().push(PlanListPage)
+  planListPage(pageIndex){
+    this.app.getRootNav().push(PlanListPage,{pageIndex:pageIndex})
   }
   censorshipPage(pageIndex){
     this.app.getRootNav().push(CensorshipPage,{pageIndex:pageIndex})

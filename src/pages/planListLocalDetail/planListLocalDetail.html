@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>本地下载列表</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="planListBox">
+    <ion-list class="detailList">
+      <ion-item class="inputItem">
+        <ion-label>资产编码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产名称:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产条码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.barCode"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>规格型号:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsStandard"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>车牌井号:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.licenceNumber"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>保管人&emsp;:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.userPerson"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>存放地点:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.storePlaceName"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>出厂编号:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.productId"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产状态编码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsStatus"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>资产状态名称:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsStatusName"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>使用状态编码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.usedState"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>使用状态名称:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.usedStateName"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>技术状况:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.technicalCondition"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>制造厂家:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.makeFactory"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>备&emsp;&emsp;注:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.remark"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>净&emsp;&emsp;值:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.nowValue"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>原&emsp;&emsp;值:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.originalValue"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>所属单位编码:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.managerDepart"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>所属单位名称:</ion-label>
+        <ion-input readonly class="readonlyInput" [(ngModel)]="planDetail.managerDepartName"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

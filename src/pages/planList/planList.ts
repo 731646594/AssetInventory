@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {AlertController, App, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
-import {StorageService} from "../../services/storageService";
+import {PageUtil, StorageService} from "../../services/storageService";
 import {FileTransfer,FileTransferObject} from "@ionic-native/file-transfer";
 import {File} from "@ionic-native/file";
+import {PlanListLocalPage} from "../planListLocal/planListLocal";
 
 @Component({
   selector: 'page-planList',
@@ -12,9 +13,10 @@ import {File} from "@ionic-native/file";
 export class PlanListPage {
   planList;
   user;
+  pageIndex;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public alertCtrl:AlertController,public loadingCtrl:LoadingController,public file:File,
-              public fileTransfer:FileTransfer) {
+              public fileTransfer:FileTransfer,public navParams:NavParams,public app:App) {
     this.loadData();
   }
   ionViewDidEnter(){
@@ -27,21 +29,60 @@ export class PlanListPage {
     loading.present();
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
-    this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandownload",{userCode:this.user.usercode,departCode:this.user.depart.departcode}).subscribe(data=>{
-      console.log(data)
-      if (data.success == "true"){
-        this.planList=data.data;
-      }else {
-        alert(data.msg)
+    this.pageIndex = this.navParams.get("pageIndex");
+    if (this.pageIndex==2){
+      this.planList = [];
+      this.planList[0] = this.storageService.read("localPlan");
+      this.planList[0].departRange = "";
+      for (let i = 0;i<this.planList[0].departments.length;i++){
+        this.planList[0].departRange += this.planList[0].departments[i].departName+"，"
       }
       loading.dismiss();
-    })
+    }else {
+      this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandownload",{userCode:this.user.usercode,departCode:this.user.depart.departcode}).subscribe(data=>{
+        console.log(data)
+        if (data.success == "true"){
+          this.planList=data.data;
+          if (this.storageService.read("localPlan")){
+            for (let i=0;i>this.planList.length;i++){
+              if (this.storageService.read("localPlan")["planNumber"]==this.planList[i].planNumber){
+                this.planList[i].isDownLoad=true;
+                console.log(this.planList[i])
+              }
+            }
+            console.log(this.planList)
+          }
+        }else {
+          alert(data.msg)
+        }
+        loading.dismiss();
+      });
+    }
   }
   downLoadPlan1(plan){
+    let loading = this.loadingCtrl.create({
+      content:"正在加载"
+    });
+    loading.present();
     this.storageService.write("localPlan",plan);
     this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandetail",{userCode:this.user.usercode,departCode:this.user.depart.departcode,planNumber:plan.planNumber,departCodeList:this.user.depart.departcode+","}).subscribe(data=>{
-      console.log(data);
-      return;
+      if (data.success=="true"){
+        this.storageService.write("localPlanDetail",data.data);
+        this.storageService.write("willPlanDetail",data.data);
+        this.storageService.write("localPlanDetailLength",data.data.length);
+        PageUtil.pages["home"].inventoryNum = data.data.length;
+        for (let i=0;i>this.planList.length;i++){
+          if (plan["planNumber"]==this.planList[i].planNumber){
+            this.planList[i].isDownLoad=true;
+            console.log(this.planList[i])
+          }
+        }
+        loading.dismiss();
+      }
+      else {
+        alert(data.msg);
+        loading.dismiss();
+      }
     })
   }
   downLoadPlan(plan){
@@ -88,5 +129,10 @@ export class PlanListPage {
       alert("下载失败,error："+JSON.stringify(error));
       loading.dismiss();
     })
+  }
+  planListLocalPage(){
+    if (this.pageIndex==2){
+      this.app.getRootNav().push(PlanListLocalPage)
+    }
   }
 }

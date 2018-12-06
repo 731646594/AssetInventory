@@ -17,6 +17,8 @@ import { PlanListPage } from "../pages/planList/planList";
 import { CensorshipPage } from "../pages/censorship/censorship";
 import { CensorshipDetailPage } from "../pages/censorshipDetail/censorshipDetail";
 import { SearchPage } from "../pages/search/search";
+import { PlanListLocalPage } from "../pages/planListLocal/planListLocal";
+import { PlanListLocalDetailPage } from "../pages/planListLocalDetail/planListLocalDetail";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -48,7 +50,9 @@ import { SignaturePadModule } from "angular2-signaturepad";
     PlanListPage,
     CensorshipPage,
     CensorshipDetailPage,
-    SearchPage
+    SearchPage,
+    PlanListLocalPage,
+    PlanListLocalDetailPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,9 @@ import { SignaturePadModule } from "angular2-signaturepad";
     PlanListPage,
     CensorshipPage,
     CensorshipDetailPage,
-    SearchPage
+    SearchPage,
+    PlanListLocalPage,
+    PlanListLocalDetailPage
   ],
   providers: [
     StatusBar,

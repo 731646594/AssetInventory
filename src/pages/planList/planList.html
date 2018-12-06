@@ -1,24 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>数据下载</ion-title>
+    <ion-title *ngIf="pageIndex==1">数据下载</ion-title>
+    <ion-title *ngIf="pageIndex==2">本地下载查询</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div class="planListBox">
     <ion-list class="planList">
-      <ion-item class="inputItem" *ngFor="let plan of planList;let i = index">
+      <ion-item class="inputItem" *ngFor="let plan of planList;let i = index" (click)="planListLocalPage()">
         <div>
           盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="plan.planNumber">
         </div>
         <div>
           盘点计划名称：<input readonly class="readonlyInput" [(ngModel)]="plan.planName">
         </div>
-        <div *ngIf="!plan.isDownLoad" class="planButton" item-end (click)="downLoadPlan1(plan)">
+        <div *ngIf="pageIndex==2">
+          结束日期：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="plan.stopDate">
+        </div>
+        <div *ngIf="pageIndex==2">
+          单位范围：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="plan.departRange">
+        </div>
+        <div *ngIf="!plan.isDownLoad&&pageIndex==1" class="planButton" item-end (click)="downLoadPlan1(plan)">
           <ion-icon name="cloud-download" class="planIcon"></ion-icon>
           <div class="planStatus">未下载</div>
         </div>
-        <div *ngIf="plan.isDownLoad" class="planButton" item-end >
+        <div *ngIf="plan.isDownLoad&&pageIndex==1" class="planButton" item-end >
           <ion-icon name="checkmark-circle" class="planIcon"></ion-icon>
           <div class="planStatus">已下载</div>
         </div>

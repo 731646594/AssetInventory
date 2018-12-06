@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>本地下载列表</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="planListBox">
+    <ion-list class="planList">
+      <ion-item class="inputItem">
+        <div>
+          总条数：<input readonly class="readonlyInput" [(ngModel)]="planDetailListLength">
+        </div>
+      </ion-item>
+      <ion-item class="inputItem" *ngFor="let planDetail of planDetailList;let i = index" (click)="planListLocalDetailPage(planDetail)">
+        <div>
+          盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="planDetail.planNumber">
+        </div>
+        <div>
+          盘点计划名称：<input readonly class="readonlyInput" [(ngModel)]="planDetail.planName">
+        </div>
+        <div>
+          资产编码：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode">
+        </div>
+        <div>
+          资产名称：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName">
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-
+export class PageUtil{
+  public static pages={};
+}
 @Injectable()
 export class StorageService {
 

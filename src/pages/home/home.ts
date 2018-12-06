@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {App, NavController} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
-import {StorageService} from "../../services/storageService";
+import {PageUtil, StorageService} from "../../services/storageService";
 import {FormPage} from "../form/form";
 import {PlanListPage} from "../planList/planList";
 import {CensorshipPage} from "../censorship/censorship";
@@ -28,6 +28,7 @@ export class HomePage {
     this.loadData();
   }
   loadData(){
+    PageUtil.pages["home"]=this;
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.httpService.post(this.httpService.getUrl()+"toDoController.do?tododetailcounts", {userCode:this.user.usercode,departCode:this.user.depart.departcode}).subscribe((data)=>{
@@ -35,6 +36,10 @@ export class HomePage {
       if (data.success=="true"){
         for (let key in data.data[0]) {
           this.todoList.push([key,data.data[0][key]]);
+        }
+        console.log(this.storageService.read("localPlanDetailLength"));
+        if (this.storageService.read("localPlanDetailLength")){
+          this.inventoryNum=this.storageService.read("localPlanDetailLength");
         }
         this.num1 = this.todoList[2][1];
         this.num2 = this.todoList[4][1];
@@ -49,8 +54,8 @@ export class HomePage {
   formPage(pageIndex){
     this.app.getRootNav().push(FormPage,{pageIndex:pageIndex})
   }
-  planListPage(){
-    this.app.getRootNav().push(PlanListPage)
+  planListPage(pageIndex){
+    this.app.getRootNav().push(PlanListPage,{pageIndex:pageIndex})
   }
   censorshipPage(pageIndex){
     this.app.getRootNav().push(CensorshipPage,{pageIndex:pageIndex})

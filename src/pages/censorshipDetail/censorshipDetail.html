@@ -43,7 +43,7 @@
             申请单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
           </div>
           <div  *ngIf="pageIndex == 2||pageIndex == 3" >
-            报管人&emsp;:<input readonly class="readonlyInput" [(ngModel)]="detail.userPerson">
+            保管人&emsp;:<input readonly class="readonlyInput" [(ngModel)]="detail.userPerson">
           </div>
         </div>
         <div class="detailButton" *ngIf="pageIndex == 2||pageIndex == 3" item-end>
@@ -97,7 +97,7 @@
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>出厂编号:</ion-label>
-          <ion-input readonly [(ngModel)]="detail.planNumber"></ion-input>
+          <ion-input readonly [(ngModel)]="detail.productId"></ion-input>
         </ion-item>
         <ion-item class="inputItem">
           <ion-label>原&emsp;&emsp;值:</ion-label>
