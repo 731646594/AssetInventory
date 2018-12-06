@@ -262,4 +262,16 @@ export class FormPage {
   uploadData(){
 
   }
+  searchLocalPlanDetail(){
+    let willPlanDetail = [];
+    willPlanDetail = this.storageService.read("willPlanDetail");
+    for(let i in  willPlanDetail){
+      if (this.invoice["barCode"] == willPlanDetail[i]["barCode"]){
+        this.invoice = willPlanDetail[i];
+        return;
+      }
+    }
+
+
+  }
 }

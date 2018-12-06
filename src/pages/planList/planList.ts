@@ -65,6 +65,27 @@ export class PlanListPage {
       });
     }
   }
+  isHaveLocalPlan(index){
+    if (this.lastIndex){
+      let alertCtrl = this.alertCtrl.create({
+        title:"已存在盘点数据，再次下载会覆盖该数据，是否继续下载？",
+        buttons:[
+          {
+            text:"是",
+            handler:()=>{
+              this.downLoadPlan1(index)
+            }
+          },
+          {
+            text:"否",
+          }
+        ]
+      });
+      alertCtrl.present();
+    }else {
+      this.downLoadPlan1(index)
+    }
+  }
   downLoadPlan1(index){
     let loading = this.loadingCtrl.create({
       content:"正在加载"
@@ -79,6 +100,7 @@ export class PlanListPage {
         PageUtil.pages["home"].inventoryNum = data.data.length;
         this.planList[this.lastIndex].isDownLoad=false;
         this.planList[index].isDownLoad=true;
+        this.lastIndex = index;
         loading.dismiss();
       }
       else {

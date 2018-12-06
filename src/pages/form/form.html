@@ -30,7 +30,7 @@
       <ion-item class="inputItem">
         <ion-label>资产条码:</ion-label>
         <ion-input [(ngModel)]="invoice.barCode" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton" *ngIf="pageIndex==1">
+        <button item-end class="formInputButton" *ngIf="pageIndex==1" (click)="searchLocalPlanDetail()">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>

@@ -21,7 +21,7 @@
         <div *ngIf="pageIndex==2">
           单位范围：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="plan.departRange">
         </div>
-        <div *ngIf="!plan.isDownLoad&&pageIndex==1" class="planButton" item-end (click)="downLoadPlan1(i)">
+        <div *ngIf="!plan.isDownLoad&&pageIndex==1" class="planButton" item-end (click)="isHaveLocalPlan(i)">
           <ion-icon name="cloud-download" class="planIcon"></ion-icon>
           <div class="planStatus">未下载</div>
         </div>
