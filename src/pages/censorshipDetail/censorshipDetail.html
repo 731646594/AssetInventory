@@ -254,7 +254,7 @@
       <ion-icon class="detailFooterIcon" name="paper"></ion-icon><br>编辑原因
     </button>
     <button class="detailFooterButton" (click)="postData()">
-      <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+      <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>确认
     </button>
   </div>
   <div class="footerTextBox" *ngIf="isReasonModel">
@@ -274,6 +274,6 @@
 </footer>
 <footer class="detailFooter" padding *ngIf="(pageIndex==2||pageIndex==3)&&!isOnfocus">
   <button class="detailFooterButton" (click)="uploadData()">
-    <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>上传
+    <ion-icon class="detailFooterIcon" name="checkmark-circle"></ion-icon><br>确认
   </button>
 </footer>
