@@ -30,7 +30,7 @@
       <ion-item class="inputItem">
         <ion-label  class="searchSelectLabel">盘点单位:</ion-label>
         <ion-select  class="searchSelect" interface="popover" [(ngModel)]="departCode">
-          <ion-option *ngFor="let department of departments" [value]="department.departCode">{{department.departName}}</ion-option>
+          <ion-option *ngFor="let department of departments" [value]="department.departCode" (ionSelect)="selectDepart()">{{department.departName}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item class="inputItem">

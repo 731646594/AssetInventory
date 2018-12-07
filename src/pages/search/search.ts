@@ -39,18 +39,7 @@ export class SearchPage {
     this.plan["username"]=this.user.username;
     this.departments = this.plan.departments;
     this.departCode = this.departments[0].departCode;
-    console.log(this.departments)
-    this.existPlanDetail = this.storageService.read("existPlanDetail");
-    this.willPlanDetail = this.storageService.read("willPlanDetail");
-    console.log(this.willPlanDetail)
-    this.newPlanDetail = this.storageService.read("newPlanDetail");
-    if(this.existPlanDetail)
-      this.existNum = this.existPlanDetail.length;
-    if(this.willPlanDetail)
-      this.willNum = this.willPlanDetail.length;
-    if(this.newPlanDetail)
-      this.newNum = this.newPlanDetail.length;
-    this.plan["number"] = this.existNum+this.willNum+this.newNum;
+    this.selectDepart();
   }
   readData(){
     if (this.planStatus=="exist"){
@@ -60,6 +49,41 @@ export class SearchPage {
     }else {
       this.planDetailList = this.newPlanDetail;
     }
+  }
+  selectDepart(){
+    this.existPlanDetail = this.storageService.read("existPlanDetail");
+    this.willPlanDetail = this.storageService.read("willPlanDetail");
+    this.newPlanDetail = this.storageService.read("newPlanDetail");
+    let item = [];
+    for (let x in this.existPlanDetail){
+      if (this.departCode == this.existPlanDetail[x]["managerDepart"]){
+        item.push(this.existPlanDetail[x])
+      }
+    }
+    this.existPlanDetail = item;
+    item = [];
+    for (let i in this.willPlanDetail){
+      if (this.departCode == this.willPlanDetail[i]["managerDepart"]){
+        item.push(this.willPlanDetail[i])
+      }
+    }
+    this.willPlanDetail = item;
+    item = [];
+    for (let j in this.newPlanDetail){
+      if (this.departCode == this.newPlanDetail[j]["managerDepart"]){
+        item.push(this.newPlanDetail[j])
+      }
+    }
+    this.newPlanDetail = item;
+    console.log("exist："+this.existPlanDetail+"will:"+this.willPlanDetail+"new:"+this.newPlanDetail)
+    if(this.existPlanDetail)
+      this.existNum = this.existPlanDetail.length;
+    if(this.willPlanDetail)
+      this.willNum = this.willPlanDetail.length;
+    if(this.newPlanDetail)
+      this.newNum = this.newPlanDetail.length;
+    this.plan["number"] = this.existNum+this.willNum+this.newNum;
+    this.readData();
   }
   planListLocalDetailPage(planDetail,pageIndex){
     this.app.getRootNav().push(PlanListLocalDetailPage,{planDetail:planDetail,pageIndex:pageIndex})

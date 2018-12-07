@@ -21,9 +21,9 @@
   <div class="formInfoBox"  *ngIf="pageIndex==1||pageIndex==4">
     <div class="formInfoInput">
       <ion-item class="inputItem" *ngIf="pageIndex==4">
-        <ion-label>盘点单位:</ion-label>
-        <ion-select interface="popover" [(ngModel)]="invoice.managerDepart">
-          <ion-option></ion-option>
+        <ion-label class="formSelectLabel">盘点单位:</ion-label>
+        <ion-select class="formSelect"  interface="popover" [(ngModel)]="invoice.managerDepart">
+          <ion-option *ngFor="let department of departments" [value]="department.departCode">{{department.departName}}</ion-option>
         </ion-select>
       </ion-item>
 

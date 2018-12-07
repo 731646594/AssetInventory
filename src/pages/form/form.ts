@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActionSheetController, AlertController, App, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/httpService";
-import {StorageService} from "../../services/storageService";
+import {PageUtil, StorageService} from "../../services/storageService";
 import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
 import {Camera,CameraOptions} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
@@ -18,9 +18,10 @@ export class FormPage {
   isOnfocus=false;
   shape = "brief";
   radioButton = "资产条码";
-  invoice=[];
+  invoice=JSON;
   detail=[];
   i=0;
+  departments;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
               public camera:Camera,public file:File,public photoViewer:PhotoViewer,
@@ -32,10 +33,15 @@ export class FormPage {
     // this.loadData();
   }
   loadData(){
+    this.invoice=JSON.parse("{}");
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
     this.invoice["barCode"] = this.navParams.get("barCode");
+    this.departments = this.storageService.read("localPlan")["departments"];
+    if (this.pageIndex==4){
+      this.invoice["managerDepart"]=this.departments[0].departCode
+    }
     let date = new Date();
     switch (this.pageIndex){
       case 1:
@@ -259,9 +265,51 @@ export class FormPage {
   saveInfo(){
     let invoiceList = [];
     let isReplace = false;
+    let willList = [];
+    let willListLength=0;
+    willList = this.storageService.read("willPlanDetail");
+    willListLength=this.storageService.read("willPlanDetailLength");
     if(this.pageIndex==1){
       if (this.storageService.read("existPlanDetail")){
         invoiceList = this.storageService.read("existPlanDetail");
+        for (let i in invoiceList){
+          if (invoiceList[i]["barCode"] == this.invoice["barCode"]){
+            invoiceList[i] = this.invoice;
+            isReplace = true;
+          }
+        }
+        if (!isReplace){
+          for (let i in willList){
+            if (willList[i]["barCode"] == this.invoice["barCode"]){
+              willList.splice(Number(i),1);
+              willListLength--;
+            }
+          }
+          invoiceList.push(this.invoice)
+        }
+      }else {
+        for (let i in willList){
+          if (willList[i]["barCode"] == this.invoice["barCode"]){
+            willList.splice(Number(i),1);
+            willListLength--;
+          }
+        }
+        invoiceList[0]=this.invoice;
+      }
+      this.storageService.write("willPlanDetail",willList);
+      this.storageService.write("willPlanDetailLength",willListLength);
+      PageUtil.pages["home"].inventoryNum = willListLength;
+      this.storageService.write("existPlanDetail",invoiceList);
+      let alertCtrl = this.alertCtrl.create({
+        title:"保存成功！"
+      });
+      alertCtrl.present();
+    }
+    if (this.pageIndex==4){
+      isReplace = false;
+      invoiceList = [];
+      if (this.storageService.read("newPlanDetail")){
+        invoiceList = this.storageService.read("newPlanDetail");
         for (let i in invoiceList){
           if (invoiceList[i]["barCode"] == this.invoice["barCode"]){
             invoiceList[i] = this.invoice;
@@ -274,7 +322,7 @@ export class FormPage {
       }else {
         invoiceList[0]=this.invoice;
       }
-      this.storageService.write("existPlanDetail",invoiceList);
+      this.storageService.write("newPlanDetail",invoiceList);
       let alertCtrl = this.alertCtrl.create({
         title:"保存成功！"
       });
@@ -290,7 +338,14 @@ export class FormPage {
   searchLocalPlanDetail(){
     let localPlanDetail = [];
     let isSearch = false;
-    localPlanDetail = this.storageService.read("localPlanDetail");
+    localPlanDetail = this.storageService.read("existPlanDetail");
+    for(let i in  localPlanDetail){
+      if (this.invoice["barCode"] == localPlanDetail[i]["barCode"]){
+        this.invoice = localPlanDetail[i];
+        isSearch = true;
+      }
+    }
+    localPlanDetail = this.storageService.read("willPlanDetail");
     for(let i in  localPlanDetail){
       if (this.invoice["barCode"] == localPlanDetail[i]["barCode"]){
         this.invoice = localPlanDetail[i];

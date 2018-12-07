@@ -37,9 +37,8 @@ export class HomePage {
         for (let key in data.data[0]) {
           this.todoList.push([key,data.data[0][key]]);
         }
-        console.log(this.storageService.read("localPlanDetailLength"));
-        if (this.storageService.read("localPlanDetailLength")){
-          this.inventoryNum=this.storageService.read("localPlanDetailLength");
+        if (this.storageService.read("willPlanDetailLength")){
+          this.inventoryNum=this.storageService.read("willPlanDetailLength");
         }
         this.num1 = this.todoList[2][1];
         this.num2 = this.todoList[4][1];

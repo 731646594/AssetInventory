@@ -94,11 +94,16 @@ export class PlanListPage {
     this.storageService.write("localPlan",this.planList[index]);
     this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?phonecheckplandetail",{userCode:this.user.usercode,departCode:this.user.depart.departcode,planNumber:this.planList[index].planNumber,departCodeList:this.user.depart.departcode+","}).subscribe(data=>{
       if (data.success=="true"){
+        this.storageService.remove("existPlanDetail");
+        this.storageService.remove("newPlanDetail");
         this.storageService.write("localPlanDetail",data.data);
         this.storageService.write("willPlanDetail",data.data);
         this.storageService.write("localPlanDetailLength",data.data.length);
+        this.storageService.write("willPlanDetailLength",data.data.length);
         PageUtil.pages["home"].inventoryNum = data.data.length;
-        this.planList[this.lastIndex].isDownLoad=false;
+        if(this.lastIndex){
+          this.planList[this.lastIndex].isDownLoad=false;
+        }
         this.planList[index].isDownLoad=true;
         this.lastIndex = index;
         loading.dismiss();
