@@ -35,6 +35,7 @@ export class FormPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
+    this.invoice["barCode"] = this.navParams.get("barCode");
     let date = new Date();
     switch (this.pageIndex){
       case 1:
@@ -95,9 +96,12 @@ export class FormPage {
     this.barcodeScanner
       .scan(options)
       .then((data) => {
-        if (this.pageIndex==1||this.pageIndex==4){
+        if (this.pageIndex==1){
           this.invoice["barCode"] = data.text;
-        }else {
+          this.searchLocalPlanDetail();
+        }else if (this.pageIndex==4){
+          this.invoice["barCode"] = data.text;
+        } else {
           this.detail["barCode"] = data.text;
         }
         // const alert = this.alertCtrl.create({
@@ -253,8 +257,29 @@ export class FormPage {
     })
   }
   saveInfo(){
-    console.log(this.invoice)
-    console.log(this.detail)
+    let invoiceList = [];
+    let isReplace = false;
+    if(this.pageIndex==1){
+      if (this.storageService.read("existPlanDetail")){
+        invoiceList = this.storageService.read("existPlanDetail");
+        for (let i in invoiceList){
+          if (invoiceList[i]["barCode"] == this.invoice["barCode"]){
+            invoiceList[i] = this.invoice;
+            isReplace = true;
+          }
+        }
+        if (!isReplace){
+          invoiceList.push(this.invoice)
+        }
+      }else {
+        invoiceList[0]=this.invoice;
+      }
+      this.storageService.write("existPlanDetail",invoiceList);
+      let alertCtrl = this.alertCtrl.create({
+        title:"保存成功！"
+      });
+      alertCtrl.present();
+    }
   }
   censorship(){
 
@@ -263,15 +288,31 @@ export class FormPage {
 
   }
   searchLocalPlanDetail(){
-    let willPlanDetail = [];
-    willPlanDetail = this.storageService.read("willPlanDetail");
-    for(let i in  willPlanDetail){
-      if (this.invoice["barCode"] == willPlanDetail[i]["barCode"]){
-        this.invoice = willPlanDetail[i];
-        return;
+    let localPlanDetail = [];
+    let isSearch = false;
+    localPlanDetail = this.storageService.read("localPlanDetail");
+    for(let i in  localPlanDetail){
+      if (this.invoice["barCode"] == localPlanDetail[i]["barCode"]){
+        this.invoice = localPlanDetail[i];
+        isSearch = true;
       }
     }
-
-
+    if (!isSearch){
+      let alertCtrl = this.alertCtrl.create({
+        title:"是否进入盘盈？",
+        buttons:[
+          {
+            text:"是",
+            handler:()=>{
+              this.app.getRootNav().push(FormPage,{pageIndex:4,barCode:this.invoice["barCode"]})
+            }
+          },
+          {
+            text:"否"
+          }
+        ]
+      });
+      alertCtrl.present();
+    }
   }
 }
