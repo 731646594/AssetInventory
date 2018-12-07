@@ -38,8 +38,10 @@ export class FormPage {
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
     this.invoice["barCode"] = this.navParams.get("barCode");
-    this.departments = this.storageService.read("localPlan")["departments"];
-    if (this.pageIndex==4){
+    if (this.storageService.read("localPlan")){
+      this.departments = this.storageService.read("localPlan")["departments"];
+    }
+    if (this.pageIndex==4&&this.departments){
       this.invoice["managerDepart"]=this.departments[0].departCode
     }
     let date = new Date();

@@ -33,10 +33,12 @@ export class PlanListPage {
     this.pageIndex = this.navParams.get("pageIndex");
     if (this.pageIndex==2){
       this.planList = [];
-      this.planList[0] = this.storageService.read("localPlan");
-      this.planList[0].departRange = "";
-      for (let i = 0;i<this.planList[0].departments.length;i++){
-        this.planList[0].departRange += this.planList[0].departments[i].departName+"，"
+      if (this.storageService.read("localPlan")){
+        this.planList[0] = this.storageService.read("localPlan");
+        this.planList[0]["departRange"] = "";
+        for (let i = 0;i<this.planList[0].departments.length;i++){
+          this.planList[0].departRange += this.planList[0].departments[i].departName+"，"
+        }
       }
       loading.dismiss();
     }else {

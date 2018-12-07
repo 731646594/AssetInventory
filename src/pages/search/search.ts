@@ -14,7 +14,7 @@ export class SearchPage {
   port;
   serviceName;
   user;
-  plan;
+  plan=JSON;
   departments;
   departCode;
   planStatus;
@@ -35,11 +35,13 @@ export class SearchPage {
   loadData(){
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
-    this.plan = this.storageService.read("localPlan");
-    this.plan["username"]=this.user.username;
-    this.departments = this.plan.departments;
-    this.departCode = this.departments[0].departCode;
-    this.selectDepart();
+    if (this.storageService.read("localPlan")){
+      this.plan = this.storageService.read("localPlan");
+      this.plan["username"]=this.user.username;
+      this.departments = this.plan["departments"];
+      this.departCode = this.departments[0]["departCode"];
+      this.selectDepart();
+    }
   }
   readData(){
     if (this.planStatus=="exist"){
