@@ -6,6 +6,7 @@ import {FormPage} from "../form/form";
 import {PlanListPage} from "../planList/planList";
 import {CensorshipPage} from "../censorship/censorship";
 import {SearchPage} from "../search/search";
+import {PlanListLocalPage} from "../planListLocal/planListLocal";
 
 @Component({
   selector: 'page-applyChoose',
@@ -38,5 +39,8 @@ export class ApplyChoosePage {
   }
   searchPage(){
     this.app.getRootNav().push(SearchPage)
+  }
+  planListLocalPage(pageIndex){
+    this.app.getRootNav().push(PlanListLocalPage,{pageIndex:pageIndex})
   }
 }

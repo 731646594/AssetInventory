@@ -11,7 +11,7 @@ import {PlanListLocalDetailPage} from "../planListLocalDetail/planListLocalDetai
   templateUrl: 'planListLocal.html'
 })
 export class PlanListLocalPage {
-  planDetailList;
+  planDetailList=[];
   planDetailListLength;
   user;
   pageIndex;
@@ -26,10 +26,50 @@ export class PlanListLocalPage {
   loadData(){
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
-    this.planDetailList = this.storageService.read("localPlanDetail");
-    this.planDetailListLength = this.storageService.read("localPlanDetailLength");
+    this.pageIndex = this.navParams.get("pageIndex");
+    if (this.pageIndex==1){
+      this.planDetailList = this.storageService.read("localPlanDetail");
+      this.planDetailListLength = this.storageService.read("localPlanDetailLength");
+    }else {
+      let newPlanDetail = [];
+      let existPlanDetail = [];
+      if (this.storageService.read("newPlanDetail")){
+        newPlanDetail = this.storageService.read("newPlanDetail");
+        for (let i in newPlanDetail){
+          newPlanDetail[i]["planStatus"] = "new";
+          this.planDetailList.push(newPlanDetail[i]);
+        }
+      }
+      if (this.storageService.read("existPlanDetail")){
+        existPlanDetail = this.storageService.read("existPlanDetail");
+        for (let i in existPlanDetail){
+          existPlanDetail[i]["planStatus"] = "exist";
+          this.planDetailList.push(existPlanDetail[i]);
+        }
+      }
+      console.log(this.planDetailList)
+    }
   }
   planListLocalDetailPage(planDetail,pageIndex){
-    this.app.getRootNav().push(PlanListLocalDetailPage,{planDetail:planDetail,pageIndex:pageIndex})
+    if (this.pageIndex==1){
+      this.app.getRootNav().push(PlanListLocalDetailPage,{planDetail:planDetail,pageIndex:pageIndex})
+    }
+  }
+  uploadList(){
+    let loadingCtrl = this.loadingCtrl.create({
+      content:"正在加载"
+    });
+    loadingCtrl.present();
+    this.httpService.post("cellPhoneController.do?uploadcheckplan",{userCode:this.user.usercode,departCode:this.user.depart.departcode,uploadType:"",uploadFile:[],keyCode:"",data:""}).subscribe(data=>{
+      loadingCtrl.dismiss();
+      if (data.success=="true"){
+        let alert = this.alertCtrl.create({
+          title:data.msg
+        });
+        alert.present();
+      }else {
+        alert(data.msg)
+      }
+    })
   }
 }

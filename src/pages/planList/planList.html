@@ -8,7 +8,7 @@
 <ion-content>
   <div class="planListBox">
     <ion-list class="planList">
-      <ion-item class="inputItem" *ngFor="let plan of planList;let i = index" (click)="planListLocalPage()">
+      <ion-item class="inputItem" *ngFor="let plan of planList;let i = index" (click)="planListLocalPage(1)">
         <div>
           盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="plan.planNumber">
         </div>

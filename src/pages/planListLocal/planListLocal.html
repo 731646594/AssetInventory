@@ -1,31 +1,58 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>本地下载列表</ion-title>
+    <ion-title *ngIf="pageIndex==1">本地下载列表</ion-title>
+    <ion-title *ngIf="pageIndex==2">数据上传</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div class="planListBox">
     <ion-list class="planList">
-      <ion-item class="inputItem">
+      <ion-item class="inputItem" *ngIf="pageIndex==1">
         <div>
           总条数：<input readonly class="readonlyInput" [(ngModel)]="planDetailListLength">
         </div>
       </ion-item>
       <ion-item class="inputItem" *ngFor="let planDetail of planDetailList;let i = index" (click)="planListLocalDetailPage(planDetail,1)">
-        <div>
+        <div *ngIf="pageIndex==2&&planDetail.planStatus=='new'">
+          盘盈
+        </div>
+        <div *ngIf="pageIndex==2&&planDetail.planStatus=='exist'">
+          盘点
+        </div>
+        <div *ngIf="pageIndex==1">
           盘点计划编码：<input readonly class="readonlyInput" [(ngModel)]="planDetail.planNumber">
         </div>
-        <div>
+        <div *ngIf="pageIndex==1">
           盘点计划名称：<input readonly class="readonlyInput" [(ngModel)]="planDetail.planName">
         </div>
-        <div>
+        <div *ngIf="pageIndex==2">
+          资产条码：<input readonly class="readonlyInput" [(ngModel)]="planDetail.barCode">
+        </div>
+        <div *ngIf="pageIndex==1">
           资产编码：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode">
         </div>
-        <div>
+        <div *ngIf="pageIndex==1">
           资产名称：&emsp;&emsp;<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName">
+        </div>
+        <div *ngIf="pageIndex==2">
+          资产编码：<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsCode">
+        </div>
+        <div *ngIf="pageIndex==2">
+          资产名称：<input readonly class="readonlyInput" [(ngModel)]="planDetail.assetsName">
+        </div>
+        <div *ngIf="pageIndex==2">
+          保管单位：<input readonly class="readonlyInput" [(ngModel)]="user.depart.departname">
+        </div>
+        <div *ngIf="pageIndex==2">
+          保管人：&emsp;<input readonly class="readonlyInput" [(ngModel)]="planDetail.userPerson">
         </div>
       </ion-item>
     </ion-list>
   </div>
 </ion-content>
+<footer class="listFooter" padding *ngIf="pageIndex==2">
+  <button class="listFooterButton" (click)="uploadList1()">
+    <ion-icon class="listFooterIcon" name="checkmark-circle"></ion-icon><br>上传
+  </button>
+</footer>

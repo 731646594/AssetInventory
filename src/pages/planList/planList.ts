@@ -161,9 +161,9 @@ export class PlanListPage {
       loading.dismiss();
     })
   }
-  planListLocalPage(){
+  planListLocalPage(pageIndex){
     if (this.pageIndex==2){
-      this.app.getRootNav().push(PlanListLocalPage)
+      this.app.getRootNav().push(PlanListLocalPage,{pageIndex:pageIndex})
     }
   }
 }
