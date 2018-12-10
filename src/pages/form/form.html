@@ -249,14 +249,14 @@
         </ion-item>
       </div>
       <ion-item class="inputItem" *ngIf="radioButton == '资产条码'">
-        <ion-input [(ngModel)]="detail.barCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton">
+        <ion-input [(ngModel)]="barCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <button item-end class="formInputButton" (click)="searchDetail()">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>
       <ion-item class="inputItem" *ngIf="radioButton == '资产编码'">
-        <ion-input [(ngModel)]="detail.assetsCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
-        <button item-end class="formInputButton">
+        <ion-input [(ngModel)]="assetsCode" [placeholder]="radioButton" (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
+        <button item-end class="formInputButton" (click)="searchDetail()">
           <ion-icon name="search"></ion-icon>
         </button>
       </ion-item>
@@ -376,8 +376,8 @@
   <button class="formFooterButton" (click)="scan()">
     <ion-icon class="formFooterIcon" name="qr-scanner"></ion-icon><br>扫码
   </button>
-  <button class="formFooterButton" (click)="saveInfo()">
-    <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+  <button class="formFooterButton" (click)="uploadData()">
+    <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>上传
   </button>
 </footer>
 
@@ -395,7 +395,7 @@
   <button class="formFooterButton" (click)="uploadData()" *ngIf="shape=='detailed'">
     <ion-icon class="formFooterIcon" name="cloud-upload"></ion-icon><br>上传
   </button>
-  <button class="formFooterButton" (click)="uploadData()" *ngIf="shape=='detailed'">
+  <button class="formFooterButton" (click)="uploadDataToEAM()" *ngIf="shape=='detailed'">
     <ion-icon class="formFooterIcon" name="cloud-upload"></ion-icon><br>上传到EAM
   </button>
 </footer>

@@ -60,7 +60,7 @@ export class PlanListLocalPage {
       content:"正在加载"
     });
     loadingCtrl.present();
-    this.httpService.post("cellPhoneController.do?uploadcheckplan",{userCode:this.user.usercode,departCode:this.user.depart.departcode,uploadType:"",uploadFile:[],keyCode:"",data:""}).subscribe(data=>{
+    this.httpService.post(this.httpService.getUrl()+"cellPhoneController.do?uploadcheckplan",{userCode:this.user.usercode,departCode:this.user.depart.departcode,uploadType:"",uploadFile:[],keyCode:"",data:""}).subscribe(data=>{
       loadingCtrl.dismiss();
       if (data.success=="true"){
         let alert = this.alertCtrl.create({

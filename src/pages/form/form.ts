@@ -22,6 +22,8 @@ export class FormPage {
   detail=[];
   i=0;
   departments;
+  barCode;
+  assetsCode;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
               public camera:Camera,public file:File,public photoViewer:PhotoViewer,
@@ -330,13 +332,12 @@ export class FormPage {
       });
       alertCtrl.present();
     }
+    if (this.pageIndex==3){
+      this.storageService.write("discardInvoice",this.invoice);
+      this.storageService.write("discardDetail",this.detail);
+    }
   }
-  censorship(){
 
-  }
-  uploadData(){
-
-  }
   searchLocalPlanDetail(){
     let localPlanDetail = [];
     let isSearch = false;
@@ -371,5 +372,88 @@ export class FormPage {
       });
       alertCtrl.present();
     }
+  }
+  searchDetail(){
+    this.httpService.post(this.httpService.getUrl()+"discardController.do?queryByCodeOrBar",{userCode:this.user.usercode,departCode:this.user.depart.departcode,assetsCode:this.assetsCode,barCode:this.barCode}).subscribe(data=>{
+      if (data.success=="true"){
+        this.detail = data.data;
+      }
+      else {
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present();
+      }
+    })
+  }
+  uploadData(){
+    let url;
+    if (this.pageIndex==2){
+      url = "allotController.do?add"
+    }else if (this.pageIndex==3){
+      url = "discardController.do?add"
+    }
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcode,departName:this.user.depart.departname,userCode:this.user.usercode,userName:this.user.username,
+      allotInvoiceDTO:this.invoice,eamDiscardInvoices:this.invoice,eamAllotDetal:this.detail,eamDiscardDetails:this.detail}).subscribe(data=>{
+      if (data.success == "true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }
+      else {
+        alert(data.msg)
+      }
+    })
+  }
+  censorship(){
+    let phoneInvoiceNumber = this.user.usercode+this.user.depart.departcode+this.formatDateAndTimeToString(new Date());
+    this.httpService.post(this.httpService.getUrl()+"discardController.do?send",{departCode:this.user.depart.departcode,userCode:this.user.usercode,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
+      if (data.success == "true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }
+      else {
+        alert(data.msg)
+      }
+    })
+  }
+
+  formatDateToString(date){
+    if(!date){
+      date = new Date();
+    }
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    if(month<10) month = "0"+month;
+    if(day<10) day = "0"+day;
+    return year+""+month+""+day;
+  }
+  formatDateAndTimeToString(date)
+  {
+    var hours = date.getHours();
+    var mins = date.getMinutes();
+    var secs = date.getSeconds();
+    if(hours<10) hours = "0"+hours;
+    if(mins<10) mins = "0"+mins;
+    if(secs<10) secs = "0"+secs;
+    return this.formatDateToString(date)+""+hours+""+mins+""+secs;
+  }
+  uploadDataToEAM(){
+    let phoneInvoiceNumber = this.user.usercode+this.user.depart.departcode+this.formatDateAndTimeToString(new Date());
+    this.httpService.post(this.httpService.getUrl()+"discardController.do?confirm",{departCode:this.user.depart.departcorde,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
+      if (data.success=="true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }
+      else {
+        alert(data.msg)
+      }
+    })
   }
 }
