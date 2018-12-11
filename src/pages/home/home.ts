@@ -59,7 +59,7 @@ export class HomePage {
   censorshipPage(pageIndex){
     this.app.getRootNav().push(CensorshipPage,{pageIndex:pageIndex})
   }
-  searchPage(){
-    this.app.getRootNav().push(SearchPage)
+  searchPage(pageIndex){
+    this.app.getRootNav().push(SearchPage,{pageIndex:pageIndex})
   }
 }

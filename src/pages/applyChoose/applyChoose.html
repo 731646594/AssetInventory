@@ -21,7 +21,7 @@
   <div *ngIf="choose == 1">
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="formPage(1)"><ion-icon name="qr-scanner" class="tabsButtonIcon"></ion-icon><br>资产盘点</button>
-      <button class="tabsButton" (click)="searchPage()"><ion-icon name="sync" class="tabsButtonIcon"></ion-icon><br>盘点查询</button>
+      <button class="tabsButton" (click)="searchPage(1)"><ion-icon name="sync" class="tabsButtonIcon"></ion-icon><br>盘点查询</button>
       <button class="tabsButton" (click)="planListPage(1)"><ion-icon name="cloud-download" class="tabsButtonIcon"></ion-icon><br>数据下载</button>
     </div>
     <div class="tabsButtonBox">
@@ -34,7 +34,7 @@
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="formPage(3)"><ion-icon name="trash" class="tabsButtonIcon"></ion-icon><br>报废申请</button>
       <button class="tabsButton" (click)="censorshipPage(4)"><ion-icon name="paper" class="tabsButtonIcon"></ion-icon><br>报废审批</button>
-      <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>报废查询</button>
+      <button class="tabsButton" (click)="searchPage(2)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>报废查询</button>
     </div>
   </div>
   <div *ngIf="choose == 3">
@@ -46,7 +46,7 @@
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="censorshipPage(2)"><ion-icon name="arrow-round-up" class="tabsButtonIcon"></ion-icon><br>调出确认</button>
       <button class="tabsButton" (click)="censorshipPage(3)"><ion-icon name="arrow-round-down" class="tabsButtonIcon"></ion-icon><br>调入确认</button>
-      <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>调拨查询</button>
+      <button class="tabsButton" (click)="searchPage(3)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>调拨查询</button>
     </div>
   </div>
   <div *ngIf="choose == 4">

@@ -4,6 +4,7 @@
     <ion-title *ngIf="pageIndex==2">调出确认</ion-title>
     <ion-title *ngIf="pageIndex==3">调入确认</ion-title>
     <ion-title *ngIf="pageIndex==4">报废审批</ion-title>
+    <ion-title *ngIf="pageIndex==5">调拨查询</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -24,10 +25,10 @@
           <div>
             资产编码:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsCode">
           </div>
-          <div *ngIf="pageIndex == 1||pageIndex == 4">
+          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5">
             资产名称:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsName">
           </div>
-          <div *ngIf="pageIndex == 1||pageIndex == 4">
+          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5">
             所属单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
           </div>
           <div *ngIf="pageIndex == 4">
@@ -50,7 +51,7 @@
           <ion-icon name="checkmark-circle" class="detailIcon"></ion-icon>
         </div>
       </ion-item>
-      <ion-list class="callList" *ngIf="pageIndex==1">
+      <ion-list class="callList" *ngIf="pageIndex==1||pageIndex==5">
         <ion-item class="inputItem">
           <ion-label>资产编码:</ion-label>
           <ion-input readonly [(ngModel)]="detail.assetsCode"></ion-input>

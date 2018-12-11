@@ -2,6 +2,9 @@ page-search{
   .searchList{
     margin-bottom: 12px;
   }
+  .searchFormList{
+    margin-bottom: 60px;
+  }
   .searchSelectLabel{
     flex: none;
   }
@@ -17,5 +20,37 @@ page-search{
   }
   .searchDetailList .inputItem:last-child{
     width: 100%;
+  }
+  .searchFooter{
+    width: 100%;
+    display: flex;
+    padding: 5px !important;
+    border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+  }
+  .searchFooterButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-size: 1em;
+  }
+  .searchFooterIcon{
+    font-size: 2em;
+    color: #0091d2;
+    margin-bottom: 2px;
+  }
+  .searchFormList .inputItem:first-child{
+    border-top: none;
+  }
+  .searchFormList .inputItem:last-child{
+    border-bottom: none;
+  }
+  .readonlyInput{
+    width: 71%;
   }
 }
