@@ -40,13 +40,12 @@
   <div *ngIf="choose == 3">
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="formPage(2)"><ion-icon name="open" class="tabsButtonIcon"></ion-icon><br>调拨申请</button>
-      <button class="tabsButton"><ion-icon name="swap" class="tabsButtonIcon"></ion-icon><br>调拨操作</button>
       <button class="tabsButton" (click)="censorshipPage(1)"><ion-icon name="paper" class="tabsButtonIcon"></ion-icon><br>调拨审批</button>
+      <button class="tabsButton" (click)="searchPage(3)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>调拨查询</button>
     </div>
     <div class="tabsButtonBox">
       <button class="tabsButton" (click)="censorshipPage(2)"><ion-icon name="arrow-round-up" class="tabsButtonIcon"></ion-icon><br>调出确认</button>
       <button class="tabsButton" (click)="censorshipPage(3)"><ion-icon name="arrow-round-down" class="tabsButtonIcon"></ion-icon><br>调入确认</button>
-      <button class="tabsButton" (click)="searchPage(3)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>调拨查询</button>
     </div>
   </div>
   <div *ngIf="choose == 4">

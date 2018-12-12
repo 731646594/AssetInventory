@@ -5,6 +5,7 @@
     <ion-title *ngIf="pageIndex==3">调入确认</ion-title>
     <ion-title *ngIf="pageIndex==4">报废审批</ion-title>
     <ion-title *ngIf="pageIndex==5">调拨查询</ion-title>
+    <ion-title *ngIf="pageIndex==6">报废查询</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -25,22 +26,22 @@
           <div>
             资产编码:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsCode">
           </div>
-          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5">
+          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5||pageIndex == 6">
             资产名称:<input readonly class="readonlyInput" [(ngModel)]="detail.assetsName">
           </div>
-          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5">
+          <div *ngIf="pageIndex == 1||pageIndex == 4||pageIndex == 5||pageIndex == 6">
             所属单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
           </div>
-          <div *ngIf="pageIndex == 4">
+          <div *ngIf="pageIndex == 4||pageIndex == 6">
             报废类型:<input readonly class="readonlyInput" [(ngModel)]="detail.discardTypeName">
           </div>
-          <div *ngIf="pageIndex == 4">
+          <div *ngIf="pageIndex == 4||pageIndex == 6">
             报废原因:<input readonly class="readonlyInput" [(ngModel)]="detail.discardReasonName">
           </div>
-          <div *ngIf="pageIndex == 4">
+          <div *ngIf="pageIndex == 4||pageIndex == 6">
             停产日期:<input readonly class="readonlyInput" [(ngModel)]="detail.stopDate">
           </div>
-          <div *ngIf="pageIndex == 4" >
+          <div *ngIf="pageIndex == 4||pageIndex == 6" >
             申请单位:<input readonly class="readonlyInput" [(ngModel)]="detail.departName">
           </div>
           <div  *ngIf="pageIndex == 2||pageIndex == 3" >

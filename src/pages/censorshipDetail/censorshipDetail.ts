@@ -46,6 +46,9 @@ export class CensorshipDetailPage {
       case 5:
         this.postUrl = "allotController.do?getByPhoneInvoiceNumber";
         break;
+      case 6:
+        this.postUrl = "discardController.do?getDetail";
+        break;
     }
     let loading = this.loadingCtrl.create({
       content:"正在加载"
