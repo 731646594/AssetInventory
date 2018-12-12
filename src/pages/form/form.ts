@@ -332,6 +332,10 @@ export class FormPage {
       });
       alertCtrl.present();
     }
+    if (this.pageIndex==2){
+      this.storageService.write("allotInvoice",this.invoice);
+      this.storageService.write("allotDetail",this.detail);
+    }
     if (this.pageIndex==3){
       this.storageService.write("discardInvoice",this.invoice);
       this.storageService.write("discardDetail",this.detail);
@@ -407,8 +411,14 @@ export class FormPage {
     })
   }
   censorship(){
+    let url;
+    if (this.pageIndex == 2){
+      url = "allotController.do?sendAllot"
+    }else if (this.pageIndex == 3){
+      url = "discardController.do?send"
+    }
     let phoneInvoiceNumber = this.user.usercode+this.user.depart.departcode+this.formatDateAndTimeToString(new Date());
-    this.httpService.post(this.httpService.getUrl()+"discardController.do?send",{departCode:this.user.depart.departcode,userCode:this.user.usercode,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcode,userCode:this.user.usercode,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
       if (data.success == "true"){
         let alertCtrl = this.alertCtrl.create({
           title:data.msg
@@ -443,8 +453,15 @@ export class FormPage {
     return this.formatDateToString(date)+""+hours+""+mins+""+secs;
   }
   uploadDataToEAM(){
+    let url;
+    if (this.pageIndex == 2){
+      url = "allotController.do?confirm"
+    }
+    else if (this.pageIndex == 3){
+      url = "discardController.do?confirm"
+    }
     let phoneInvoiceNumber = this.user.usercode+this.user.depart.departcode+this.formatDateAndTimeToString(new Date());
-    this.httpService.post(this.httpService.getUrl()+"discardController.do?confirm",{departCode:this.user.depart.departcorde,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcorde,phoneInvoiceNumber:phoneInvoiceNumber}).subscribe(data=>{
       if (data.success=="true"){
         let alertCtrl = this.alertCtrl.create({
           title:data.msg

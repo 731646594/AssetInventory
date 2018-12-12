@@ -372,16 +372,7 @@
   </button>
 </footer>
 
-<footer class="formFooter" padding *ngIf="(pageIndex==2)&&(shape=='detailed')&&!isOnfocus">
-  <button class="formFooterButton" (click)="scan()">
-    <ion-icon class="formFooterIcon" name="qr-scanner"></ion-icon><br>扫码
-  </button>
-  <button class="formFooterButton" (click)="uploadData()">
-    <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>上传
-  </button>
-</footer>
-
-<footer class="formFooter" padding *ngIf="(pageIndex==3)&&!isOnfocus">
+<footer class="formFooter" padding *ngIf="(pageIndex==2||pageIndex==3)&&!isOnfocus">
   <button class="formFooterButton" (click)="censorship()" *ngIf="shape=='brief'">
     <ion-icon class="formFooterIcon" name="checkmark-circle"></ion-icon><br>送审
   </button>
