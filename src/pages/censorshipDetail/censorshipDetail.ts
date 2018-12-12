@@ -170,4 +170,22 @@ export class CensorshipDetailPage {
       this.detail = this.detailList[index];
     }
   }
+  uploadData(){
+    let url;
+    if (this.pageIndex == 2){
+      url = "allotController.do?allotOut"
+    }else if (this.pageIndex == 3){
+      url = "allotController.do?allotIn"
+    }
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcode,userCode:this.user.usercode,userName:this.user.username,phoneInvoiceNumber:this.invoice.invoiceNumber,eamAllotDetal:this.detail,invoiceDatas:this.invoice}).subscribe(data=>{
+      if (data.success=="true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }else {
+        alert(data.msg)
+      }
+    })
+  }
 }
