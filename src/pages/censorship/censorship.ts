@@ -67,15 +67,9 @@ export class CensorshipPage {
       this.censorshipList[this.checkedIndex].checked = false;
       this.checkedIndex = index;
     }else {
-      if (this.censorshipList[index].checked){
-        document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #dedede;");
-        this.censorshipList[index].checked = false;
-        this.checkedIndex = null;
-      }else {
-        document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #0091d2;");
-        this.censorshipList[index].checked = true;
-        this.checkedIndex = index;
-      }
+      document.getElementsByClassName("censorshipIcon")[index].setAttribute("style","color: #0091d2;");
+      this.censorshipList[index].checked = true;
+      this.checkedIndex = index;
     }
   }
   alertTextarea(){
@@ -127,7 +121,29 @@ export class CensorshipPage {
     this.isReasonModel=0;
   }
   postData(){
-
+    let url;
+    if (this.pageIndex == 1){
+      url = "allotController.do?allotAudit"
+    }
+    if (!this.censorshipReason){
+      this.censorshipReason = ""
+    }
+    let isAgree;
+    if (this.isAgree==1){
+      isAgree = 0;
+    }else if (this.isAgree==0){
+      isAgree = 1;
+    }
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcode,userCode:this.user.usercode,userName:this.user.username,invoiceData:this.censorshipList[this.checkedIndex],approveResult:isAgree,opinion:this.censorshipReason}).subscribe(data=>{
+      if (data.success == "true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }else {
+        alert(data.msg)
+      }
+    })
   }
   censorshipDetailPage(pageIndex,invoice){
     this.app.getRootNav().push(CensorshipDetailPage,{pageIndex:pageIndex,invoice:invoice});

@@ -141,7 +141,23 @@ export class CensorshipDetailPage {
     }
   }
   postData(){
-
+    let url;
+    if (this.pageIndex == 4){
+      url = "discardController.do?approve"
+    }
+    if (!this.detailReason){
+      this.detailReason = ""
+    }
+    this.httpService.post(this.httpService.getUrl()+url,{departCode:this.user.depart.departcode,userCode:this.user.usercode,phoneInvoiceNumber:this.invoice.invoiceNumber,approveResult:this.isAgree,opinion:this.detailReason}).subscribe(data=>{
+      if (data.success == "true"){
+        let alertCtrl = this.alertCtrl.create({
+          title:data.msg
+        });
+        alertCtrl.present()
+      }else {
+        alert(data.msg)
+      }
+    })
   }
   checkedItem(index){
     if (this.detailList[index].checked){
