@@ -193,3 +193,9 @@
   border: 0;
   width: 66%;
 }
+.noSelectText{
+  padding-left: 0;
+}
+.noSelectText .select-text{
+  display: none;
+}

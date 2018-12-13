@@ -3,6 +3,7 @@
     <ion-title *ngIf="pageIndex==1">资产查询</ion-title>
     <ion-title *ngIf="pageIndex==2">台账查询</ion-title>
     <ion-title *ngIf="pageIndex==3">汇总查询</ion-title>
+    <ion-title *ngIf="pageIndex==4">台账明细</ion-title>
   </ion-navbar>
   <ion-toolbar *ngIf="pageIndex==1" class="queryToolbar" no-border-top style="border-top: 1px solid #c8c7cc;">
     <ion-segment [(ngModel)]="shape">
@@ -145,8 +146,8 @@
       </ion-list>
     </div>
   </div>
-  <div class="switchBox" *ngIf="pageIndex==2">
-    <ion-list class="switchList">
+  <div *ngIf="pageIndex==2">
+    <ion-list class="switchList switchBoxTop">
       <ion-item class="inputItem">
         <ion-label class="querySelectLabel">资产类型:</ion-label>
         <ion-select class="querySelect" interface="popover" [(ngModel)]="assetsType">
@@ -163,23 +164,118 @@
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>所属单位:</ion-label>
-        <ion-select class="querySelect" interface="popover" [(ngModel)]="departCode">
-          <ion-option *ngFor="let depart of departListData" [value]="depart.departCode">{{depart.departName}}</ion-option>
+        <ion-input (change)="filterDepartName($event)" [(ngModel)]="departName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+        <ion-select class="noSelectText" interface="popover"  [(ngModel)]="departCode">
+          <ion-option *ngFor="let depart of lastDepartListData" [value]="depart.departcode" (ionSelect)="selectDepart(depart.departname)">{{depart.departname}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item class="inputItem">
         <ion-label>保管人&emsp;:</ion-label>
-        <ion-input required [(ngModel)]="userPerson"></ion-input>
+        <ion-input [(ngModel)]="userPerson"  (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-list>
-      <ion-item>
-
+    <ion-list class="switchList switchBox">
+      <ion-item class="inputItem" *ngFor="let detailInfo of detail;let i = index" (click)="queryDetailPage(4,detailInfo)">
+        <div>
+          资产编号：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.assetsCode">
+        </div>
+        <div>
+          资产名称：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.assetsName">
+        </div>
+        <div *ngIf="pageIndex==2">
+          保管人&emsp;：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.userPerson">
+        </div>
+        <div *ngIf="pageIndex==2">
+          所属单位：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.departName">
+        </div>
       </ion-item>
     </ion-list>
   </div>
+  <ion-list class="callList" *ngIf="pageIndex==4">
+    <ion-item class="inputItem">
+      <ion-label>资产编码:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.assetsCode"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>资产名称:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.assetsName"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>资产条码:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.barCode"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>规格型号:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.assetsStandard"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>车牌井号:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.licenceNumber"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>保管人&emsp;:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.userPerson"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>存放地点:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.storePlace"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>出厂编号:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.productId"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>使用状态编码:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.usedState"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>使用状态名称:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.usedStateName"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>技术状况:</ion-label>
+      <ion-input readonly class="readonlyInput" [(ngModel)]="detail.technicalCondition"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>制造厂家:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.makeFactory"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>备&emsp;&emsp;注:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.remark"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>净&emsp;&emsp;值:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.nowValue"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>原&emsp;&emsp;值:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.originalValue"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>累计折旧:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.addDepreciate"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>减值准备:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.devalueValue"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>所属单位编码:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.departCode"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>所属单位名称:</ion-label>
+      <ion-input readonly [(ngModel)]="detail.departName"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem imgItem">
+      <ion-label>照片区&emsp;:</ion-label>
+    </ion-item>
+    <div [id]="'imgBox'+pageIndex">
+    </div>
+  </ion-list>
 </ion-content>
-<footer class="queryFooter" padding *ngIf="!isOnfocus&&shape!='plan'">
+<footer class="queryFooter" padding *ngIf="!isOnfocus&&shape!='plan'&&pageIndex!=4">
   <button class="queryFooterButton" (click)="query()">
     <ion-icon class="queryFooterIcon" name="search"></ion-icon><br>查询
   </button>

@@ -509,7 +509,7 @@ export class FormPage {
     let item = [];
     if (val && val.trim() != '') {
       for (let i in this.departListData){
-        if(this.departListData[i]["shortname"].indexOf(val)>=0){
+        if(this.departListData[i]["departname"].indexOf(val)>=0){
           item.push(this.departListData[i])
         }
       }

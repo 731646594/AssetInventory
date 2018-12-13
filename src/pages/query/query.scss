@@ -5,6 +5,9 @@ page-query{
   .switchBox{
     margin-bottom: 60px;
   }
+  .switchBoxTop{
+    margin-bottom: 0;
+  }
   .switchList .inputItem:last-child{
     width: 100%;
   }
@@ -48,5 +51,8 @@ page-query{
   .querySelect{
     width: 100%;
     max-width: 100%;
+  }
+  .readonlyInput{
+    width: 71%;
   }
 }

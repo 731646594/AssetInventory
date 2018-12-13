@@ -26,6 +26,8 @@ export class QueryPage {
   page=1;
   pageSize=10;
   departListData;
+  lastDepartListData;
+  departName;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public navParams:NavParams,public barcodeScanner:BarcodeScanner, public alertCtrl:AlertController,
               public file:File) {
@@ -37,9 +39,14 @@ export class QueryPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = this.navParams.get("pageIndex");
+    if(this.pageIndex==4){
+      this.detail = this.navParams.get("detail")
+    }
     this.departCode = this.user.depart.departcode;
-    if (this.storageService.read("departListData")){
+    this.departName = this.user.depart.departname;
+    if (this.pageIndex==2&&this.storageService.read("departListData")){
       this.departListData = this.storageService.read("departListData");
+      this.lastDepartListData = this.departListData;
     }
   }
   inputOnfocus(){
@@ -109,7 +116,7 @@ export class QueryPage {
       this.httpService.post(this.httpService.getUrl()+url,body).subscribe(data=>{
         console.log(data)
         if (data.success == "true"){
-
+          this.detail = data.data;
         }else {
           alert(data.msg)
         }
@@ -118,5 +125,30 @@ export class QueryPage {
       url = "summaryController.do?querySummary"
     }
 
+  }
+
+  selectDepart(departName){
+    this.departName = departName;
+  }
+  filterDepartName(ev: any) {
+    const val = ev.target.value;
+    let item = [];
+    if (val && val.trim() != '') {
+      for (let i in this.departListData){
+        if(this.departListData[i]["departname"].indexOf(val)>=0){
+          item.push(this.departListData[i])
+        }
+      }
+    }
+    else {
+      item = this.departListData;
+    }
+    this.lastDepartListData = item;
+    if (!item.length){
+      this.departCode=""
+    }
+  }
+  queryDetailPage(pageIndex,detail){
+    this.app.getRootNav().push(QueryPage,{pageIndex:pageIndex,detail:detail})
   }
 }
