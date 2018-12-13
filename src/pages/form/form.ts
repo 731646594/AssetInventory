@@ -513,17 +513,20 @@ export class FormPage {
           item.push(this.departListData[i])
         }
       }
-      if (funIndex=="out"){
-        this.outDepartData = item;
-        if (!item.length){
-          this.invoice["outDepartcode"]=""
-        }
+    }
+    else {
+      item = this.departListData;
+    }
+    if (funIndex=="out"){
+      this.outDepartData = item;
+      if (!item.length){
+        this.invoice["outDepartcode"]=""
       }
-      else  if (funIndex=="in"){
-        this.inDepartData = item;
-        if (!item.length){
-          this.invoice["inDepartcode"]=""
-        }
+    }
+    else  if (funIndex=="in"){
+      this.inDepartData = item;
+      if (!item.length){
+        this.invoice["inDepartcode"]=""
       }
     }
   }

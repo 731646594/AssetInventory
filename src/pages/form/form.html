@@ -173,14 +173,14 @@
           <ion-label>调出单位:</ion-label>
           <ion-input (change)="filterDepartName($event,'out')" [(ngModel)]="outDepartName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
           <ion-select class="noSelectText" interface="popover"  [(ngModel)]="invoice.outDepartcode">
-            <ion-option *ngFor="let outDepart of outDepartData" [value]="outDepart.departcode" (ionSelect)="selectDepart(outDepart.shortname,'out')">{{outDepart.shortname}}</ion-option>
+            <ion-option *ngFor="let outDepart of outDepartData" [value]="outDepart.departcode" (ionSelect)="selectDepart(outDepart.departname,'out')">{{outDepart.departname}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==2">
           <ion-label>调入单位:</ion-label>
           <ion-input (change)="filterDepartName($event,'in')" [(ngModel)]="inDepartName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
           <ion-select class="noSelectText" interface="popover"  [(ngModel)]="invoice.inDepartcode">
-            <ion-option *ngFor="let inDepart of inDepartData" [value]="inDepart.departcode" (ionSelect)="selectDepart(inDepart.shortname,'in')">{{inDepart.shortname}}</ion-option>
+            <ion-option *ngFor="let inDepart of inDepartData" [value]="inDepart.departcode" (ionSelect)="selectDepart(inDepart.departname,'in')">{{inDepart.departname}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==2">
