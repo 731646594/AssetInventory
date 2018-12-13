@@ -75,9 +75,9 @@
       </ion-item>
 
       <ion-item class="inputItem" *ngIf="pageIndex==4">
-        <ion-label>盘盈原因:</ion-label>
-        <ion-select interface="popover" [(ngModel)]="invoice.lossReason">
-          <ion-option></ion-option>
+        <ion-label class="formSelectLabel">盘盈原因:</ion-label>
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.lossReason">
+          <ion-option *ngFor="let lossReason of lossReasonData" [value]="lossReason.complexcode">{{lossReason.complexname}}</ion-option>
         </ion-select>
       </ion-item>
 
@@ -87,9 +87,9 @@
       </ion-item>
 
       <ion-item class="inputItem">
-        <ion-label>存放地点:</ion-label>
-        <ion-select interface="popover" [(ngModel)]="invoice.storePlace">
-          <ion-option></ion-option>
+        <ion-label class="formSelectLabel">存放地点:</ion-label>
+        <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.storePlace">
+          <ion-option *ngFor="let storePlace of storePlaceData" [value]="storePlace.complexcode">{{storePlace.complexname}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item class="inputItem">
@@ -170,13 +170,17 @@
           </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==2">
-          <ion-label class="formSelectLabel">调出单位:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.outDepartcode">
+          <ion-label>调出单位:</ion-label>
+          <ion-input (change)="filterDepartName($event,'out')" [(ngModel)]="outDepartName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+          <ion-select class="noSelectText" interface="popover"  [(ngModel)]="invoice.outDepartcode">
+            <ion-option *ngFor="let outDepart of outDepartData" [value]="outDepart.departcode" (ionSelect)="selectDepart(outDepart.shortname,'out')">{{outDepart.shortname}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==2">
-          <ion-label class="formSelectLabel">调入单位:</ion-label>
-          <ion-select class="formSelect" interface="popover"  [(ngModel)]="invoice.inDepartcode">
+          <ion-label>调入单位:</ion-label>
+          <ion-input (change)="filterDepartName($event,'in')" [(ngModel)]="inDepartName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+          <ion-select class="noSelectText" interface="popover"  [(ngModel)]="invoice.inDepartcode">
+            <ion-option *ngFor="let inDepart of inDepartData" [value]="inDepart.departcode" (ionSelect)="selectDepart(inDepart.shortname,'in')">{{inDepart.shortname}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==2">
@@ -210,8 +214,10 @@
           <ion-input readonly type="number" [(ngModel)]="invoice.devalueValue"></ion-input>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==3">
-          <ion-label>申请单位:</ion-label>
-          <ion-input readonly [(ngModel)]="invoice.departCode"></ion-input>
+          <ion-label class="formSelectLabel">申请单位:</ion-label>
+          <ion-select class="formSelect" interface="popover" [(ngModel)]="invoice.departCode">
+            <ion-option *ngFor="let loginDepart of loginDepartList" [value]="loginDepart.departcode">{{loginDepart.shortname}}</ion-option>
+          </ion-select>
         </ion-item>
         <ion-item class="inputItem" *ngIf="pageIndex==3">
           <ion-label>申请人&emsp;:</ion-label>

@@ -50,9 +50,9 @@
   </div>
   <div *ngIf="choose == 4">
     <div class="tabsButtonBox">
-      <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>资产查询</button>
-      <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>台账查询</button>
-      <button class="tabsButton"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>汇总查询</button>
+      <button class="tabsButton" (click)="queryPage(1)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>资产查询</button>
+      <button class="tabsButton" (click)="queryPage(2)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>台账查询</button>
+      <button class="tabsButton" (click)="queryPage(3)"><ion-icon name="search" class="tabsButtonIcon"></ion-icon><br>汇总查询</button>
     </div>
   </div>
   <div *ngIf="choose == 5">

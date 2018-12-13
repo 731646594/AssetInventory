@@ -1,0 +1,52 @@
+page-query{
+  .queryToolbar .toolbar-background-ios{
+    background: white;
+  }
+  .switchBox{
+    margin-bottom: 60px;
+  }
+  .switchList .inputItem:last-child{
+    width: 100%;
+  }
+  .queryInputButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0;
+    font-size: 1.1em;
+  }
+  .imgItem{
+    //.item-inner{
+    //  border-bottom: none !important;
+    //}
+  }
+  .queryFooter{
+    width: 100%;
+    display: flex;
+    padding: 5px !important;
+    border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+  }
+  .queryFooterButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-size: 1em;
+  }
+  .queryFooterIcon{
+    font-size: 2em;
+    color: #0091d2;
+    margin-bottom: 2px;
+  }
+  .querySelectLabel{
+    flex: none;
+  }
+  .querySelect{
+    width: 100%;
+    max-width: 100%;
+  }
+}

@@ -7,6 +7,7 @@ import {PlanListPage} from "../planList/planList";
 import {CensorshipPage} from "../censorship/censorship";
 import {SearchPage} from "../search/search";
 import {PlanListLocalPage} from "../planListLocal/planListLocal";
+import {QueryPage} from "../query/query";
 
 @Component({
   selector: 'page-applyChoose',
@@ -42,5 +43,8 @@ export class ApplyChoosePage {
   }
   planListLocalPage(pageIndex){
     this.app.getRootNav().push(PlanListLocalPage,{pageIndex:pageIndex})
+  }
+  queryPage(pageIndex){
+    this.app.getRootNav().push(QueryPage,{pageIndex:pageIndex})
   }
 }

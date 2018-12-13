@@ -24,6 +24,14 @@ export class FormPage {
   departments;
   barCode;
   assetsCode;
+  lossReasonData;
+  storePlaceData;
+  loginDepartList;
+  departListData;
+  outDepartData;
+  inDepartData;
+  outDepartName;
+  inDepartName;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public alertCtrl:AlertController,public barcodeScanner:BarcodeScanner,
               public camera:Camera,public file:File,public photoViewer:PhotoViewer,
@@ -43,8 +51,22 @@ export class FormPage {
     if (this.storageService.read("localPlan")){
       this.departments = this.storageService.read("localPlan")["departments"];
     }
+    if((this.pageIndex==1||this.pageIndex==4)&&this.storageService.read("storePlaceData")){
+      this.storePlaceData = this.storageService.read("storePlaceData");
+    }
+    if (this.pageIndex==2&&this.storageService.read("departListData")){
+      this.departListData = this.storageService.read("departListData")
+      this.outDepartData = this.departListData;
+      this.inDepartData = this.departListData;
+    }
+    if (this.pageIndex==3&&this.storageService.read("loginDepartList")){
+      this.loginDepartList = this.storageService.read("loginDepartList");
+    }
     if (this.pageIndex==4&&this.departments){
       this.invoice["managerDepart"]=this.departments[0].departCode
+    }
+    if(this.pageIndex==4&&this.storageService.read("lossReasonData")){
+      this.lossReasonData = this.storageService.read("lossReasonData");
     }
     let date = new Date();
     switch (this.pageIndex){
@@ -71,7 +93,9 @@ export class FormPage {
         this.invoice["nowValue"]=0;
         this.invoice["addDepreciate"]=0;
         this.invoice["devalueValue"]=0;
-        this.invoice["departCode"]=this.user.depart.shortname;
+        this.invoice["lossReason"]=this.lossReasonData[0]["complexcode"];
+        this.invoice["storePlace"]=this.storePlaceData[0]["complexcode"];
+        this.invoice["departCode"]=this.user.depart.departcode;
         this.invoice["createuserid"]=this.user.username;
         this.invoice["createdate"]=date.toLocaleDateString();
 
@@ -473,4 +497,35 @@ export class FormPage {
       }
     })
   }
+  selectDepart(departName,funIndex){
+    if (funIndex == "out"){
+      this.outDepartName = departName;
+    }else if (funIndex == "in"){
+      this.inDepartName = departName;
+    }
+  }
+  filterDepartName(ev: any,funIndex) {
+    const val = ev.target.value;
+    let item = [];
+    if (val && val.trim() != '') {
+      for (let i in this.departListData){
+        if(this.departListData[i]["shortname"].indexOf(val)>=0){
+          item.push(this.departListData[i])
+        }
+      }
+      if (funIndex=="out"){
+        this.outDepartData = item;
+        if (!item.length){
+          this.invoice["outDepartcode"]=""
+        }
+      }
+      else  if (funIndex=="in"){
+        this.inDepartData = item;
+        if (!item.length){
+          this.invoice["inDepartcode"]=""
+        }
+      }
+    }
+  }
+
 }
