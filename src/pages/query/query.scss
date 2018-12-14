@@ -53,6 +53,29 @@ page-query{
     max-width: 100%;
   }
   .readonlyInput{
-    width: 71%;
+    width: 63%;
+  }
+  .imgItemStartBox{
+    text-align: center;
+    width: 20%;
+    margin: 8px !important;
+  }
+  .imgItemStart{
+    width: 100%;
+  }
+  .infoList .inputItem{
+    border-bottom: 0.55px solid #c8c7cc;
+    margin-left: 16px;
+    padding-left: 0;
+    width: calc(95% - 16px) !important;
+  }
+  .infoList .inputItem .item-inner{
+    border: none;
+  }
+
+  #chart {
+    position: absolute;
+    width: 100%;
+    height: 50%;
   }
 }

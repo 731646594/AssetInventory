@@ -174,8 +174,14 @@
         <ion-input [(ngModel)]="userPerson"  (focus)="inputOnfocus()" (blur)="inputOnblur()"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-list class="switchList switchBox">
+    <ion-list class="switchList switchBox infoList">
+      <ion-item class="inputItem" *ngIf="detail.count">
+        总条数&emsp;：<input readonly class="readonlyInput" [(ngModel)]="detail.count">
+      </ion-item>
       <ion-item class="inputItem" *ngFor="let detailInfo of detail;let i = index" (click)="queryDetailPage(4,detailInfo)">
+        <div class="imgItemStartBox" item-start >
+          <img class="imgItemStart" [src]="detailInfo.imguUrl" onerror="this.src='assets/imgs/default.png'">
+        </div>
         <div>
           资产编号：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.assetsCode">
         </div>
@@ -189,7 +195,15 @@
           所属单位：<input readonly class="readonlyInput" [(ngModel)]="detailInfo.departName">
         </div>
       </ion-item>
+      <ion-infinite-scroll (ionInfinite)="getMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-list>
+  </div>
+  <div *ngIf="pageIndex==3">
+    <div class="switchBox">
+      <div id="chart"></div>
+    </div>
   </div>
   <ion-list class="callList" *ngIf="pageIndex==4">
     <ion-item class="inputItem">

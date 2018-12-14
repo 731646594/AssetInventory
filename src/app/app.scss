@@ -98,6 +98,9 @@
 .picker-ios .picker-button{
   color: #0091d2;
 }
+.picker-md .picker-button{
+  color: #0091d2;
+}
 //自定义类
 //input宽度
 .inputItem{
@@ -192,6 +195,18 @@
 .readonlyInput{
   border: 0;
   width: 66%;
+}
+.popover-ios .popover-content{
+  width: 75%;
+  .item-block{
+    font-size: 14.5px;
+  }
+}
+.item-radio.item-ios ion-label{
+  white-space: normal !important;
+}
+.item-radio.item-md ion-label{
+  white-space: normal !important;
 }
 .noSelectText{
   padding-left: 0;
