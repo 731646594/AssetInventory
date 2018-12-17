@@ -24,8 +24,8 @@ export class FormPage {
   departments;
   barCode;
   assetsCode;
-  lossReasonData;
-  storePlaceData;
+  lossReasonData=[];
+  storePlaceData=[];
   loginDepartList;
   departListData;
   outDepartData;
@@ -93,7 +93,9 @@ export class FormPage {
         this.invoice["nowValue"]=0;
         this.invoice["addDepreciate"]=0;
         this.invoice["devalueValue"]=0;
+        if (this.lossReasonData[0])
         this.invoice["lossReason"]=this.lossReasonData[0]["complexcode"];
+        if (this.storePlaceData[0])
         this.invoice["storePlace"]=this.storePlaceData[0]["complexcode"];
         this.invoice["departCode"]=this.user.depart.departcode;
         this.invoice["createuserid"]=this.user.username;
@@ -402,6 +404,13 @@ export class FormPage {
     }
   }
   searchDetail(){
+    //问题
+    if(!this.assetsCode){
+      this.assetsCode = "";
+    }
+    if (!this.barCode){
+      this.barCode = "";
+    }
     this.httpService.post(this.httpService.getUrl()+"discardController.do?queryByCodeOrBar",{userCode:this.user.usercode,departCode:this.user.depart.departcode,assetsCode:this.assetsCode,barCode:this.barCode}).subscribe(data=>{
       if (data.success=="true"){
         this.detail = data.data;
