@@ -73,9 +73,21 @@ page-query{
     border: none;
   }
 
-  #chart {
+  .chart {
     position: absolute;
     width: 100%;
-    height: 50%;
+    height: 40%;
+  }
+  #chart1{
+    top: 10%;
+  }
+  #chart2{
+    top: 60%;
+  }
+  #chart3{
+    top: 110%;
+  }
+  #chart4{
+    top: 160%;
   }
 }

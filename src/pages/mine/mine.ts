@@ -52,6 +52,7 @@ export class MinePage {
       }
     });
     this.httpService.get(this.httpService.getUrl()+"dictionariesController.do?getPyyyDic",{}).subscribe(data2=> {
+      console.log(data2)
       if (data2.success == "success"){
         this.storageService.write("lossReasonData",data2.data);
       }
@@ -60,6 +61,7 @@ export class MinePage {
       }
     });
     this.httpService.get(this.httpService.getUrl()+"dictionariesController.do?getCfddDic",{}).subscribe(data3=> {
+      console.log(data3)
       if (data3.success == "success"){
         this.storageService.write("storePlaceData",data3.data);
       }

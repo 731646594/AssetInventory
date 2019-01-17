@@ -5,6 +5,7 @@ import {StorageService} from "../../services/storageService";
 import {BarcodeScanner, BarcodeScannerOptions} from "@ionic-native/barcode-scanner";
 import {File} from "@ionic-native/file";
 import * as  echarts from 'echarts';
+let that;
 @Component({
   selector: 'page-query',
   templateUrl: 'query.html'
@@ -29,14 +30,25 @@ export class QueryPage {
   departListData;
   lastDepartListData;
   departName;
+
+  queryResult = [];
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public app:App,public navParams:NavParams,public barcodeScanner:BarcodeScanner, public alertCtrl:AlertController,
               public file:File,public toastCtrl:ToastController) {
     this.loadData();
+    that = this;
   }
   ionViewDidEnter(){
     if (this.pageIndex==3){
-      this.drawChart()
+      this.detail["assetsType"] = "0101";
+      this.detail["groupDepart"] = "5";
+      this.detail["groupZclb"] = "2";
+      this.detail["groupJszk"] = "1";
+      this.detail["groupSyzt"] = "1";
+      this.detail["groupZjyy"] = "1";
+      this.detail["groupZjqd"] = "1";
+
+      this.plan["groupDepart"] = true;
     }
   }
   loadData(){
@@ -56,51 +68,7 @@ export class QueryPage {
 
     }
   }
-  drawChart(){
-    const ec = echarts as any;
-    const container = document.getElementById('chart');
-    console.log(container);
-    const chart = ec.init(container);
-    let option = {
 
-      tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis : [
-        {
-          type : 'category',
-          data : ['Mon', 'Tue'],
-          axisTick: {
-            alignWithLabel: true
-          }
-        }
-      ],
-      yAxis : [
-        {
-          type : 'value'
-        }
-      ],
-      series : [
-        {
-          name:'直接访问',
-          type:'bar',
-          barWidth: '60%',
-          data:[{value:330,itemStyle:{color:'blue'}}, 220]
-        }
-      ]
-    };
-    chart.setOption(option);
-
-  }
   inputOnfocus(){
     this.isOnfocus=true;
   }
@@ -176,7 +144,26 @@ export class QueryPage {
         }
       })
     }else if (this.pageIndex == 3){
-      url = "summaryController.do?querySummary"
+      url = "summaryController.do?querySummary";
+      let whichChecked;
+      for (let i in  this.plan){
+        if (this.plan[i] == true){
+          whichChecked = i;
+        }
+      }
+      body = {departCode:this.departCode,assetsType:this.detail["assetsType"]}
+      if (whichChecked){
+        body[whichChecked] = this.detail[whichChecked]
+      }
+      this.httpService.post(this.httpService.getUrl()+url,body).subscribe(data=>{
+        console.log(data)
+        if (data.success == "true"){
+          this.queryResult = data.data;
+          this.shape = "result";
+        }else {
+          alert(data.msg)
+        }
+      })
     }
 
   }
@@ -228,6 +215,251 @@ export class QueryPage {
     if (!item.length){
       this.departCode=""
     }
+  }
+  changeCheck(whichChecked){
+    if (this.plan[whichChecked]==true){
+      for (let i in this.plan){
+        if (i != whichChecked){
+          this.plan[i] = false;
+        }
+      }
+    }
+  }
+  inChart(){
+    if (that.queryResult.length!=0){
+      setTimeout(this.drawChart,100)
+    }
+  }
+  drawChart(){
+    const ec = echarts as any;
+    const container1 = document.getElementById('chart1');
+    const chart1 = ec.init(container1);
+    const container2 = document.getElementById('chart2');
+    const chart2 = ec.init(container2);
+    const container3 = document.getElementById('chart3');
+    const chart3 = ec.init(container3);
+    const container4 = document.getElementById('chart4');
+    const chart4 = ec.init(container4);
+    let zclbmc=[];
+    let yz = [];
+    let jz = [];
+    let ljzj = [];
+    let jzzb = [];
+    for (let i in that.queryResult){
+      zclbmc.push(that.queryResult[i].zclbmc);
+      yz.push(that.queryResult[i].yz);
+      jz.push(that.queryResult[i].jz);
+      ljzj.push(that.queryResult[i].ljzj);
+      jzzb.push(that.queryResult[i].jzzb);
+    }
+    let option1 = {
+      title: {
+        left: "center",
+        text: "原值分布图",
+      },
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : zclbmc,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            interval: 0,
+          }
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'原值',
+          type:'bar',
+          barWidth: '60%',
+          data:yz,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                var colorList = ['#ff4844', '#9ac3e5', '#66ac52', '#ffc032', '#549bd3', '#f47e39'];
+                return colorList[params.dataIndex];
+              }
+            },
+          },
+        }
+      ]
+    };
+    let option2 = {
+      title: {
+        left: "center",
+        text: "净值分布图",
+      },
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : zclbmc,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            interval: 0,
+          }
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'净值',
+          type:'bar',
+          barWidth: '60%',
+          data:jz,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                var colorList = ['#ff4844', '#9ac3e5', '#66ac52', '#ffc032', '#549bd3', '#f47e39'];
+                return colorList[params.dataIndex];
+              }
+            },
+          },
+        }
+      ]
+    };
+    let option3 = {
+      title: {
+        left: "center",
+        text: "累计折旧分布图",
+      },
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : zclbmc,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            interval: 0,
+          }
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'累计折旧',
+          type:'bar',
+          barWidth: '60%',
+          data:ljzj,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                var colorList = ['#ff4844', '#9ac3e5', '#66ac52', '#ffc032', '#549bd3', '#f47e39'];
+                return colorList[params.dataIndex];
+              }
+            },
+          },
+        }
+      ]
+    };
+    let option4 = {
+      title: {
+        left: "center",
+        text: "减值准备分布图",
+      },
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : zclbmc,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            interval: 0,
+          }
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'减值准备',
+          type:'bar',
+          barWidth: '60%',
+          data:jzzb,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                var colorList = ['#ff4844', '#9ac3e5', '#66ac52', '#ffc032', '#549bd3', '#f47e39'];
+                return colorList[params.dataIndex];
+              }
+            },
+          },
+        }
+      ]
+    };
+    chart1.setOption(option1);
+    chart2.setOption(option2);
+    chart3.setOption(option3);
+    chart4.setOption(option4);
   }
   queryDetailPage(pageIndex,detail){
     this.app.getRootNav().push(QueryPage,{pageIndex:pageIndex,detail:detail})

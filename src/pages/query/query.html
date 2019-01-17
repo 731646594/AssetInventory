@@ -201,8 +201,115 @@
     </ion-list>
   </div>
   <div *ngIf="pageIndex==3">
-    <div class="switchBox">
-      <div id="chart"></div>
+    <ion-toolbar class="queryToolbar" no-border-top style="border-top: 1px solid #c8c7cc;">
+      <ion-segment [(ngModel)]="shape">
+        <ion-segment-button value="detail" >
+          查询条件
+        </ion-segment-button>
+        <ion-segment-button value="result" >
+          查询结果
+        </ion-segment-button>
+        <ion-segment-button value="chart" (click)="inChart()">
+          图表
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <div class="switchBox"  [ngSwitch]="shape">
+      <div *ngSwitchCase="'detail'">
+        <ion-list>
+          <ion-item>
+            <ion-label class="querySelectLabel">资产类型：</ion-label>
+            <ion-select class="querySelect" [(ngModel)]="detail.assetsType" interface="popover">
+              <ion-option value="0101">固定资产</ion-option>
+              <ion-option value="0103">投资性房地产</ion-option>
+              <ion-option value="0104">实物长摊</ion-option>
+              <ion-option value="0105">租入资产</ion-option>
+              <ion-option value="0106">租出资产</ion-option>
+              <ion-option value="0107">低值资产</ion-option>
+              <ion-option value="0201">无形资产</ion-option>
+              <ion-option value="0301">长待摊费用</ion-option>
+              <ion-option value="0108">待处置资产</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label class="querySelectLabel">所属单位：</ion-label>
+            <ion-input (change)="filterDepartName($event)" [(ngModel)]="departName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+            <ion-select class="noSelectText" interface="popover"  [(ngModel)]="departCode">
+              <ion-option *ngFor="let depart of lastDepartListData" [value]="depart.departcode" (ionSelect)="selectDepart(depart.departname)">{{depart.departname}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item>
+            <ion-label>所属单位：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupDepart" (ionChange)="changeCheck('groupDepart')"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label class="querySelectLabel">单位分组：</ion-label>
+            <ion-select class="querySelect" interface="popover" [(ngModel)]="detail.groupDepart">
+              <ion-option value="5">一级分组</ion-option>
+              <ion-option value="9">二级分组</ion-option>
+              <ion-option value="13">三级分组</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>资产类别：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupZclb" (ionChange)="changeCheck('groupZclb')"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label class="querySelectLabel">类别分组：</ion-label>
+            <ion-select class="querySelect" interface="popover" [(ngModel)]="detail.groupZclb">
+              <ion-option value="2">大类汇总</ion-option>
+              <ion-option value="4">中类汇总</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>技术状况：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupJszk" (ionChange)="changeCheck('groupJszk')"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>使用状态：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupSyzt" (ionChange)="changeCheck('groupSyzt')"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>增加原因：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupZjyy" (ionChange)="changeCheck('groupZjyy')"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>资金渠道：</ion-label>
+            <ion-toggle [(ngModel)]="plan.groupZjqd" (ionChange)="changeCheck('groupZjqd')"></ion-toggle>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'result'">
+        <ion-list>
+          <ion-item class="inputItem" *ngFor="let result of queryResult;let i = index">
+            <div style="margin-bottom: 10px">
+              <input readonly class="readonlyInput" [(ngModel)]="result.zclbmc">
+            </div>
+            <div>
+              原值&emsp;&emsp;：<input readonly class="readonlyInput" [(ngModel)]="result.yz">
+            </div>
+            <div>
+              净值&emsp;&emsp;：<input readonly class="readonlyInput" [(ngModel)]="result.jz">
+            </div>
+            <div>
+              累计折旧：<input readonly class="readonlyInput" [(ngModel)]="result.ljzj">
+            </div>
+            <div>
+              减值准备：<input readonly class="readonlyInput" [(ngModel)]="result.jzzb">
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'chart'">
+        <div>
+          <div id="chart1" class="chart"></div>
+          <div id="chart2" class="chart"></div>
+          <div id="chart3" class="chart"></div>
+          <div id="chart4" class="chart"></div>
+        </div>
+      </div>
     </div>
   </div>
   <ion-list class="callList" *ngIf="pageIndex==4">
@@ -289,7 +396,7 @@
     </div>
   </ion-list>
 </ion-content>
-<footer class="queryFooter" padding *ngIf="!isOnfocus&&shape!='plan'&&pageIndex!=4">
+<footer class="queryFooter" padding *ngIf="!isOnfocus&&shape!='plan'&&pageIndex!=4&&shape!='result'&&shape!='chart'">
   <button class="queryFooterButton" (click)="query()">
     <ion-icon class="queryFooterIcon" name="search"></ion-icon><br>查询
   </button>
