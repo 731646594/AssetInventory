@@ -53,7 +53,8 @@ export class SearchPage {
     }else if (this.pageIndex==2||this.pageIndex==3){
       this.planStatus="invoice";
       this.invoice["invoiceStatus"]="0";
-      this.invoice["invoiceYM"]=new Date().getFullYear()+"-"+(new Date().getMonth()+1);
+      let date = new Date();
+      this.invoice["invoiceYM"]=new Date(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1)).toISOString();
     }
   }
   readData(){

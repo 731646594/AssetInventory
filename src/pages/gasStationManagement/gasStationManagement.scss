@@ -1,0 +1,79 @@
+page-gasStationManagement{
+  .list-ios{
+    margin-bottom: 10px !important;
+  }
+  .gasSelectLabel{
+    flex: none;
+  }
+  .gasSelect{
+    width: 100%;
+    max-width: 100%;
+  }
+  .areaTittle{
+    background: #0091d2;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+  }
+  .fieldBox{
+    padding: 0 10px;
+  }
+  .fieldTittle{
+    font-size: 1.8rem;
+  }
+  .fieldInput{
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .fieldItem{
+    margin-bottom: 5px;
+  }
+  .fieldSelect{
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 1.7rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  .gasFooter{
+    width: 100%;
+    display: flex;
+    padding: 5px !important;
+    border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+  }
+  .gasFooterButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-size: 1em;
+  }
+  .gasFooterIcon{
+    font-size: 2em;
+    color: #0091d2;
+    margin-bottom: 2px;
+  }
+  .imgItem{
+    .item-inner{
+      border-bottom: none !important;
+    }
+  }
+  .addIcon{
+    font-size: 100px;
+    padding: 0 0.2em;
+  }
+  .labelItem{
+    padding-left: 0;
+  }
+  .itemInput{
+    padding-left: 16px;
+    border: 1px solid black;
+    border-radius: 5px
+  }
+
+}

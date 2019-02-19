@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="pageIndex==1">周检表录入</ion-title>
+    <ion-title *ngIf="pageIndex==2">交接班录入</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div style="margin-bottom: 60px;">
+    <ion-list>
+      <!--网页测试用-->
+      <!--<ion-item>-->
+        <!--<ion-label>单位</ion-label>-->
+        <!--<ion-input [(ngModel)]="scanDepartCode"></ion-input>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<ion-label>区域</ion-label>-->
+        <!--<ion-input [(ngModel)]="scanQybm"></ion-input>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<button ion-button (click)="beforeShow()">1111</button>-->
+      <!--</ion-item>-->
+      <ion-item class="inputItem">
+        <ion-label>分公司&emsp;:</ion-label>
+        <ion-input (change)="filterDepartName($event)" [(ngModel)]="departName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+        <ion-select class="noSelectText" interface="popover"  [(ngModel)]="departCode">
+          <ion-option *ngFor="let depart of departList" [value]="depart.departcode" (ionSelect)="selectDepart(depart.departname)">{{depart.departname}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label>油站名称:</ion-label>
+        <ion-input (change)="filterStationName($event)" [(ngModel)]="gasStationName" (focus)="inputOnfocus()" (blur)="inputOnblur()" placeholder="请输入要筛选的字符"></ion-input>
+        <ion-select class="noSelectText" interface="popover"  [(ngModel)]="gasStationCode">
+          <ion-option *ngFor="let station of gasStation" [value]="station.departcode" (ionSelect)="selectStation(station.departname)">{{station.departname}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="gasSelectLabel" *ngIf="pageIndex==1">周检日期:</ion-label>
+        <ion-label class="gasSelectLabel" *ngIf="pageIndex==2">交接班日期:</ion-label>
+        <ion-datetime class="gasSelect" displayFormat="YYYY/MM/DD" cancelText="关闭" doneText="确定" [(ngModel)]="nowDataTime"></ion-datetime>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label *ngIf="pageIndex==1">周检人员:</ion-label>
+        <ion-label *ngIf="pageIndex==2">交班人员:</ion-label>
+        <ion-input [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem"  *ngIf="pageIndex==2">
+        <ion-label>接班人员:</ion-label>
+        <ion-input [(ngModel)]="username2"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list  class="fieldBox" *ngFor="let cols of colsData;let i = index">
+      <div *ngIf="pageIndex == 1" class="areaTittle" (click)="controlField(i)">{{cols.qymc}}</div>
+      <div *ngIf="pageIndex == 2" class="areaTittle">{{cols.qymc}}<div id="{{'checked'+i}}" style="display: none">（已检查）</div></div>
+      <ion-list id="{{'field'+i}}">
+        <div class="fieldItem">{{cols.qyremark}}</div>
+        <div class="fieldItem" *ngFor="let field of cols.fields;let i2 = index" >
+          <span class="fieldTittle">{{field.columnTitle}}</span><span  class="fieldTittle" *ngIf="field.columnRequire==1" style="color: red">*</span><br>
+          <div>{{field.remark}}</div>
+          <ion-item class="labelItem">
+            <ion-select *ngIf="field.columnRequire==1" class="fieldSelect" interface="popover" (ionChange)="selectedChange($event,i,i2)">
+              <ion-option>合格</ion-option>
+              <ion-option>其他情况</ion-option>
+            </ion-select>
+            <ion-input class="fieldInput" *ngIf="!field.columnRequire"></ion-input>
+          </ion-item>
+          <ion-item class="labelItem" *ngIf="temporaryStorageData['col'+(i*20+i2+1)]=='其他情况'">
+            <ion-input class="itemInput" [(ngModel)]="storageData['col'+(i*20+i2+1)]" placeholder="请输入其他情况"></ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-list>
+    <ion-list>
+      <ion-item class="inputItem imgItem">
+        <ion-label>照片区&emsp;:</ion-label>
+      </ion-item>
+      <div class="imgBox">
+        <div [id]="'imgBox'+pageIndex">
+        </div>
+      </div>
+      <div *ngIf="pageIndex==2">
+        <ion-item class="inputItem imgItem">
+          <ion-label>交班人员签字:</ion-label>
+        </ion-item>
+        <div id="handoverSign" class="addIcon" *ngIf="signatureImage1 == ''">
+          <ion-icon name="add" (click)="signature(1)"></ion-icon>
+        </div>
+        <div class="imgBox" *ngIf="signatureImage1 != ''">
+          <div class="imgInclusion">
+            <img class="imgShow" (click)="showSign(1)" src="{{signatureImage1}}">
+            <img id="signDelete1" class="imgDeleteButton" (click)="deleteImg(1)" src='assets/imgs/delete.png'>
+          </div>
+        </div>
+        <ion-item class="inputItem imgItem">
+          <ion-label>接班人员签字:</ion-label>
+        </ion-item>
+        <div id="successorSign" class="addIcon" *ngIf="signatureImage2 == ''">
+          <ion-icon name="add" (click)="signature(2)"></ion-icon>
+        </div>
+        <div class="imgBox" *ngIf="signatureImage2 != ''">
+          <div class="imgInclusion">
+            <img class="imgShow" (click)="showSign(2)" src="{{signatureImage2}}">
+            <img id="signDelete2" class="imgDeleteButton" (click)="deleteImg(2)" src='assets/imgs/delete.png'>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+<footer class="gasFooter" padding *ngIf="!isOnfocus">
+  <button class="gasFooterButton" (click)="pickPhoto()">
+    <ion-icon class="gasFooterIcon" name="camera"></ion-icon><br>照片
+  </button>
+  <button class="gasFooterButton" (click)="scan()" *ngIf="pageIndex==2">
+    <ion-icon class="gasFooterIcon" name="qr-scanner"></ion-icon><br>扫码
+  </button>
+  <button class="gasFooterButton" (click)="saveInfo()">
+    <ion-icon class="gasFooterIcon" name="checkmark-circle"></ion-icon><br>保存
+  </button>
+</footer>

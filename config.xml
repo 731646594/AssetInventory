@@ -88,5 +88,6 @@
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <plugin name="cordova-plugin-network-information" spec="2.0.1" />
     <plugin name="com-sarriaroman-photoviewer" spec="1.1.18" />
+    <plugin name="cordova-sqlite-storage" spec="2.6.0" />
     <engine name="android" spec="7.1.4" />
 </widget>

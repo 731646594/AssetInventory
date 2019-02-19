@@ -158,10 +158,14 @@
   padding: 0 16px;
   display: flex;
 }
+.imgBox{
+  padding-left: 16px;
+}
 .imgInclusion{
   width: 100%;
   max-width: 28%;
-  margin-right: 5%;
+  margin-right: 4%;
+  display: inline-block;
 }
 .imgShow{
   border-radius: 15px;

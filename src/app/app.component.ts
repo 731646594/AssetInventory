@@ -14,10 +14,16 @@ export class MyApp {
   rootPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,storageService:StorageService) {
+    // var olog = console.error;
+    // console.error = function() {
+    //   alert([].join.call(arguments, ''))
+    //   olog.apply(this, arguments);
+    //
+    // }
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      // statusBar.styleDefault();
       splashScreen.hide();
       //禁用返回键
       platform.registerBackButtonAction(() => {
@@ -28,6 +34,7 @@ export class MyApp {
       }else {
         this.rootPage = LoginPage;
       }
+      storageService.initDatabase();
     });
   }
 }
