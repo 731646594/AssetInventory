@@ -9,6 +9,7 @@ import {SearchPage} from "../search/search";
 import {PlanListLocalPage} from "../planListLocal/planListLocal";
 import {QueryPage} from "../query/query";
 import {GasStationManagementPage} from "../gasStationManagement/gasStationManagement";
+import {GasStationUploadPage} from "../gasStationUpload/gasStationUpload";
 
 @Component({
   selector: 'page-applyChoose',
@@ -79,5 +80,8 @@ export class ApplyChoosePage {
       Data = this.Data[1]
     }
     this.app.getRootNav().push(GasStationManagementPage,{pageIndex:pageIndex,Data:Data})
+  }
+  uploadPage(pageIndex){
+    this.app.getRootNav().push(GasStationUploadPage,{pageIndex:pageIndex})
   }
 }

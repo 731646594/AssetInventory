@@ -21,6 +21,8 @@ import { PlanListLocalPage } from "../pages/planListLocal/planListLocal";
 import { PlanListLocalDetailPage } from "../pages/planListLocalDetail/planListLocalDetail";
 import { QueryPage } from "../pages/query/query";
 import { GasStationManagementPage} from "../pages/gasStationManagement/gasStationManagement";
+import { GasStationUploadPage } from "../pages/gasStationUpload/gasStationUpload";
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -57,7 +59,8 @@ import {SQLite} from "@ionic-native/sqlite";
     PlanListLocalPage,
     PlanListLocalDetailPage,
     QueryPage,
-    GasStationManagementPage
+    GasStationManagementPage,
+    GasStationUploadPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,8 @@ import {SQLite} from "@ionic-native/sqlite";
     PlanListLocalPage,
     PlanListLocalDetailPage,
     QueryPage,
-    GasStationManagementPage
+    GasStationManagementPage,
+    GasStationUploadPage
   ],
   providers: [
     StatusBar,
