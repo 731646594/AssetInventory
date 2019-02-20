@@ -439,15 +439,10 @@ export class GasStationManagementPage {
       tableName = "jjb"
     }
     this.storageService.getUserTable().executeSql('SELECT * FROM '+tableName+' WHERE userCode=\''+this.user.usercode+'\';',[]).then(res =>{
-      alert(res.rows.length);
       if (res.rows.length>0){
-        alert(1)
         this.storageService.updateUserTable(tableName,this.user.usercode,this.storageData);
-        alert(2)
       }else {
-        alert(3)
         this.storageService.insertIntoUserTable(tableName,this.user.usercode,this.storageData);
-        alert(4)
       }
       let alertCtrl = this.alertCtrl.create({
         title:"保存成功！"
