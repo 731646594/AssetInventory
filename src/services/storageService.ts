@@ -18,7 +18,7 @@ export class StorageService {
     PageUtil.pages["storage"]=this;
   }
   createUserTable(tableName){
-    this.AssetInventoryDatabase.executeSql('CREATE TABLE IF NOT EXISTS '+ tableName +'(userCode VARCHAR(20),stringData VARCHAR(255));',[]).then().catch(e => alert("erro1:"+JSON.stringify(e)));
+    this.AssetInventoryDatabase.executeSql('CREATE TABLE IF NOT EXISTS '+ tableName +' (userCode VARCHAR(20),stringData VARCHAR(255));',[]).then().catch(e => alert("erro1:"+JSON.stringify(e)));
   }
   getUserTable(){
     return this.AssetInventoryDatabase;
