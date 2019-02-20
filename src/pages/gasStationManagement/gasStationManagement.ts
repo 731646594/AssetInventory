@@ -40,6 +40,7 @@ export class GasStationManagementPage {
   scanDepartCode = "";
   scanQybm = "";
   oldIndex = null;
+  firstIn=true;
   // AssetInventoryDatabase:SQLiteObject;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public alertCtrl:AlertController,public navParams:NavParams,public barcodeScanner:BarcodeScanner,
@@ -52,7 +53,10 @@ export class GasStationManagementPage {
     if(this.pageIndex == 2){
       this.scanDepartCode = "";
       this.scanQybm = "";
-      this.showBlock();
+      if (this.firstIn){
+        this.showBlock();
+        this.firstIn = false;
+      }
     }
   }
   loadData(){
@@ -434,12 +438,22 @@ export class GasStationManagementPage {
     }else {
       tableName = "jjb"
     }
-    this.storageService.getUserTable().executeSql('SELECT * FROM '+tableName+' WHERE userCode='+this.user.usercode+';',[]).then(res =>{
+    this.storageService.getUserTable().executeSql('SELECT * FROM '+tableName+' WHERE userCode=\''+this.user.usercode+'\';',[]).then(res =>{
+      alert(res.rows.length);
       if (res.rows.length>0){
-        this.storageService.updateUserTable(tableName,this.user.usercode,this.storageData)
+        alert(1)
+        this.storageService.updateUserTable(tableName,this.user.usercode,this.storageData);
+        alert(2)
       }else {
-        this.storageService.insertIntoUserTable(tableName,this.user.usercode,this.storageData)
+        alert(3)
+        this.storageService.insertIntoUserTable(tableName,this.user.usercode,this.storageData);
+        alert(4)
       }
+      let alertCtrl = this.alertCtrl.create({
+        title:"保存成功！"
+      });
+      alertCtrl.present();
+      this.navCtrl.pop();
     }).catch(e =>alert("erro2:"+JSON.stringify(e))  )
 
 

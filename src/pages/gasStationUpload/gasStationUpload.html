@@ -5,11 +5,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngIf="pageIndex==1">
+  <ion-list id="uploadList1" *ngIf="pageIndex==1">
     <ion-item>
       <div (click)="detailPage(zjb,'zjb')">
         <div style="color: red">周检表</div>
-        <div *ngIf="zjb.length>0">
+        <div *ngIf="zjb.length!=0">
           <div>分公司：{{zjb.fgsmc}}</div>
           <div>油站名称：{{zjb.yzmc}}</div>
           <div>周检日期：{{zjb.zjrq}}</div>
@@ -22,7 +22,7 @@
     <ion-item>
       <div (click)="detailPage(jjb,'jjb')">
         <div style="color: red">交接班</div>
-        <div *ngIf="jjb.length>0">
+        <div *ngIf="jjb.length!=0">
           <div>分公司：{{jjb.fgsmc}}</div>
           <div>油站名称：{{jjb.yzmc}}</div>
           <div>交接日期：{{jjb.jjbrq}}</div>
@@ -31,6 +31,44 @@
       <div item-end *ngIf="jjb.length>0" (click)="checkedItem(1)">
         <ion-icon name="checkmark-circle" class="uploadIcon"></ion-icon>
       </div>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="pageIndex==2">
+    <ion-item class="inputItem">
+      <ion-label>分公司编码:</ion-label>
+      <ion-input readonly [(ngModel)]="item.fgsbm"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>油站编码:</ion-label>
+      <ion-input readonly [(ngModel)]="item.yzbm"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem" *ngIf="itemName=='zjb'">
+      <ion-label>周检日期:</ion-label>
+      <ion-input readonly [(ngModel)]="item.zjrq"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem" *ngIf="itemName=='jjb'">
+      <ion-label>交接班日期:</ion-label>
+      <ion-input readonly [(ngModel)]="item.jjbrq"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem" *ngIf="itemName=='zjb'">
+      <ion-label>周检人员:</ion-label>
+      <ion-input readonly [(ngModel)]="item.zjry"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem" *ngIf="itemName=='jjb'">
+      <ion-label>交班人员:</ion-label>
+      <ion-input readonly [(ngModel)]="item.jiaobanry"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem" *ngIf="itemName=='jjb'">
+      <ion-label>接班人员:</ion-label>
+      <ion-input readonly [(ngModel)]="item.jiebanry"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>油站名称:</ion-label>
+      <ion-input readonly [(ngModel)]="item.yzmc"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label>分公司名称:</ion-label>
+      <ion-input readonly [(ngModel)]="item.fgsmc"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

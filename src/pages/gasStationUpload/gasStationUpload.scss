@@ -1,9 +1,11 @@
 page-gasStationUpload{
-  .list-ios > .item-block:first-child {
-    border-bottom: 0.55px solid #c8c7cc;
-  }
-  .item-block .item-inner{
-    border-bottom:none !important;
+  #uploadList1{
+    .list-ios > .item-block:first-child {
+      border-bottom: 0.55px solid #c8c7cc;
+    }
+    .item-block .item-inner{
+      border-bottom:none !important;
+    }
   }
   .uploadIcon{
     color: #dedede;

@@ -12,29 +12,40 @@ export class GasStationUploadPage {
   pageIndex;
   zjb=[];
   jjb=[];
+  item=[];
+  itemName;
   checkedIndex;
   uploadList=new Array(2);
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
               public alertCtrl:AlertController,public navParams:NavParams,public app:App) {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.pageIndex = navParams.get("pageIndex");
-    if (navParams.get("data")){
-      if (navParams.get("name")=="zjb"){
-        this.zjb = navParams.get("data");
-      }else if (navParams.get("name")=="jjb"){
-        this.jjb = navParams.get("data");
-      }
-    }else {
-      this.storageService.getUserTable().executeSql('SELECT * FROM zjb WHERE userCode='+this.user.usercode+';',[]).then(res =>{
+    alert(this.pageIndex)
+    if (this.pageIndex==1){
+      this.storageService.getUserTable().executeSql('SELECT * FROM zjb WHERE userCode=\''+this.user.usercode+'\';',[]).then(res =>{
+        alert("1:"+res.rows.length)
         if (res.rows.length>0){
+          alert("1:"+res.rows.item(0).stringData);
+          alert("1:"+JSON.parse(res.rows.item(0).stringData).length)
           this.zjb = JSON.parse(res.rows.item(0).stringData);
         }
-      }).catch(e =>alert("erro21:"+JSON.stringify(e))  )
-      this.storageService.getUserTable().executeSql('SELECT * FROM jjb WHERE userCode='+this.user.usercode+';',[]).then(res =>{
+      }).catch(e =>alert("erro21:"+JSON.stringify(e))  );
+      this.storageService.getUserTable().executeSql('SELECT * FROM jjb WHERE userCode=\''+this.user.usercode+'\';',[]).then(res =>{
+        alert("2:"+res.rows.length)
         if (res.rows.length>0){
+          alert("2:"+res.rows.item(0).stringData)
+          alert("2:"+JSON.parse(res.rows.item(0).stringData).length)
           this.jjb = JSON.parse(res.rows.item(0).stringData);
         }
       }).catch(e =>alert("erro22:"+JSON.stringify(e))  )
+    }
+    else if (this.pageIndex==2){
+      if (navParams.get("name")=="zjb"){
+        this.itemName = "zjb";
+      }else if (navParams.get("name")=="jjb"){
+        this.itemName = "jjb";
+      }
+      this.item = navParams.get("data");
     }
   }
   ionViewDidEnter(){
