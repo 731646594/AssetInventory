@@ -1,3 +1,35 @@
 page-gasStationUpload{
-
+  .list-ios > .item-block:first-child {
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .item-block .item-inner{
+    border-bottom:none !important;
+  }
+  .uploadIcon{
+    color: #dedede;
+    font-size: 1.6em;
+  }
+  .uploadFooter{
+    width: 100%;
+    display: flex;
+    padding: 5px !important;
+    border-top: 1px solid #d9d9d9;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+  }
+  .uploadFooterButton{
+    background: transparent;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-size: 1em;
+  }
+  .uploadFooterIcon{
+    font-size: 2em;
+    color: #0091d2;
+    margin-bottom: 2px;
+  }
 }

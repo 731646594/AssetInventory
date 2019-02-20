@@ -53,6 +53,10 @@ export class ApplyChoosePage {
         loading.dismiss();
       }
     });
+    if(this.choose == 5){
+      this.storageService.createUserTable("zjb");
+      this.storageService.createUserTable("jjb");
+    }
   }
   formPage(pageIndex){
     this.app.getRootNav().push(FormPage,{pageIndex:pageIndex})

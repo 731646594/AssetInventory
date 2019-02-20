@@ -35,7 +35,7 @@ export class GasStationManagementPage {
   signatureImage1 = '';
   signatureImage2 = '';
   temporaryStorageData=[];
-  storageData=[];
+  storageData={};
   signIndex;
   scanDepartCode = "";
   scanQybm = "";
@@ -412,6 +412,7 @@ export class GasStationManagementPage {
         this.storageData["jjbrq"]=this.nowDataTime;
         this.storageData["jiaobanry"]=this.username;
         this.storageData["jiebanry"]=this.username2;
+        this.storageData["uploadFile"]=[];
         this.storageData["uploadFile"].push(this.signatureImage1);
         this.storageData["uploadFile"].push(this.signatureImage2);
       }else {
@@ -426,7 +427,22 @@ export class GasStationManagementPage {
     this.storageData["fgsmc"]=this.departName;
     this.storageData["yzbm"]=this.gasStationCode;
     this.storageData["yzmc"]=this.gasStationName;
-    console.log(this.storageData)
+    this.storageData = JSON.stringify(this.storageData);
+    let tableName;
+    if (this.pageIndex==1) {
+      tableName = "zjb"
+    }else {
+      tableName = "jjb"
+    }
+    this.storageService.getUserTable().executeSql('SELECT * FROM '+tableName+' WHERE userCode='+this.user.usercode+';',[]).then(res =>{
+      if (res.rows.length>0){
+        this.storageService.updateUserTable(tableName,this.user.usercode,this.storageData)
+      }else {
+        this.storageService.insertIntoUserTable(tableName,this.user.usercode,this.storageData)
+      }
+    }).catch(e =>alert("erro2:"+JSON.stringify(e))  )
+
+
   }
   myCallbackFunction  =(params) => {
     return new Promise((resolve, reject) => {

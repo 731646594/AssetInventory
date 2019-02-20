@@ -5,5 +5,37 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-
+  <ion-list *ngIf="pageIndex==1">
+    <ion-item>
+      <div (click)="detailPage(zjb,'zjb')">
+        <div style="color: red">周检表</div>
+        <div *ngIf="zjb.length>0">
+          <div>分公司：{{zjb.fgsmc}}</div>
+          <div>油站名称：{{zjb.yzmc}}</div>
+          <div>周检日期：{{zjb.zjrq}}</div>
+        </div>
+      </div>
+      <div item-end  *ngIf="zjb.length>0" (click)="checkedItem(0)">
+        <ion-icon name="checkmark-circle" class="uploadIcon"></ion-icon>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div (click)="detailPage(jjb,'jjb')">
+        <div style="color: red">交接班</div>
+        <div *ngIf="jjb.length>0">
+          <div>分公司：{{jjb.fgsmc}}</div>
+          <div>油站名称：{{jjb.yzmc}}</div>
+          <div>交接日期：{{jjb.jjbrq}}</div>
+        </div>
+      </div>
+      <div item-end *ngIf="jjb.length>0" (click)="checkedItem(1)">
+        <ion-icon name="checkmark-circle" class="uploadIcon"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
+<footer class="uploadFooter" padding *ngIf="pageIndex==1">
+  <button class="uploadFooterButton" (click)="uploadGasInfo()">
+    <ion-icon class="uploadFooterIcon" name="cloud-upload"></ion-icon><br>上传
+  </button>
+</footer>
