@@ -70,6 +70,34 @@
       <ion-label>分公司名称:</ion-label>
       <ion-input readonly [(ngModel)]="item.fgsmc"></ion-input>
     </ion-item>
+    <ion-item class="inputItem" *ngFor="let col of colsItemName;let i = index">
+      <ion-label>{{col}}</ion-label>
+      <ion-input readonly [(ngModel)]="colItem[i]"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem imgItem">
+      <ion-label>照片区&emsp;:</ion-label>
+    </ion-item>
+    <div class="imgBox" *ngFor="let photo of photoArrary">
+      <div class="imgInclusion">
+        <img class="imgShow" (click)="showSign(photo)" src="{{photo}}">
+      </div>
+    </div>
+    <ion-item class="inputItem imgItem">
+      <ion-label>交班人员签字:</ion-label>
+    </ion-item>
+    <div class="imgBox" *ngIf="signatureImage1">
+      <div class="imgInclusion">
+        <img class="imgShow" (click)="showSign(signatureImage1)" src="{{signatureImage1}}">
+      </div>
+    </div>
+    <ion-item class="inputItem imgItem">
+      <ion-label>接班人员签字:</ion-label>
+    </ion-item>
+    <div class="imgBox" *ngIf="signatureImage2">
+      <div class="imgInclusion">
+        <img class="imgShow" (click)="showSign(signatureImage2)" src="{{signatureImage2}}">
+      </div>
+    </div>
   </ion-list>
 </ion-content>
 <footer class="uploadFooter" padding *ngIf="pageIndex==1">
