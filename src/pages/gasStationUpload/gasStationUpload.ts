@@ -55,10 +55,11 @@ export class GasStationUploadPage {
           this.colItem.push(this.item[i])
         }
       }
-      let photoLen = this.item["uploadFile"].length;
-      this.signatureImage1 = this.item["uploadFile"][photoLen-2];
-      this.signatureImage2 = this.item["uploadFile"][photoLen-1];
-      this.photoArrary = this.item["uploadFile"].splice(photoLen-2,2);
+      this.photoArrary = this.item["uploadFile"];
+      let photoLen = this.photoArrary.length;
+      this.signatureImage1 = this.photoArrary[photoLen-2];
+      this.signatureImage2 = this.photoArrary[photoLen-1];
+      this.photoArrary.splice(photoLen-2,2);
       let loading = this.loadingCtrl.create({
         content:"请等待...",
         duration: 10000

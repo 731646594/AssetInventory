@@ -15,7 +15,7 @@
           <div>周检日期：{{zjb.zjrq}}</div>
         </div>
       </div>
-      <div item-end  *ngIf="zjb.length>0" (click)="checkedItem(0)">
+      <div item-end  *ngIf="zjb.length!=0" (click)="checkedItem(0)">
         <ion-icon name="checkmark-circle" class="uploadIcon"></ion-icon>
       </div>
     </ion-item>
@@ -28,7 +28,7 @@
           <div>交接日期：{{jjb.jjbrq}}</div>
         </div>
       </div>
-      <div item-end *ngIf="jjb.length>0" (click)="checkedItem(1)">
+      <div item-end *ngIf="jjb.length!=0" (click)="checkedItem(1)">
         <ion-icon name="checkmark-circle" class="uploadIcon"></ion-icon>
       </div>
     </ion-item>
