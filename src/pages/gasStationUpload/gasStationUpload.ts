@@ -16,8 +16,7 @@ export class GasStationUploadPage {
   item=[];
   colItem=[];
   itemName;
-  checkedIndex;
-  uploadList=new Array(2);
+  checkedArray=[false,false];
   colsItemName=[];
   photoArrary=[];
   signatureImage1;
@@ -86,16 +85,12 @@ export class GasStationUploadPage {
 
   }
   checkedItem(index){
-    if ((this.checkedIndex||this.checkedIndex==0)&&this.checkedIndex!=index){
+    if (this.checkedArray[index]==false){
       document.getElementsByClassName("uploadIcon")[index].setAttribute("style","color: #0091d2;");
-      this.uploadList[index].checked = true;
-      document.getElementsByClassName("uploadIcon")[this.checkedIndex].setAttribute("style","color: #dedede;");
-      this.uploadList[this.checkedIndex].checked = false;
-      this.checkedIndex = index;
+      this.checkedArray[index]=true;
     }else {
-      document.getElementsByClassName("uploadIcon")[index].setAttribute("style","color: #0091d2;");
-      this.uploadList[index].checked = true;
-      this.checkedIndex = index;
+      document.getElementsByClassName("uploadIcon")[index].setAttribute("style","color: #dedede;");
+      this.checkedArray[index]=false;
     }
   }
   detailPage(data,name){
@@ -105,5 +100,32 @@ export class GasStationUploadPage {
   }
   showSign(imgData){
     this.photoViewer.show(imgData);
+  }
+  uploadGasInfo(){
+    if (this.checkedArray[0]){
+      this.uploading("devWeeklyCheckController.do?saveCheckForm",this.zjb,"zjb")
+    }
+    if (this.checkedArray[1]){
+      this.uploading("devHandOverController.do?saveCheckForm",this.jjb,"jjb")
+    }
+    let alertCtrl = this.alertCtrl.create({
+      title:"上传成功！"
+    });
+    alertCtrl.present();
+  }
+  uploading(url,data,name){
+    this.httpService.post(this.httpService.getUrl()+url,{userCode:this.user.usercode,userName:this.user.username,userDepart:this.user["depart"]["departcode"],userDepartName:this.user.depart.departname,data:data,uploadFile:data["uploadFile"]}).subscribe(data=>{
+      if (data.success=="true"){
+        if(name=="zjb"){
+          this.zjb=null;
+          this.storageService.deleteUserTable("zjb");
+        }else {
+          this.jjb=null;
+          this.storageService.deleteUserTable("jjb");
+        }
+      }else{
+        alert(data.msg)
+      }
+    })
   }
 }
