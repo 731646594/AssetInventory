@@ -7,6 +7,7 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
 import {SignaturePage} from "../signature/signature";
+import {Base64Page} from "../base64/base64";
 let that;
 @Component({
   selector: 'page-gasStationManagement',
@@ -477,9 +478,9 @@ export class GasStationManagementPage {
   }
   showSign(index){
     if (index == 1){
-      this.photoViewer.show(this.signatureImage1)
+      this.app.getRootNav().push(Base64Page,{base64:this.signatureImage1});
     }else if(index == 2){
-      this.photoViewer.show(this.signatureImage2)
+      this.app.getRootNav().push(Base64Page,{base64:this.signatureImage2});
     }
   }
   beforeShow(){

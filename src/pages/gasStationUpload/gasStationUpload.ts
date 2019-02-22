@@ -3,6 +3,7 @@ import {AlertController, App, LoadingController, NavController, NavParams} from 
 import {HttpService} from "../../services/httpService";
 import {StorageService} from "../../services/storageService";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
+import {Base64Page} from "../base64/base64";
 
 @Component({
   selector: 'page-gasStationUpload',
@@ -99,7 +100,7 @@ export class GasStationUploadPage {
     }
   }
   showSign(imgData){
-    this.photoViewer.show(imgData);
+    this.app.getRootNav().push(Base64Page,{base64:imgData});
   }
   uploadGasInfo(){
     if (this.checkedArray[0]){

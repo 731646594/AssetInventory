@@ -20,6 +20,12 @@ export class MyApp {
     //   olog.apply(this, arguments);
     //
     // }
+    // var olog1 = console.log;
+    // console.log = function() {
+    //   alert([].join.call(arguments, ''))
+    //   olog1.apply(this, arguments);
+    //
+    // }
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
