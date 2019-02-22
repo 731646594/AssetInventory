@@ -31,29 +31,29 @@ export class ApplyChoosePage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.choose = this.navParams.get("choose");
-    let loading = this.loadingCtrl.create({
-      content:"请等待...",
-      duration: 10000
-    });
-    loading.present();
-    this.httpService.post(this.httpService.getUrl()+"devWeeklyCheckController.do?getCheckListCols",{departCode:this.user["depart"]["departcode"]}).subscribe(data=>{
-      if (data.success=="true"){
-        this.Data.push(data.data);
-        this.httpService.post(this.httpService.getUrl()+"devHandOverController.do?getCheckListCols",{departCode:this.user["depart"]["departcode"]}).subscribe(data2=>{
-          if (data2.success=="true"){
-            this.Data.push(data2.data);
-            loading.dismiss();
-          }else {
-            alert(data2.msg);
-            loading.dismiss();
-          }
-        });
-      }else {
-        alert(data.msg);
-        loading.dismiss();
-      }
-    });
     if(this.choose == 5){
+      let loading = this.loadingCtrl.create({
+        content:"请等待...",
+        duration: 10000
+      });
+      loading.present();
+      this.httpService.post(this.httpService.getUrl()+"devWeeklyCheckController.do?getCheckListCols",{departCode:this.user["depart"]["departcode"]}).subscribe(data=>{
+        if (data.success=="true"){
+          this.Data.push(data.data);
+          this.httpService.post(this.httpService.getUrl()+"devHandOverController.do?getCheckListCols",{departCode:this.user["depart"]["departcode"]}).subscribe(data2=>{
+            if (data2.success=="true"){
+              this.Data.push(data2.data);
+              loading.dismiss();
+            }else {
+              alert(data2.msg);
+              loading.dismiss();
+            }
+          });
+        }else {
+          alert(data.msg);
+          loading.dismiss();
+        }
+      });
       this.storageService.createUserTable("zjb");
       this.storageService.createUserTable("jjb");
     }
