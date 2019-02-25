@@ -67,6 +67,7 @@ export class GasStationUploadPage {
           this.photoShowArrary[i] = this.photoArrary[i]
         }
       }
+
       let loading = this.loadingCtrl.create({
         content:"请等待...",
         duration: 10000
