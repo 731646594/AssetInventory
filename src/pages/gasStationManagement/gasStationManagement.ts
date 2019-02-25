@@ -67,8 +67,7 @@ export class GasStationManagementPage {
     this.pageIndex = this.navParams.get("pageIndex");
     this.departCode = this.user.depart.departcode;
     this.departName = this.user.depart.departname;
-    let date = new Date();
-    this.nowDataTime = new Date(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate()+1)).toISOString();
+    this.nowDataTime = new Date().toISOString();
     this.localData = this.navParams.get("Data");
     this.departListData = this.localData.fgsData;
     this.departList = this.departListData;
@@ -368,6 +367,8 @@ export class GasStationManagementPage {
     })
   }
   saveInfo(){
+    let date = new Date(this.nowDataTime);
+    let storageDate = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+(date.getDate());
     if (this.pageIndex==1){
       console.log(this.colsData)
       for(let i = 0;i < this.colsData.length;i++){
@@ -382,7 +383,7 @@ export class GasStationManagementPage {
         }
       }
       if(this.departCode&&this.gasStationCode){
-        this.storageData["zjrq"]=this.nowDataTime;
+        this.storageData["zjrq"]=storageDate;
         this.storageData["zjry"]=this.username;
       }else {
         let alertCtrl = this.alertCtrl.create({
@@ -414,7 +415,7 @@ export class GasStationManagementPage {
         return false;
       }
       if(this.departCode&&this.gasStationCode&&this.signatureImage1&&this.signatureImage2){
-        this.storageData["jjbrq"]=this.nowDataTime;
+        this.storageData["jjbrq"]=storageDate;
         this.storageData["jiaobanry"]=this.username;
         this.storageData["jiebanry"]=this.username2;
         this.storageData["uploadFile"]=[];
