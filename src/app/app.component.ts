@@ -14,12 +14,12 @@ export class MyApp {
   rootPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,storageService:StorageService) {
-    // var olog = console.error;
-    // console.error = function() {
-    //   alert([].join.call(arguments, ''))
-    //   olog.apply(this, arguments);
-    //
-    // }
+    var olog = console.error;
+    console.error = function() {
+      alert([].join.call(arguments, ''))
+      olog.apply(this, arguments);
+
+    }
     // var olog1 = console.log;
     // console.log = function() {
     //   alert([].join.call(arguments, ''))

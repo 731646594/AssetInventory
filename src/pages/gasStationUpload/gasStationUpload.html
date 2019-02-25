@@ -71,13 +71,13 @@
       <ion-input readonly [(ngModel)]="item.fgsmc"></ion-input>
     </ion-item>
     <ion-item class="inputItem" *ngFor="let col of colsItemName;let i = index">
-      <ion-label>{{col}}</ion-label>
+      <ion-label>{{col+":"}}</ion-label>
       <ion-input readonly [(ngModel)]="colItem[i]"></ion-input>
     </ion-item>
     <ion-item class="inputItem imgItem">
       <ion-label>照片区&emsp;:</ion-label>
     </ion-item>
-    <div class="imgBox" *ngFor="let photo of photoArrary">
+    <div class="imgBox" *ngFor="let photo of photoShowArrary">
       <div class="imgInclusion">
         <img class="imgShow" (click)="showSign(photo)" src="{{photo}}">
       </div>

@@ -20,6 +20,7 @@ export class GasStationUploadPage {
   checkedArray=[false,false];
   colsItemName=[];
   photoArrary=[];
+  photoShowArrary=[];
   signatureImage1;
   signatureImage2;
   constructor(public navCtrl: NavController,public httpService:HttpService,public storageService:StorageService,
@@ -28,6 +29,8 @@ export class GasStationUploadPage {
     this.user=this.storageService.read("loginInfo")[0].user;
     this.user["depart"]=this.storageService.read("loginDepart");
     this.pageIndex = navParams.get("pageIndex");
+    this.itemName = null;
+    this.photoArrary = [];
     if (this.pageIndex==1){
       this.storageService.getUserTable().executeSql('SELECT * FROM zjb WHERE userCode=\''+this.user.usercode+'\';',[]).then(res =>{
         if (res.rows.length>0){
@@ -55,11 +58,15 @@ export class GasStationUploadPage {
           this.colItem.push(this.item[i])
         }
       }
-      this.photoArrary = this.item["uploadFile"];
-      let photoLen = this.photoArrary.length;
-      this.signatureImage1 = this.photoArrary[photoLen-2];
-      this.signatureImage2 = this.photoArrary[photoLen-1];
-      this.photoArrary.splice(photoLen-2,2);
+      if (this.itemName=="jjb") {
+        this.photoArrary = this.item["uploadFile"];
+        let photoLen = this.photoArrary.length;
+        this.signatureImage1 = this.photoArrary[photoLen - 2];
+        this.signatureImage2 = this.photoArrary[photoLen - 1];
+        for(let i = 0;i<photoLen-2;i++){
+          this.photoShowArrary[i] = this.photoArrary[i]
+        }
+      }
       let loading = this.loadingCtrl.create({
         content:"请等待...",
         duration: 10000
