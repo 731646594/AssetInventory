@@ -418,7 +418,6 @@ export class GasStationManagementPage {
         this.storageData["jjbrq"]=storageDate;
         this.storageData["jiaobanry"]=this.username;
         this.storageData["jiebanry"]=this.username2;
-        this.storageData["uploadFile"]=[];
         this.storageData["uploadFile"].push(this.signatureImage1);
         this.storageData["uploadFile"].push(this.signatureImage2);
       }else {
